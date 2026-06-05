@@ -1,0 +1,277 @@
+{
+  "site": {
+    "brand": {
+      "cn": "乔天企业",
+      "en": "Qiaotian Enterprise"
+    },
+    "nav": [
+      {
+        "key": "home",
+        "cn": "首页",
+        "en": "Home"
+      },
+      {
+        "key": "product-center",
+        "cn": "产品中心",
+        "en": "Products"
+      },
+      {
+        "key": "factory-strength",
+        "cn": "工厂实力",
+        "en": "Factory"
+      },
+      {
+        "key": "about",
+        "cn": "关于我们",
+        "en": "About"
+      },
+      {
+        "key": "contact",
+        "cn": "联系我们",
+        "en": "Contact"
+      },
+      {
+        "key": "admin",
+        "cn": "后台管理",
+        "en": "Admin"
+      }
+    ],
+    "hero": {
+      "title": {
+        "cn": "专业 3C 配件制造",
+        "en": "Professional 3C Accessories Manufacturing"
+      },
+      "body": {
+        "cn": "面向品牌商、渠道商与零售客户，提供出口级品质、稳定交付和成熟 OEM/ODM 配套能力。",
+        "en": "Serving brands and distributors with stable OEM/ODM delivery."
+      }
+    },
+    "products": [
+      {
+        "id": "glass-film",
+        "name": {
+          "cn": "3D 钢化膜",
+          "en": "3D Tempered Glass Film"
+        },
+        "summary": {
+          "cn": "高透、耐刮、贴合度高，适用于主流机型。",
+          "en": "High clarity, scratch resistance, and strong fit for mainstream phones."
+        },
+        "tags": [
+          "Hot",
+          "OEM"
+        ],
+        "image": "/site-assets/product-3d-glass.png"
+      },
+      {
+        "id": "tablet-film",
+        "name": {
+          "cn": "平板保护膜",
+          "en": "Tablet Film"
+        },
+        "summary": {
+          "cn": "适配平板设备，兼顾保护与清晰显示。",
+          "en": "Built for tablet devices with clear viewing and screen protection."
+        },
+        "tags": [
+          "Tablet",
+          "Protective"
+        ],
+        "image": "/site-assets/product-tablet-film.png"
+      },
+      {
+        "id": "case",
+        "name": {
+          "cn": "手机保护壳",
+          "en": "Phone Case"
+        },
+        "summary": {
+          "cn": "多材质多工艺可选，支持品牌定制。",
+          "en": "Multiple materials and finishes with brand customization support."
+        },
+        "tags": [
+          "Custom",
+          "Case"
+        ],
+        "image": "/site-assets/product-phone-case.png"
+      },
+      {
+        "id": "lens-film",
+        "name": {
+          "cn": "镜头保护膜",
+          "en": "Lens Protection Film"
+        },
+        "summary": {
+          "cn": "适用于高端手机镜头区域，抗磨损、透光稳定。",
+          "en": "Built for premium camera lens modules with stable transparency and wear resistance."
+        },
+        "tags": [
+          "Camera",
+          "Protection"
+        ],
+        "image": "/site-assets/product-lens-film.jpg"
+      }
+    ],
+    "stats": [
+      {
+        "value": "10+",
+        "label": {
+          "cn": "年经验",
+          "en": "Years"
+        }
+      },
+      {
+        "value": "50+",
+        "label": {
+          "cn": "专利",
+          "en": "Patents"
+        }
+      },
+      {
+        "value": "ISO",
+        "label": {
+          "cn": "认证体系",
+          "en": "Certified"
+        }
+      },
+      {
+        "value": "GRS",
+        "label": {
+          "cn": "可持续配套",
+          "en": "Ready"
+        }
+      }
+    ],
+    "contact": {
+      "phone": "+86 (755) 2345 6789",
+      "email": "sales@qiaotian.com",
+      "address": {
+        "cn": "深圳市宝安区高新产业园 4 栋",
+        "en": "Building 4, High-Tech Industrial Park, Bao'an, Shenzhen"
+      }
+    },
+    "images": {
+      "homeHero": "/site-assets/office-1.jpg",
+      "factoryHero": "/site-assets/office-2.jpg",
+      "factoryGalleryMain": "/site-assets/office-3.jpg",
+      "factoryGalleryLab": "/site-assets/team-1.jpg",
+      "factoryGalleryQc": "/site-assets/product-lens-film.jpg",
+      "factoryGalleryWarehouse": "/site-assets/team-2.jpg",
+      "aboutHero": "/site-assets/team-1.jpg",
+      "aboutLeaderOne": "/site-assets/team-2.jpg",
+      "aboutLeaderTwo": "/site-assets/office-1.jpg",
+      "contactMap": "/site-assets/office-2.jpg",
+      "privacySecurity": "/site-assets/cert-iso9001.jpg",
+      "certificateOne": "/site-assets/cert-iso9001.jpg",
+      "certificateTwo": "/site-assets/cert-iso14001.jpg"
+    },
+    "sections": {
+      "factory": {
+        "heroTitle": {
+          "cn": "品质背后的核心：先进制造",
+          "en": "The Core of Our Quality: Advanced Manufacturing"
+        },
+        "heroBody": {
+          "cn": "以工业级精度、规模化产能和严格质量控制，为全球 3C 品牌提供稳定支撑。",
+          "en": "Empowering global 3C brands with industrial precision, scalable output, and rigorous quality control at every stage of production."
+        }
+      },
+      "about": {
+        "heroTitle": {
+          "cn": "规模化中的精密制造",
+          "en": "Engineering Precision at Scale"
+        },
+        "heroBody": {
+          "cn": "乔天企业持续以工程化能力、交付纪律与创新研发，为全球 3C 制造树立更高标准。",
+          "en": "Qiaotian sets the global benchmark for 3C manufacturing, combining industrial rigor with innovative design thinking."
+        }
+      },
+      "contact": {
+        "heroTitle": {
+          "cn": "全球供应链业务支持",
+          "en": "Expert Support for Your Global Supply Chain"
+        },
+        "heroBody": {
+          "cn": "我们的采购与技术顾问团队可协助你确认规格、报价、打样与定制生产需求。",
+          "en": "Our team of procurement specialists is ready to assist with technical specifications, bulk pricing, and custom manufacturing requirements."
+        }
+      },
+      "privacy": {
+        "heroTitle": {
+          "cn": "隐私政策",
+          "en": "Privacy Policy"
+        },
+        "heroBody": {
+          "cn": "生效日期：2024 年 1 月 1 日。我们重视你的隐私与数据安全，并以此作为长期合作的基础。",
+          "en": "Effective Date: January 1, 2024. Your privacy and trust are paramount to Qiaotian Enterprise's commitment to industrial excellence."
+        }
+      }
+    }
+  },
+  "inquiries": [
+    {
+      "id": "inq-001",
+      "name": "Li Wei",
+      "company": "Sample Tech",
+      "email": "liwei@example.com",
+      "phone": "+86-138-0000-0000",
+      "message": "Need quotation for tempered glass film.",
+      "status": "done",
+      "createdAt": "2026-06-03T16:19:23.548Z"
+    }
+  ],
+  "roles": [
+    {
+      "username": "admin",
+      "role": "super_admin"
+    },
+    {
+      "username": "editor",
+      "role": "editor"
+    },
+    {
+      "username": "sales",
+      "role": "sales"
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "role": "super_admin"
+    },
+    {
+      "username": "editor",
+      "passwordHash": "ef5e5a1fb95055e0e56cccf98a41e784a132c14e7f6e1ba244302f0e72b29baf",
+      "role": "editor"
+    },
+    {
+      "username": "sales",
+      "passwordHash": "c3e368f9e0d9f4706dd45247613c79490b34e9a3b53f0e3b75df4eb86fa36411",
+      "role": "sales"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "62c394acd0bbc9feb9cd7ad610b62d1d",
+      "username": "admin",
+      "role": "super_admin",
+      "createdAt": 1780540437155
+    },
+    {
+      "token": "06ee6fbda605767ace9c1a223bc0a162",
+      "username": "admin",
+      "role": "super_admin",
+      "createdAt": 1780541390636
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "log-1780541390637",
+      "action": "login",
+      "detail": "admin",
+      "actor": "admin",
+      "createdAt": "2026-06-04T02:49:50.637Z"
+    }
+  ]
+}

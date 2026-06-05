@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_shared_localized_points",
+  "info": {
+    "displayName": "Localized Point"
+  },
+  "attributes": {
+    "labelCn": { "type": "string" },
+    "labelEn": { "type": "string" },
+    "valueCn": { "type": "text" },
+    "valueEn": { "type": "text" }
+  }
+}

@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#dbe1ff",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container": "#eceef0",
+                    "surface": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "secondary": "#0051d5",
+                    "on-surface-variant": "#45464d",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "on-primary-container": "#7c839b",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-container": "#316bf3",
+                    "tertiary-container": "#0b1c30",
+                    "primary-fixed": "#dae2fd",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#131b2e",
+                    "inverse-surface": "#2d3133",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-surface": "#191c1e",
+                    "inverse-primary": "#bec6e0",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-tint": "#565e74",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#000000",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c6c6cd",
+                    "primary": "#000000",
+                    "outline": "#76777d",
+                    "on-background": "#191c1e",
+                    "on-tertiary-container": "#75859d",
+                    "tertiary-fixed": "#d3e4fe",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "on-secondary-container": "#fefcff",
+                    "on-secondary-fixed": "#00174b",
+                    "on-primary-fixed": "#131b2e",
+                    "background": "#f7f9fb",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "primary-fixed-dim": "#bec6e0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "section_padding": "80px",
+                    "margin": "40px",
+                    "unit_base": "8px",
+                    "grid_columns": "12"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .timeline-line { background: repeating-linear-gradient(to bottom, #76777d, #76777d 4px, transparent 4px, transparent 8px); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-on-surface-variant transition-colors duration-200">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim p-2 hover:bg-surface-container-low dark:hover:bg-on-surface-variant rounded-full transition-colors" id="menu-trigger">menu</button>
+<span class="font-headline-sm text-headline-sm font-bold tracking-tighter text-primary dark:text-primary-fixed-dim">QIAOTIAN</span>
+</div>
+<button class="text-primary dark:text-primary-fixed-dim font-label-md text-label-md px-4 py-2 hover:bg-surface-container-low transition-colors duration-200 active:opacity-70">EN</button>
+</header>
+<!-- Side Navigation (Mobile Drawer) - Initially hidden -->
+<div class="fixed inset-0 z-[70] bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300" id="side-drawer">
+<aside class="h-full w-80 bg-surface dark:bg-inverse-surface shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col py-4">
+<div class="px-6 py-4 border-b border-outline-variant mb-4">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">Qiaotian Manufacturing</span>
+</div>
+<nav class="flex-1">
+<a class="flex items-center gap-4 text-on-surface-variant dark:text-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant dark:text-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant dark:text-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">factory</span>
+<span class="font-label-md text-label-md">Factory</span>
+</a>
+<a class="flex items-center gap-4 bg-secondary-container text-on-secondary-container rounded-full px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">info</span>
+<span class="font-label-md text-label-md">About Us</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant dark:text-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Contact</span>
+</a>
+</nav>
+</aside>
+</div>
+<main class="pt-16 pb-margin">
+<!-- Engineering Precision Hero -->
+<section class="relative h-[450px] w-full overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover grayscale brightness-50" data-alt="A macro close-up of high-precision CNC machinery carving industrial-grade aluminum components in a high-tech manufacturing facility. The scene is illuminated by cold blue LED lights reflecting off brushed metal surfaces. The visual style is professional, sharp, and focused on technological excellence, using a palette of deep slates and cold silvers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA9PP7sKCUDHZcvmz8BUseg4_4hzO2FM47zUyx91YKoViqJlJ2mY9e0ae2oVz7sMbJcKbK3etDdk9yZIZrSnmdOdmh4rKzGcV-HBSB8u2jVpdrX_6X42mZnlSXrMQ0rkD1B4u7vGaIo-sIcpVahzZir2x3d2Xe4cQfgaK7C4RBXEyTr_7HGZg6DikN18AOzyBvAYEkBRGvJ6sQl_2qTr0jOFaIK1M1UBmXbQR7XwdZ5Lod9F9U0iGRqevrLnTz8rd694oFj6ng2Q5K"/>
+</div>
+<div class="relative z-10 h-full flex flex-col justify-center px-gutter text-white bg-gradient-to-t from-black/60 to-transparent">
+<span class="font-label-md text-label-md uppercase tracking-widest text-secondary-fixed mb-4">Established Excellence</span>
+<h1 class="font-display-lg-mobile text-display-lg-mobile mb-4 leading-tight">Engineering Precision at Scale</h1>
+<p class="font-body-md text-body-md text-surface-variant max-w-sm">Qiaotian sets the global benchmark for 3C manufacturing, combining industrial rigor with innovative design thinking.</p>
+</div>
+</section>
+<!-- Company Timeline -->
+<section class="py-margin px-gutter bg-surface-container-lowest">
+<div class="mb-10">
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Our Evolution</h2>
+<div class="w-12 h-1 bg-secondary"></div>
+</div>
+<div class="relative">
+<div class="absolute left-[7px] top-4 bottom-4 w-[2px] timeline-line opacity-30"></div>
+<!-- 2008: Founding -->
+<div class="relative flex gap-6 mb-12">
+<div class="mt-2 w-4 h-4 rounded-full bg-secondary ring-4 ring-secondary-fixed z-10 flex-shrink-0"></div>
+<div>
+<span class="font-label-md text-label-md text-secondary font-bold">2008</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-1">The Founding</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Started as a boutique R&amp;D lab in Shenzhen focusing on high-frequency signal transmission and cable durability engineering.</p>
+</div>
+</div>
+<!-- 2016: Global Scale -->
+<div class="relative flex gap-6 mb-12">
+<div class="mt-2 w-4 h-4 rounded-full bg-secondary ring-4 ring-secondary-fixed z-10 flex-shrink-0"></div>
+<div>
+<span class="font-label-md text-label-md text-secondary font-bold">2016</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-1">Global Scale</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Expanded to a 50,000 sqm automated facility, achieving ISO 9001 certification and establishing export routes to 40+ countries.</p>
+<div class="mt-4 rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-32 object-cover" data-alt="A wide-angle aerial shot of a massive, clean-white modern manufacturing complex at twilight. The architecture is modular and industrial, with warm lights glowing through large glass windows. The setting is a professionally landscaped industrial park, conveying a sense of global scale, organized logistics, and high-end enterprise infrastructure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc84a2c5QiVxbT8Bn__eYA2P4tCMsyKPnpkqgPMCFaycLC4I2ZD0ezDVG4kHgXblStlmhXKan5i8HTdctHHzVF5bZjaGZIPirhuAnGD8pTSNYyFxcMm2-a3WyC2cHiLY3OHxQsOfN0U-U1Bu-CRs8gTFYdKUkPh53KZ6Yr7qJrPlSGB3Ju0z40e2XcmzQ-FDDOZo4C5g3hevmXEGAhtSQ3jp8i5-H0czH2meQh657YoMjXlQfwpuhWU7HjHULpHIXcUNA5J1wUweXm"/>
+</div>
+</div>
+</div>
+<!-- Present -->
+<div class="relative flex gap-6">
+<div class="mt-2 w-4 h-4 rounded-full bg-secondary ring-4 ring-secondary-fixed z-10 flex-shrink-0"></div>
+<div>
+<span class="font-label-md text-label-md text-secondary font-bold">PRESENT</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-1">Precision Intelligence</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Integrating AI-driven quality control and sustainable manufacturing processes for the next generation of smart accessories.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Brand Values -->
+<section class="py-section_padding px-gutter bg-surface">
+<h2 class="font-headline-md text-headline-md text-center text-primary mb-12">Built on Integrity</h2>
+<div class="space-y-6">
+<!-- Reliability -->
+<div class="bg-white p-8 rounded-lg border border-outline-variant shadow-sm transition-all active:scale-[0.98]">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary-fixed rounded-lg">
+<span class="material-symbols-outlined text-primary" data-weight="fill">verified</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Reliability</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">We don't just manufacture; we guarantee uptime. Every component undergoes 24-hour stress testing to ensure fail-proof performance in professional environments.</p>
+</div>
+<!-- Innovation -->
+<div class="bg-white p-8 rounded-lg border border-outline-variant shadow-sm transition-all active:scale-[0.98]">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-secondary-fixed rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">lightbulb</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Innovation</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Holding over 120 patents in material science, our R&amp;D team continuously pushes the boundaries of heat dissipation and data throughput speeds.</p>
+</div>
+<!-- Quality -->
+<div class="bg-white p-8 rounded-lg border border-outline-variant shadow-sm transition-all active:scale-[0.98]">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-tertiary-fixed rounded-lg">
+<span class="material-symbols-outlined text-on-tertiary-fixed" data-weight="fill">precision_manufacturing</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Quality</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Zero-tolerance for defects. Our 100% inspection protocol ensures that from the raw material stage to final packaging, perfection is the only metric.</p>
+</div>
+</div>
+</section>
+<!-- Executive Leadership -->
+<section class="py-margin px-gutter bg-surface-container">
+<div class="flex items-end justify-between mb-8">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Leadership</h2>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase mt-1">Driving Excellence</p>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- Leader 1 -->
+<div class="bg-white overflow-hidden rounded-lg border border-outline-variant group">
+<div class="h-64 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A professional portrait of a senior male executive in a sharp navy tailored suit, standing against a clean, minimalist architectural background with neutral lighting. The executive has a confident, authoritative expression. The image aesthetic is high-end corporate photography, focusing on leadership, trust, and professional maturity with a clean, well-lit studio feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFTDSziufsoItBLxKf1j-PNEtqXPsIw2KT0ZOItvj92U7X8c5zMxi1W8_oYKSavZuoffdgvUCFCzTqsjEAtT-T8i3yTWzn1nYhhUyQUhZ2S1l4nbMC-Vaf7px7LSqxNswkklv6O2-Ihv5BjpvvScxwpB3wRENJUSZo4hSqpwOlv4q5wTjlC4NE2PSH1Okqqv-wzwNNvlkB-Bk3ysDB5xs9tJ24iyK5doKAJAOV7VZlEOdP2-_Y1xQc45d-NisvukCGo-l2uqUmHl_Q"/>
+</div>
+<div class="p-6">
+<h4 class="font-headline-sm text-headline-sm text-primary">Dr. Chen Wei</h4>
+<p class="font-label-md text-label-md text-secondary uppercase font-bold mt-1">CEO &amp; Founder</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4">Pioneering force in signal integrity engineering with 25 years of cross-border manufacturing expertise.</p>
+</div>
+</div>
+<!-- Leader 2 -->
+<div class="bg-white overflow-hidden rounded-lg border border-outline-variant group">
+<div class="h-64 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A professional corporate portrait of a female Chief Operations Officer with an air of precision and intelligence. She is wearing a structured charcoal blazer in a bright, modern office setting with glass walls and soft natural daylight. The visual style is crisp, clean, and modern, emphasizing operational excellence and forward-thinking corporate leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK2LI7jxeBMN0sX1ap2QRBMtb74Y6JEaIeRMeZKnWBCS-AsEJQueY1TBzGh7CHvsLOzvd_OWQPku9YB77GJh9qGTjuWLjWx8oLxeqavaVdgT4cGvG7aUj9mZJGEDc0KNuxmubBdRlR9P2md-uMgdBCQekOiOBG8kd_6KUEBbfSIyKt5WrSzFwfF88_yl5A1U1tGrxQ90xY4EpiC05PZ6-89_82jwmkMgkoengtS-wu5iKyRy6ftjhlbUmvEjJbkGJ6raArZUjIUGtL"/>
+</div>
+<div class="p-6">
+<h4 class="font-headline-sm text-headline-sm text-primary">Sarah Zhang</h4>
+<p class="font-label-md text-label-md text-secondary uppercase font-bold mt-1">COO</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4">Architect of our global supply chain, specializing in lean manufacturing and international logistics optimization.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-primary-container flex flex-col items-center gap-4 px-gutter py-margin w-full text-center border-t border-outline-variant dark:border-on-primary-container">
+<span class="font-label-md text-label-md font-bold text-on-surface">QIAOTIAN ENTERPRISE</span>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-label-sm text-label-sm-mobile text-on-surface-variant dark:text-on-primary-container hover:text-primary dark:hover:text-primary-fixed transition-opacity duration-200" href="privacy-mobile.html">Privacy Policy</a>
+<a class="font-label-sm text-label-sm-mobile text-on-surface-variant dark:text-on-primary-container hover:text-primary dark:hover:text-primary-fixed transition-opacity duration-200" href="#">Certifications</a>
+<a class="font-label-sm text-label-sm-mobile text-on-surface-variant dark:text-on-primary-container hover:text-primary dark:hover:text-primary-fixed transition-opacity duration-200" href="#">Global Support</a>
+</div>
+<p class="font-label-sm text-label-sm-mobile text-on-surface-variant dark:text-on-primary-container mt-4">© 2024 Qiaotian Enterprise. All Rights Reserved.</p>
+</footer>
+<script>
+        const menuTrigger = document.getElementById('menu-trigger');
+        const sideDrawer = document.getElementById('side-drawer');
+        const drawerContent = sideDrawer.querySelector('aside');
+
+        function openDrawer() {
+            sideDrawer.classList.remove('opacity-0', 'pointer-events-none');
+            sideDrawer.classList.add('opacity-100');
+            drawerContent.classList.remove('-translate-x-full');
+        }
+
+        function closeDrawer() {
+            sideDrawer.classList.add('opacity-0', 'pointer-events-none');
+            sideDrawer.classList.remove('opacity-100');
+            drawerContent.classList.add('-translate-x-full');
+        }
+
+        menuTrigger.addEventListener('click', openDrawer);
+        sideDrawer.addEventListener('click', (e) => {
+            if (e.target === sideDrawer) closeDrawer();
+        });
+
+        // Add smooth interaction for cards
+        document.querySelectorAll('.active\\:scale-\\[0\\.98\\]').forEach(card => {
+            card.addEventListener('touchstart', () => card.style.transform = 'scale(0.98)');
+            card.addEventListener('touchend', () => card.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>

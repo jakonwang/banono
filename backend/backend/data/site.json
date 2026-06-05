@@ -1,0 +1,150 @@
+{
+  "site": {
+    "brand": {
+      "cn": "乔天企业",
+      "en": "Qiaotian Enterprise"
+    },
+    "nav": [
+      {
+        "key": "home",
+        "cn": "首页",
+        "en": "Home"
+      },
+      {
+        "key": "product-center",
+        "cn": "产品中心",
+        "en": "Products"
+      },
+      {
+        "key": "factory-strength",
+        "cn": "工厂实力",
+        "en": "Factory"
+      },
+      {
+        "key": "about",
+        "cn": "关于我们",
+        "en": "About"
+      },
+      {
+        "key": "contact",
+        "cn": "联系我们",
+        "en": "Contact"
+      },
+      {
+        "key": "admin",
+        "cn": "后台管理",
+        "en": "Admin"
+      }
+    ],
+    "hero": {
+      "title": {
+        "cn": "专业 3C 配件制造",
+        "en": "Professional 3C Accessories Manufacturing"
+      },
+      "body": {
+        "cn": "面向品牌商、渠道商与服务商，提供稳定交付的 OEM/ODM 能力。",
+        "en": "Serving brands and distributors with stable OEM/ODM delivery."
+      }
+    },
+    "products": [
+      {
+        "id": "glass-film",
+        "name": {
+          "cn": "3D 钢化膜",
+          "en": "3D Tempered Glass Film"
+        },
+        "summary": {
+          "cn": "高透、耐刮、贴合度高，适用于主流机型。",
+          "en": "High clarity, scratch resistance, and strong fit for mainstream phones."
+        },
+        "tags": [
+          "Hot",
+          "OEM"
+        ],
+        "image": "/网站资料/产品照片/3D钢化膜.png"
+      },
+      {
+        "id": "tablet-film",
+        "name": {
+          "cn": "平板膜",
+          "en": "Tablet Film"
+        },
+        "summary": {
+          "cn": "适配平板设备，兼顾保护与清晰显示。",
+          "en": "Built for tablet devices with clear viewing and screen protection."
+        },
+        "tags": [
+          "Tablet",
+          "Protective"
+        ],
+        "image": "/网站资料/产品照片/平板膜.png"
+      },
+      {
+        "id": "case",
+        "name": {
+          "cn": "手机壳",
+          "en": "Phone Case"
+        },
+        "summary": {
+          "cn": "多材质多工艺可选，支持品牌定制。",
+          "en": "Multiple materials and finishes with brand customization support."
+        },
+        "tags": [
+          "Custom",
+          "Case"
+        ],
+        "image": "/网站资料/产品照片/手机壳.png"
+      }
+    ],
+    "stats": [
+      {
+        "value": "10+",
+        "label": {
+          "cn": "年经验",
+          "en": "Years"
+        }
+      },
+      {
+        "value": "50+",
+        "label": {
+          "cn": "专利",
+          "en": "Patents"
+        }
+      },
+      {
+        "value": "ISO",
+        "label": {
+          "cn": "体系",
+          "en": "Certified"
+        }
+      },
+      {
+        "value": "GRS",
+        "label": {
+          "cn": "准备就绪",
+          "en": "Ready"
+        }
+      }
+    ],
+    "contact": {
+      "phone": "+86-000-0000",
+      "email": "info@example.com",
+      "address": {
+        "cn": "广东省东莞市",
+        "en": "Dongguan, Guangdong"
+      }
+    }
+  },
+  "inquiries": [
+    {
+      "id": "inq-001",
+      "name": "Li Wei",
+      "company": "Sample Tech",
+      "email": "liwei@example.com",
+      "phone": "+86-138-0000-0000",
+      "message": "Need quotation for tempered glass film.",
+      "status": "new",
+      "createdAt": "2026-06-03T16:17:25.247Z"
+    }
+  ]
+}

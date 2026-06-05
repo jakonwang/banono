@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#191c1e",
+                    "surface": "#f7f9fb",
+                    "outline": "#76777d",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-surface": "#191c1e",
+                    "background": "#f7f9fb",
+                    "primary-container": "#131b2e",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-tertiary-container": "#75859d",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#000000",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-container": "#316bf3",
+                    "outline-variant": "#c6c6cd",
+                    "tertiary-fixed": "#d3e4fe",
+                    "secondary-fixed": "#dbe1ff",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "primary-fixed-dim": "#bec6e0",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary-container": "#0b1c30",
+                    "on-secondary-container": "#fefcff",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed": "#00174b",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#565e74",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#bec6e0",
+                    "on-surface-variant": "#45464d",
+                    "primary-fixed": "#dae2fd",
+                    "on-primary-container": "#7c839b",
+                    "secondary": "#0051d5",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "primary": "#000000"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "section_padding": "80px",
+                    "grid_columns": "12",
+                    "unit_base": "8px",
+                    "margin": "40px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .product-gallery-thumb.active { border-color: #0051d5; }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin py-4 max-w-7xl mx-auto">
+<div class="font-display-lg text-display-lg font-bold text-primary dark:text-inverse-on-surface">
+                Qiaotian Enterprise
+            </div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md" href="#">Home</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-label-md text-label-md" href="#">Product Center</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md" href="#">Factory Strength</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md" href="#">About Us</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant font-label-md text-label-md cursor-pointer hover:text-secondary transition-all">EN/CN</span>
+<button class="material-symbols-outlined text-secondary dark:text-secondary-fixed" data-icon="search"></button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-margin py-unit_base">
+<!-- Product Hero Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter py-12">
+<!-- Left: Gallery -->
+<div class="md:col-span-7 flex flex-col gap-4">
+<div class="bg-surface-container-low aspect-square rounded overflow-hidden border border-outline-variant flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A high-end macro shot of a charcoal grey braided USB-C cable connector with gold-plated pins. The scene is set against a clean, industrial minimalist background with soft cinematic lighting that highlights the textured nylon braiding and high-performance metal housing. The lighting is cold and professional, utilizing the corporate primary blue and sleek slate grays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYIhDiBPQNVLnRqGwThd3ZwI0NhhIqf9g1ufaKwoTPpyy4pDPHc-AqKMes7O9dWu7rR10oR9kRuwGgEsXhgi3pgV1mmRCn73fZh0KpHYHUuhKtkhfhQFeLjaPGj1h95Ik2zAESapSl6thAVE_KcrNq967IPOd4uGznXDiJ8eDSTFwLl5AfoK8D2EckoGOiMBS-9Ax0d-x-zKKfv7unUxe11cb5mW1kYnz1emukTUMpS0TPd3RC5qX9kpEWAmEJbA1khMoRRJwfQto-"/>
+</div>
+<div class="grid grid-cols-5 gap-4">
+<div class="product-gallery-thumb active border-2 border-secondary bg-surface-container-low aspect-square rounded cursor-pointer overflow-hidden">
+<img class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="Close up of a professional USB-C cable connector" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBGnyrgXQeMuE3JfBKTwegxckWhK8vkySx9Zr0YZI_0E5Mltz4OjM-lwzb3WMvsIvQV3FpINSJoi14iEsKsxIUsIPbKUioib0iQ9hw-vO2lKRAOEfu-dDZaytMx81w0_zQcmzDqo2k2_R0P0_4Ug91PyUUQ06TyyQjXoh5bGqisxWBr_9AWdlmYmBkal6NlfPLlHkrLLTLApRGLRU6Y4ojlnJUmIPP7py44tBHcdoXd334ReRiuNXoT0caKypiD6W2ub40XAGHkN2v"/>
+</div>
+<div class="product-gallery-thumb border border-outline-variant bg-surface-container-low aspect-square rounded cursor-pointer overflow-hidden">
+<img class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="Macro view of the braided cable body showing industrial durability" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7q_UVL5erU6bZHz93rUAeLpq0V5L--lBa1uURu7aNgir8-31ou_W0HYKelkqADj8RB0-0iHqTAi-nzpOWgLdbIJbKZS_1mbWPvOOkuX5sY10qqPmx9twlozCr8DYHoofcoi-Xxz-PKALfH93Wpy_8LS59ShyJgMO2H7aVwPCQ6WdTXO51W1PEMilXFuS2Fe0Cyb_Vy2LNs8qOyretNo4VTok6n4bb9xEzpr0pOcT0OVz3tPxAItfDQKrBz9HwH2BXrAET6Nc-WC45"/>
+</div>
+<div class="product-gallery-thumb border border-outline-variant bg-surface-container-low aspect-square rounded cursor-pointer overflow-hidden">
+<img class="w-full h-full object-crop opacity-80 hover:opacity-100 transition-opacity" data-alt="Cable packaged in a premium corporate box with technical certification logos" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA99Oa0mJLTrDCr54nRLu96idEyHdTjm5wtqBhNYdlfxwgV0inCdYxP9rxUZeOZ9vh_S3fGdjdoeWCj95ik-427CQkwvFK2QJbZASDlmx-Z2lttuPWpARpdDp9tdhot0tlSxU6sOui8UvnbNruAjZ1icnJ2MeE-91BNwOow7Q59W6g609MZ4yFpNM5gBO9aErIEIctCcIBgkaoX8ihk8YXPCOMRkyl_4dRDkDulvMYJsD-SA_YczTmYWHyv0mXFb-6kYzyP1G-ZMNO1"/>
+</div>
+<div class="product-gallery-thumb border border-outline-variant bg-surface-container-low aspect-square rounded cursor-pointer overflow-hidden">
+<img class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="Cable connecting a high-end professional laptop and a power adapter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAYIfvUN3p2V2L8NuJ0EFzJm2cDfGykWvWEWg5l_gh3-2oVFkfqoubFd4XTKbcluc2qxEmxwQnO05YrRaPyuRreIHs2ejgUaZfoLk0R9CZIwpGbo66A7PjlVaYe8a6PVtZdjpLd2EgMYbMWZoyW_hpqmKk4XQ7xmFiqtwsq3o-M1WMSTMbvr6qJbaX7Czt7AAQp-J_Aj11O7ieDWVDODoESPtCidu6_3N2uQy6SXyNfj1NiVlDfY1CuHVJkx2C6eEKJ1p8-Nd2B2Cv"/>
+</div>
+<div class="product-gallery-thumb border border-outline-variant bg-surface-container-low aspect-square rounded cursor-pointer overflow-hidden relative">
+<img class="w-full h-full object-cover blur-[2px]" data-alt="Additional technical view of the cable" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJVNEQbyCZz5ADOHirBn-NYRYTvpb_DhH94YTyGg0ZvMTQmJOp5Tk3hmibMFcVZ-LHixwdRXsk4h5humRrHFb6o4egK5JuUExCMvL005AWvdD0ZaPtB6_2ndLcg5gDKdF_KS0hDnQYQIkqwxmS0M80Te4VBogeJ7d_e3y_mMq-_xdkp72aBU5oPFKIofNZKklaq6WEkR--C3zHqn4y352L8uCNtg0MOz2s1Kr5uO24KghlkCcsuBWvZs5la4BV2IcpLv-4-RJfynk4"/>
+<div class="absolute inset-0 flex items-center justify-center bg-primary/20 text-white font-label-md">+4</div>
+</div>
+</div>
+</div>
+<!-- Right: Product Info -->
+<div class="md:col-span-5 flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<span class="text-secondary font-label-md text-label-md uppercase tracking-wider">3C Accessories / Premium Power</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-background leading-tight">Pro-Series 100W PD Cable</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">High-fidelity power delivery and data synchronization engineered for professional workstations and industrial environments.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-1 bg-surface-container-high px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-secondary scale-75" data-icon="verified"></span>
+<span class="font-label-sm text-label-sm text-on-surface">MFi Certified</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-secondary scale-75" data-icon="high_quality"></span>
+<span class="font-label-sm text-label-sm text-on-surface">QC 4.0 Support</span>
+</div>
+</div>
+<div class="h-px bg-outline-variant w-full"></div>
+<div class="flex flex-col gap-4">
+<h3 class="font-label-md text-label-md text-on-background">Key Features:</h3>
+<ul class="flex flex-col gap-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="bolt"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">100W Ultra-Fast Charging (20V/5A)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="dataset"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">480Mbps High-Speed Data Transfer</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="shield"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Reinforced Kevlar Core &amp; Zinc-Alloy Housing</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="straighten"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">2.0m (6.6ft) Tangle-Free Braided Length</span>
+</li>
+</ul>
+</div>
+<div class="flex flex-col gap-4 pt-6 mt-auto">
+<button class="bg-secondary hover:bg-on-secondary-fixed-variant text-on-secondary font-headline-sm text-headline-sm py-4 rounded transition-all flex items-center justify-center gap-2 group">
+                        Inquire Now
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward"></span>
+</button>
+<button class="border border-primary text-primary font-headline-sm text-headline-sm py-4 rounded hover:bg-surface-container-high transition-all">
+                        Contact Us
+                    </button>
+</div>
+</div>
+</section>
+<!-- Technical Specifications -->
+<section class="py-section_padding">
+<div class="flex items-end justify-between mb-12">
+<div class="flex flex-col gap-2">
+<h2 class="font-headline-md text-headline-md text-on-background">Technical Specifications</h2>
+<div class="w-16 h-1 bg-secondary"></div>
+</div>
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-widest">SKU: QT-PD100-PRO</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-4">
+<div class="flex justify-between py-4 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Power Output</span>
+<span class="font-body-md text-body-md font-bold">100W (Max 20V/5A)</span>
+</div>
+<div class="flex justify-between py-4 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Interface Type</span>
+<span class="font-body-md text-body-md font-bold">USB-C to USB-C</span>
+</div>
+<div class="flex justify-between py-4 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Data Transfer Rate</span>
+<span class="font-body-md text-body-md font-bold">480Mbps (USB 2.0 Standard)</span>
+</div>
+<div class="flex justify-between py-4 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Outer Material</span>
+<span class="font-body-md text-body-md font-bold">High-Density Braided Nylon</span>
+</div>
+<div class="flex justify-between py-4 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Internal Core</span>
+<span class="font-body-md text-body-md font-bold">22AWG Tin-Plated Copper</span>
+</div>
+<div class="flex justify-between py-4 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Durability Test</span>
+<span class="font-body-md text-body-md font-bold">30,000+ Bend Cycles</span>
+</div>
+<div class="flex justify-between py-4 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Certifications</span>
+<span class="font-body-md text-body-md font-bold">CE, FCC, RoHS, REACH</span>
+</div>
+<div class="flex justify-between py-4 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Warranty</span>
+<span class="font-body-md text-body-md font-bold">24-Month Enterprise Warranty</span>
+</div>
+</div>
+</section>
+<!-- Application Scenarios (Bento Style) -->
+<section class="py-section_padding">
+<h2 class="font-headline-md text-headline-md text-on-background mb-12">Application Scenarios</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[600px]">
+<div class="md:col-span-2 md:row-span-2 relative overflow-hidden group rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A wide-angle shot of a sleek, high-tech corporate office workstation with a double monitor setup. A professional cable is organized neatly, showing off its industrial design in a real-world high-performance setting. The atmosphere is productive, bright, and modern, dominated by neutral whites, glass textures, and soft blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBNj-UJdpUSKAOL0rzO7lx7IcDHMMXwzp9BwOIVEJsOGYOLv_jFH078c6rGpv0SK-dxDe9ez17uWHz-6BCsdpc5_zGo7dufrGtByXBTXbmUCmbvMcjoq2QNdBuIfw2WABit5Ubiz99IIb7sTFabvAriVfEI9HQJrK8W834PPJuIgKlBAhhSal1aTRGyn4G3H4MfvGqGtpkq4vIYk-l_BELa3PiYDAxud9eg5h6vibtz6P43M1-gNPse7HR2wo0D2mdHCdbEIn_8ITd"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent p-8 flex flex-col justify-end">
+<h4 class="font-headline-sm text-headline-sm text-white">Modern Workspaces</h4>
+<p class="font-body-md text-body-md text-white/80">Reliable power for intensive creative workflows and multi-monitor setups.</p>
+</div>
+</div>
+<div class="md:col-span-2 relative overflow-hidden group rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="An industrial laboratory setting with technical equipment and professional users. The image captures the cable in an environment requiring precision and durability. Cool studio lighting with sharp contrasts between metallic surfaces and deep shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwZxVpuRF9ZPz2T5xuECo4qHSqhX_yVG91vQmJkyMyP68N6Q0X2rXuM29a1DYsc7iCoKT2W1PqCVgE6GwR2IAxotg9kMKjJmHJLxHpjDyFzezo75epa1J6dlFEMdfZkPy4_hwoYA8uiRxjA1hJFFL5yE7tZcsatDUHuzlE-DQoB12jtFMCcfxc46MDj9XLKhIAzoG3pLwXDh1rQmc4sn7DUvei7sAi9LevzOeJsDGkUKE2H9IiDrZKfQz8EbovJmCi0op4HU7gXUvF"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent p-8 flex flex-col justify-end">
+<h4 class="font-headline-sm text-headline-sm text-white">Industrial Precision</h4>
+<p class="font-body-md text-body-md text-white/80">Built to withstand the rigors of field testing and industrial labs.</p>
+</div>
+</div>
+<div class="relative overflow-hidden group rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Lifestyle photo of a professional traveling with high-end tech accessories in a business lounge. The aesthetic is sophisticated, using warm wood tones and professional attire to contrast with the sleek technological edge of the cable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIhBAKujkJydS3DYOtQ7MXTEFVFyNN5qnTHQayP1I17sMXPd2qWK-dQB_0zBN0S4z7pwXDKn8TNLi_4jaH44m3IZEnj6eBK6o_zERAcyW179rIAYr8ChDLTNQD5M7gfUbVIbwfDa6LrEia1IKzEo8w1wBQdARgIomKFw25OaWbJxcn5VVrG_TCmFZAJCdDYLxavQsf7UAs74WWnNsDWFVykvhJ37zdLkVMCfE09uCVAKylFR6-iyATpdKkcs5GMwBAB1cD_K8G-HTM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent p-4 flex flex-col justify-end">
+<h4 class="font-label-md text-label-md text-white">Business Travel</h4>
+</div>
+</div>
+<div class="relative overflow-hidden group rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A creative professional's desk with design tools and 3C accessories. High key lighting, emphasizing clean lines and high production quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_mgGJ8oFcimcckXkm8-g4fR7yF1aWCKxB0kCTR9ZJ2grf_CTaa9vx_WLnzlpUClowTy6zxsWwqdpwWIhrpnlMgzhfysatMuXMj6wRAur5LsqWDKsiz0OXWUC71um9Y_dJg6wL0Lp54VnU1d56pRMnu1dC-Qff8LKW5jykKpIL3gCsNS5V382HbBsm2NqV51iqHcz32lAOXu2DyQv3rETzSUxY9cuEJfZG9xVhH7rJpHIOuSMMVDi620CccOS4RgLdgizAmLO5hAZx"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent p-4 flex flex-col justify-end">
+<h4 class="font-label-md text-label-md text-white">Creative Suites</h4>
+</div>
+</div>
+</div>
+</section>
+<!-- Related Products -->
+<section class="py-section_padding">
+<h2 class="font-headline-md text-headline-md text-on-background mb-12">Related Products</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded group hover:shadow-lg transition-all">
+<div class="aspect-square bg-surface-container-low overflow-hidden m-2 rounded-sm relative">
+<img class="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform" data-alt="A multi-port 100W GaN charger in a professional white finish. Minimalist industrial design against a gray backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy21OWojRz8ykW4LTnbFSYEHu60TW5Te2WTpKr2rrddjTi_l5k0_PuLbm4E2zPFa7XxUscf1q_k-GX7fketzupSyxo4ZNHe-Hhk6xMCVG-pN875jN67zwx6stmK2zEtNWSQSR9jkfg4ZInXTyvDVw6cZiqYgUaWSZ1FH234iEhbzB3JQEkwDOFqU4NzRzkYrKyUuAzOdXpR5LsXYSZd8MKhb0DOpsJuIReVMLoWPIqga6QYV3m9pJAmnicZUOVtB6AGlUkpve8G6h1"/>
+<div class="absolute top-2 right-2 bg-secondary text-white font-label-sm text-label-sm px-2 py-1 rounded">New</div>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase">Chargers</span>
+<h4 class="font-label-md text-label-md text-on-background">100W Quad-Port GaN Wall Charger</h4>
+<button class="mt-2 text-secondary font-label-md text-label-md hover:underline flex items-center gap-1">
+                            View Details <span class="material-symbols-outlined !text-[14px]" data-icon="chevron_right"></span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded group hover:shadow-lg transition-all">
+<div class="aspect-square bg-surface-container-low overflow-hidden m-2 rounded-sm">
+<img class="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform" data-alt="A 60W USB-C to Lightning cable with high-density nylon braiding. Premium industrial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkZxXzEz_lC16qyf-F6RmYG3lTyDM5WyiH3sbDB8gTWXlHr3PUW2ooUND_ApuSUhiG6ZzmMt4FhSgcGfWj_Wt7JpdejF11YEaSG9DnUuBg9gZbtZqa7eUD2ZCtm6ShZpQcJQaKs9W61GECu1rmBTre0FWRAGxRRSm1DJ_4RInXmza3oJjes9BQyeKzD5dGGxUV4OwGNvZM9BiZG7fzWgKJr_fDexH6MWl1l8KRSNt9mXebvBbBJ-1vo_7cxOuSiUbkEVhsxSzTnrML"/>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase">Cables</span>
+<h4 class="font-label-md text-label-md text-on-background">Pro-Series 60W Lightning Cable</h4>
+<button class="mt-2 text-secondary font-label-md text-label-md hover:underline flex items-center gap-1">
+                            View Details <span class="material-symbols-outlined !text-[14px]" data-icon="chevron_right"></span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded group hover:shadow-lg transition-all">
+<div class="aspect-square bg-surface-container-low overflow-hidden m-2 rounded-sm">
+<img class="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform" data-alt="A multi-functional USB-C hub with 4K HDMI and Ethernet ports. Space gray metallic finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiOH4TSCObbbbrKX2Z8tvJex2iqTZ5-xUpr47zNUtGPwCeTi5v5euklqafyzsIdrkgoMTFbwFB06KQKlU9q0ZZwz7zCYPBJEbvehD0vsB2XG3m1db-R6qIZLHyrH8xzCJFRGFMPWkB7RCsxHdgmXgjO6Ti9XWVKHOYCjIfZPlyWvh9bOvgZyxjROHUfIBebaakC0GhurBfzTLrknbGMssPWW6sylckhLA1onNiaFCRgZ8GDRFU3sUQ4fDLmJzNGcZ5hrfoMzcbKMyc"/>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase">Hubs &amp; Adapters</span>
+<h4 class="font-label-md text-label-md text-on-background">8-in-1 Aluminum USB-C Hub</h4>
+<button class="mt-2 text-secondary font-label-md text-label-md hover:underline flex items-center gap-1">
+                            View Details <span class="material-symbols-outlined !text-[14px]" data-icon="chevron_right"></span>
+</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded group hover:shadow-lg transition-all">
+<div class="aspect-square bg-surface-container-low overflow-hidden m-2 rounded-sm">
+<img class="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform" data-alt="Professional grade 140W PD charging station for enterprise workstations." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEPdrmwVbtinTLmbsWE2elyvs7u38XaoJB1rqIywi0swxlOGI5eRLdSvbwuOMxRVDozQoJmQkXF3ciD8yJ7ADpOM5j8uSbj4OEfyloyfOvYTpzSbD6Ph4BmVC1wxJ2vQVKvq6nv59dNGFPo6Zku9OXuNneyeYHKSyGXiayvZwvZKT82TIRff0yaByUAhqPQeuXeWNivbWY4Y49nZifcAkmsgG2AmH58jsVgcNLkay4XFq8ggzxfpLYThI3BcSOWVDg53rfJbyMYa9X"/>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase">Enterprise</span>
+<h4 class="font-label-md text-label-md text-on-background">140W Desktop Power Station</h4>
+<button class="mt-2 text-secondary font-label-md text-label-md hover:underline flex items-center gap-1">
+                            View Details <span class="material-symbols-outlined !text-[14px]" data-icon="chevron_right"></span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-tertiary-container border-t border-outline-variant mt-20">
+<div class="grid grid-cols-12 gap-gutter px-margin py-section_padding w-full max-w-7xl mx-auto">
+<div class="col-span-12 md:col-span-4 flex flex-col gap-6">
+<div class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-on-surface">
+                    Qiaotian Enterprise
+                </div>
+<p class="font-body-md text-body-md text-on-surface-variant">Global leader in professional 3C accessory manufacturing, serving over 500+ distributors worldwide with ISO-certified production quality.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-secondary cursor-pointer" data-icon="public"></span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-secondary cursor-pointer" data-icon="mail"></span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-secondary cursor-pointer" data-icon="location_on"></span>
+</div>
+</div>
+<div class="col-span-6 md:col-span-2 flex flex-col gap-4">
+<h5 class="font-label-md text-label-md text-on-surface font-bold">Solutions</h5>
+<nav class="flex flex-col gap-2">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-container hover:text-secondary transition-colors" href="#">OEM Manufacturing</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-container hover:text-secondary transition-colors" href="#">ODM Services</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-container hover:text-secondary transition-colors" href="#">Wholesale Program</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-container hover:text-secondary transition-colors" href="#">Enterprise Procurement</a>
+</nav>
+</div>
+<div class="col-span-6 md:col-span-2 flex flex-col gap-4">
+<h5 class="font-label-md text-label-md text-on-surface font-bold">Quick Links</h5>
+<nav class="flex flex-col gap-2">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-container hover:text-secondary transition-colors" href="#">Product Catalog</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-container hover:text-secondary transition-colors" href="#">Certifications</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-container hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-container hover:text-secondary transition-colors" href="#">Terms of Service</a>
+</nav>
+</div>
+<div class="col-span-12 md:col-span-4 flex flex-col gap-4">
+<h5 class="font-label-md text-label-md text-on-surface font-bold">Newsletter</h5>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Stay updated with our latest industrial innovations.</p>
+<div class="flex">
+<input class="flex-grow bg-surface-container-low border border-outline-variant px-4 py-2 font-body-md text-body-md focus:ring-2 focus:ring-secondary focus:border-transparent outline-none rounded-l" placeholder="Enter your email" type="email"/>
+<button class="bg-primary text-on-primary px-6 py-2 font-label-md text-label-md hover:bg-on-surface-variant transition-all rounded-r">Subscribe</button>
+</div>
+</div>
+<div class="col-span-12 pt-12 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-container">© 2024 Qiaotian Enterprise. All Rights Reserved. Professional 3C Accessories Manufacturing.</p>
+<div class="flex gap-6">
+<span class="font-label-sm text-label-sm text-on-surface-variant">ISO 9001:2015</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">TUV Certified Factory</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple Gallery Micro-interaction
+        document.querySelectorAll('.product-gallery-thumb').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                document.querySelectorAll('.product-gallery-thumb').forEach(t => t.classList.remove('active', 'border-secondary'));
+                document.querySelectorAll('.product-gallery-thumb').forEach(t => t.classList.add('border-outline-variant'));
+                this.classList.add('active', 'border-secondary');
+                this.classList.remove('border-outline-variant');
+                
+                const mainImg = document.querySelector('section img');
+                const newSrc = this.querySelector('img').src;
+                mainImg.src = newSrc;
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_pages",
+  "info": {
+    "singularName": "about-page",
+    "pluralName": "about-pages",
+    "displayName": "About Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "heroTitleCn": { "type": "string" },
+    "heroTitleEn": { "type": "string" },
+    "heroBodyCn": { "type": "text" },
+    "heroBodyEn": { "type": "text" },
+    "introCn": { "type": "richtext" },
+    "introEn": { "type": "richtext" },
+    "teamImages": { "type": "media", "multiple": true, "allowedTypes": ["images"] },
+    "timeline": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.timeline-item"
+    },
+    "values": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.localized-block"
+    }
+  }
+}

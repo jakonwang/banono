@@ -1,0 +1,9 @@
+file:///D:/phpstudy_pro/WWW/banono/backend/server.js:345
+    const files = await Promise.all((await import('node:fs/promises')).readdir(uploadDir))
+                                ^
+
+TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))
+    at Function.all (<anonymous>)
+    at Server.<anonymous> (file:///D:/phpstudy_pro/WWW/banono/backend/server.js:345:33)
+
+Node.js v22.17.0

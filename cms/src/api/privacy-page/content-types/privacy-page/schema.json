@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "privacy_pages",
+  "info": {
+    "singularName": "privacy-page",
+    "pluralName": "privacy-pages",
+    "displayName": "Privacy Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "titleCn": { "type": "string" },
+    "titleEn": { "type": "string" },
+    "bodyCn": { "type": "richtext" },
+    "bodyEn": { "type": "richtext" },
+    "securityImage": { "type": "media", "multiple": false, "allowedTypes": ["images"] }
+  }
+}

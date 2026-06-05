@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_shared_localized_blocks",
+  "info": {
+    "displayName": "Localized Block"
+  },
+  "attributes": {
+    "titleCn": { "type": "string" },
+    "titleEn": { "type": "string" },
+    "bodyCn": { "type": "text" },
+    "bodyEn": { "type": "text" }
+  }
+}

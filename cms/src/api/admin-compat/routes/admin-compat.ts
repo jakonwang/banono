@@ -1,0 +1,32 @@
+export default {
+  routes: [
+    { method: 'POST', path: '/auth/login', handler: 'admin-compat.login', config: { auth: false } },
+    { method: 'POST', path: '/auth/logout', handler: 'admin-compat.logout', config: { auth: false } },
+    { method: 'GET', path: '/auth/me', handler: 'admin-compat.me', config: { auth: false } },
+    { method: 'GET', path: '/admin/site-model', handler: 'admin-compat.siteModel', config: { auth: false } },
+    { method: 'PUT', path: '/admin/site-model/:section', handler: 'admin-compat.updateSiteSection', config: { auth: false } },
+    { method: 'GET', path: '/product-categories', handler: 'admin-compat.categories', config: { auth: false } },
+    { method: 'POST', path: '/product-categories', handler: 'admin-compat.createCategory', config: { auth: false } },
+    { method: 'PUT', path: '/product-categories/:id', handler: 'admin-compat.updateCategory', config: { auth: false } },
+    { method: 'DELETE', path: '/product-categories/:id', handler: 'admin-compat.deleteCategory', config: { auth: false } },
+    { method: 'GET', path: '/products', handler: 'admin-compat.products', config: { auth: false } },
+    { method: 'POST', path: '/products', handler: 'admin-compat.createProduct', config: { auth: false } },
+    { method: 'PUT', path: '/products/:id', handler: 'admin-compat.updateProduct', config: { auth: false } },
+    { method: 'DELETE', path: '/products/:id', handler: 'admin-compat.deleteProduct', config: { auth: false } },
+    { method: 'GET', path: '/certificates', handler: 'admin-compat.certificates', config: { auth: false } },
+    { method: 'POST', path: '/certificates', handler: 'admin-compat.createCertificate', config: { auth: false } },
+    { method: 'PUT', path: '/certificates/:id', handler: 'admin-compat.updateCertificate', config: { auth: false } },
+    { method: 'DELETE', path: '/certificates/:id', handler: 'admin-compat.deleteCertificate', config: { auth: false } },
+    { method: 'GET', path: '/inquiries', handler: 'admin-compat.inquiries', config: { auth: false } },
+    { method: 'PUT', path: '/inquiries/:id', handler: 'admin-compat.updateInquiry', config: { auth: false } },
+    { method: 'GET', path: '/uploads', handler: 'admin-compat.uploads', config: { auth: false } },
+    { method: 'POST', path: '/uploads', handler: 'admin-compat.uploadAsset', config: { auth: false } },
+    { method: 'GET', path: '/users', handler: 'admin-compat.users', config: { auth: false } },
+    { method: 'POST', path: '/users', handler: 'admin-compat.createUser', config: { auth: false } },
+    { method: 'DELETE', path: '/users/:username', handler: 'admin-compat.deleteUser', config: { auth: false } },
+    { method: 'GET', path: '/audit-logs', handler: 'admin-compat.auditLogs', config: { auth: false } },
+    { method: 'GET', path: '/session-store', handler: 'admin-compat.sessions', config: { auth: false } },
+    { method: 'DELETE', path: '/session-store/:token', handler: 'admin-compat.deleteSession', config: { auth: false } },
+    { method: 'PUT', path: '/users/password', handler: 'admin-compat.changePassword', config: { auth: false } }
+  ]
+}

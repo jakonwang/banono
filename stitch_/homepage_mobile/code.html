@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Qiaotian Enterprise | Professional 3C Manufacturing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f7f9fb",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed-variant": "#003ea8",
+                        "tertiary-container": "#0b1c30",
+                        "secondary": "#0051d5",
+                        "on-secondary-fixed": "#00174b",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed": "#dbe1ff",
+                        "surface-container": "#eceef0",
+                        "secondary-container": "#316bf3",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "outline": "#76777d",
+                        "on-background": "#191c1e",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-tint": "#565e74",
+                        "surface-variant": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "surface-bright": "#f7f9fb",
+                        "outline-variant": "#c6c6cd",
+                        "on-tertiary-container": "#75859d",
+                        "tertiary-fixed": "#d3e4fe",
+                        "primary": "#000000",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#131b2e",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "background": "#f7f9fb",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-primary-container": "#7c839b",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#dae2fd",
+                        "on-surface-variant": "#45464d",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "on-secondary-container": "#fefcff",
+                        "inverse-primary": "#bec6e0",
+                        "primary-fixed-dim": "#bec6e0",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "40px",
+                        "gutter": "24px",
+                        "unit_base": "8px",
+                        "section_padding": "80px",
+                        "grid_columns": "12"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<h1 class="font-display-lg text-display-lg-mobile font-bold text-primary dark:text-inverse-on-surface tracking-tight">Qiaotian</h1>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant" id="menu-toggle">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Full Screen Hamburger Menu (Hidden by default) -->
+<div class="fixed inset-0 z-[60] bg-surface translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu">
+<div class="flex flex-col h-full p-8">
+<div class="flex justify-between items-center mb-12">
+<span class="font-display-lg text-display-lg-mobile font-bold text-primary">Qiaotian</span>
+<button class="p-2" id="menu-close">
+<span class="material-symbols-outlined text-3xl">close</span>
+</button>
+</div>
+<nav class="flex flex-col gap-6">
+<a class="font-headline-sm text-headline-sm text-secondary font-bold" href="#">Home</a>
+<a class="font-headline-sm text-headline-sm text-on-surface-variant" href="#">Product Center</a>
+<a class="font-headline-sm text-headline-sm text-on-surface-variant" href="#">Factory Strength</a>
+<a class="font-headline-sm text-headline-sm text-on-surface-variant" href="#">About Us</a>
+<a class="font-headline-sm text-headline-sm text-on-surface-variant" href="#">Contact</a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant">Language Selection</span>
+<div class="flex gap-4 font-label-md text-label-md">
+<span class="text-secondary font-bold">EN</span>
+<span class="text-outline">/</span>
+<span class="text-on-surface-variant">CN</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="pt-[72px] pb-24">
+<!-- Compact Hero Section -->
+<section class="relative w-full h-[530px] flex flex-col justify-end">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover grayscale-[20%]" data-alt="A high-tech industrial manufacturing facility showing automated robotic arms assembling 3C electronics with precision. The scene is lit with professional, cool-toned industrial lighting, emphasizing a clean and advanced atmosphere. The background features a blurred floor of a modern factory with steel and glass elements, creating a sense of professional scale and manufacturing excellence in a corporate-modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPfulzUgOf69GpfOKjvXjJ2OfhfoS-NXq7TaQ1rg9n_iE7DV_i3FCWmmxJsPnTHjOwCA4Uvaama5KNBcw5fIm89bgNarTQRB-EVvRsOsb5Ib9lobOva4cYrq_MexMRbpVPVb8eDuGxVIx-2y63aPkp-3IGeTOLYPefXJiH5hGylIVbPRs4TAgaKMWXJrrjHypwqux38ucEPks3r-pPtUh-xgclT-JoZBF-ILhJ3Kc3LrTH6BGU9qV2n8oINNBXz_BOWrUg1HEZEHHc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+</div>
+<div class="relative z-10 p-6 space-y-6">
+<h2 class="font-display-lg text-display-lg-mobile text-white leading-tight">Professional 3C Manufacturing</h2>
+<div class="flex flex-col gap-3">
+<button class="w-full bg-secondary text-white py-4 font-label-md text-label-md rounded-lg shadow-lg active:opacity-80 transition-opacity">
+                        Products
+                    </button>
+<button class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white py-4 font-label-md text-label-md rounded-lg active:opacity-80 transition-opacity">
+                        Inquiry
+                    </button>
+</div>
+</div>
+</section>
+<!-- Vertical scroll of categories -->
+<section class="py-12 px-6">
+<h3 class="font-headline-sm text-headline-sm mb-6 border-l-4 border-secondary pl-4">Product Categories</h3>
+<div class="flex flex-col gap-4">
+<!-- Category Card 1 -->
+<div class="group relative h-48 w-full bg-surface-container overflow-hidden rounded-xl border border-outline-variant">
+<img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="Close-up shot of high-quality premium nylon braided USB-C cables and aluminum adapters arranged neatly on a clean gray surface. The lighting is crisp and detailed, showcasing the texture of the materials and the precision of the manufacturing. The overall look is professional and commercial, highlighting technical excellence and product durability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmxIcpbQqSQxO4nc_N1pw0s1Fb4tTqm2_hubx1aCXX0fVtp7rsM9Th3xhiPOzll9-70SeI5sU6pBYFdVEtw5STRGW70OVZY4kUYslRIw8v8NQIeTOhjcUI2xg2EgzrgFHH1w79diFgJ7gW-BueXQ2_l-egHMHDpMQc6nHKSPNl-02JXUu23uuqLP3yOTH2vGhxx-z4VCRi_WK5F4A5ufVm2HknTnXfIfau08-x4wJnZZ99xM1SHTX0qZxhE8G9hwj28NXdzwOzX7wE"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent flex items-center p-6">
+<div class="text-white">
+<p class="font-label-sm text-label-sm opacity-80 mb-1">Accessories</p>
+<h4 class="font-headline-sm text-headline-sm">Cables &amp; Adapters</h4>
+</div>
+</div>
+</div>
+<!-- Category Card 2 -->
+<div class="group relative h-48 w-full bg-surface-container overflow-hidden rounded-xl border border-outline-variant">
+<img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="Modern high-wattage GaN wall chargers and power banks displayed in a minimalist tech setup. The industrial design features clean lines and matte finishes. Professional product photography with soft shadows and balanced lighting on a white-to-gray gradient background, communicating energy efficiency and advanced electronic design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCYo-E8tp8xymVA2hSCWJAuKTkqr_Oq4lDlgOYV7NsHkJCceyoLwTwWtpg3VVy0FdM_kw3I45GP0tr84ODjjbZI03rQC7coplAd-Ts7MHEVuziKBZYvDPKCoKVyFbZZvqkj0Job1CjZ816tj0mHfutjZQt05nJXJ8p09xDnrY2SXLxGNxKyI0aAqSJLlyzIDOCo52rotAQFwsLu6w_kezQuLW5WXpBEDUUztikb9EgAuOykQzZm_QeHYp5G4TH5Q6dGCZzNVJBjHz6"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent flex items-center p-6">
+<div class="text-white">
+<p class="font-label-sm text-label-sm opacity-80 mb-1">Power Solutions</p>
+<h4 class="font-headline-sm text-headline-sm">Charging Systems</h4>
+</div>
+</div>
+</div>
+<!-- Category Card 3 -->
+<div class="group relative h-48 w-full bg-surface-container overflow-hidden rounded-xl border border-outline-variant">
+<img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="An array of professional wireless headphones and audio components on a clean workbench. Detailed macro shot focusing on the metallic hinges and premium ear-cushion materials. The lighting is dramatic yet controlled, suggesting high-fidelity performance and rigorous quality control in a modern factory setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjpn90Gfl3ZHENJ11ckC6Owq439bZiKayyjGGUCY4AuvUk8LE_C-B97maoQ5SKhIRsKqG7dWE6l_MacwdQ_fMlvmaP6RXDz212xwSQdnQak_VWP6KD4ASL0fyijDNtnSw6Yv6FXVf7zMqUHTNO9wZBNnlwrzqz3wKiHxVm-UFNbhDjinh-Nv20gDZfJOFKgrtY-9zEOWYY3Kh9ZtKzkLF0wU3Uk06e1pQQFi6D4TfUucIww17SoCoLcbkdlFyx0PlT5-_laOBUOlzg"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent flex items-center p-6">
+<div class="text-white">
+<p class="font-label-sm text-label-sm opacity-80 mb-1">Audio Units</p>
+<h4 class="font-headline-sm text-headline-sm">Smart Peripherals</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Factory Strength Section -->
+<section class="py-12 bg-surface-container-high border-y border-outline-variant">
+<div class="px-6">
+<h3 class="font-headline-sm text-headline-sm mb-6 text-center">Factory Strength</h3>
+<div class="relative w-full aspect-video rounded-xl overflow-hidden mb-8 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A wide-angle professional shot of a massive, organized production floor inside a high-end electronic components factory. Rows of assembly lines, precision machinery, and staff in professional anti-static uniforms. Bright daylight-balanced lighting creates a clinical and efficient atmosphere, emphasizing massive scale and international standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfMch_oMochuitXuIMB3_LRshrhyeRrA7SENxK82Aa4nb5ViZDV0Ji-Pulk3Ej2juHu8XS2W5FkXPEU-zOc8Gl7nhR_B25P5MXnZ4He1wpG0H0x52jvK-BN5_YC5ZB4TyYSVrwu2m_v22Ak3Z5vsgGsYeBA5nftn15wvYu9gHV823uztQwNmVh13VOkDMJ97OyfTddVbBkHjMLdmJ-gtrjd5IdpZ3AUbNrM15JSQYOqqeOjFbJt9In3HWE8_4uHonIJcUmLgWQN09O"/>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-md text-label-md px-4 py-1 rounded-full">
+                        ISO 9001 Certified
+                    </div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface p-4 rounded-lg border border-outline-variant text-center">
+<p class="font-display-lg text-[28px] text-secondary font-bold">12k+</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Daily Output</p>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant text-center">
+<p class="font-display-lg text-[28px] text-secondary font-bold">50+</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">R&amp;D Patents</p>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant text-center">
+<p class="font-display-lg text-[28px] text-secondary font-bold">150</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Global Clients</p>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant text-center">
+<p class="font-display-lg text-[28px] text-secondary font-bold">Q4</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">QA Standards</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Certifications Wall -->
+<section class="py-12 px-6 overflow-hidden">
+<h3 class="font-label-md text-label-md text-outline mb-6 text-center uppercase tracking-widest">International Compliance</h3>
+<div class="flex justify-between items-center opacity-40 grayscale gap-8 no-scrollbar overflow-x-auto pb-4">
+<span class="material-symbols-outlined text-5xl">verified</span>
+<span class="material-symbols-outlined text-5xl">workspace_premium</span>
+<span class="material-symbols-outlined text-5xl">security</span>
+<span class="material-symbols-outlined text-5xl">policy</span>
+<span class="material-symbols-outlined text-5xl">award_star</span>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-tertiary-container py-12 px-6">
+<div class="max-w-7xl mx-auto space-y-8">
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-on-surface">Qiaotian</h2>
+<div class="flex flex-col gap-4">
+<a class="font-label-sm text-label-sm text-on-surface-variant" href="#">Product Catalog</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant" href="#">Certifications</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant" href="#">Terms of Service</a>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant pt-8 border-t border-outline-variant">
+                © 2024 Qiaotian Enterprise. All Rights Reserved. Professional 3C Accessories Manufacturing.
+            </p>
+</div>
+</footer>
+<!-- Bottom Sticky Action -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-surface/80 backdrop-blur-lg border-t border-outline-variant z-40">
+<div class="flex gap-4">
+<button class="flex-1 bg-secondary text-white font-label-md text-label-md py-4 rounded-lg flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl">mail</span>
+                Send Inquiry
+            </button>
+<button class="w-14 h-14 flex items-center justify-center bg-green-600 text-white rounded-lg shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">chat</span>
+</button>
+</div>
+</div>
+<script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        });
+
+        menuClose.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        });
+
+        // Close menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+</body></html>

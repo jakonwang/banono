@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_categories",
+  "info": {
+    "singularName": "product-category",
+    "pluralName": "product-categories",
+    "displayName": "Product Category"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nameCn": { "type": "string", "required": true },
+    "nameEn": { "type": "string", "required": true },
+    "descriptionCn": { "type": "text" },
+    "descriptionEn": { "type": "text" },
+    "sort": { "type": "integer", "default": 0 },
+    "status": { "type": "enumeration", "enum": ["enabled", "disabled"], "default": "enabled" },
+    "slug": { "type": "uid", "targetField": "nameEn", "required": true },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "category"
+    }
+  }
+}

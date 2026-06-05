@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "titleCn": { "type": "string", "required": true },
+    "titleEn": { "type": "string", "required": true },
+    "summaryCn": { "type": "text" },
+    "summaryEn": { "type": "text" },
+    "slug": { "type": "uid", "targetField": "titleEn", "required": true },
+    "tags": { "type": "json" },
+    "status": { "type": "enumeration", "enum": ["draft", "published"], "default": "published" },
+    "coverImage": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "gallery": { "type": "media", "multiple": true, "allowedTypes": ["images"] },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-category.product-category",
+      "inversedBy": "products"
+    },
+    "specifications": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.localized-point"
+    },
+    "sellingPoints": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.localized-point"
+    }
+  }
+}

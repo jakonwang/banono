@@ -1,0 +1,112 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Qiaotian</title>
+  <style>
+    :root { --bg:#f7f9fb; --line:#d8dadc; --text:#0f172a; --muted:#475569; --primary:#0051d5; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; padding:0; height:100%; background:var(--bg); color:var(--text); font-family:Inter,Arial,sans-serif; }
+    .app { height:100%; display:grid; grid-template-rows:56px 1fr; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 16px; border-bottom:1px solid var(--line); background:#fff; }
+    .brand { font-weight:700; white-space:nowrap; }
+    .links { display:flex; gap:12px; align-items:center; overflow:auto; white-space:nowrap; flex:1; }
+    .links a { color:var(--muted); text-decoration:none; padding:6px 8px; border-radius:4px; font-size:13px; font-weight:600; }
+    .links a.active { color:var(--primary); background:#edf3ff; }
+    .controls{display:flex;align-items:center;gap:10px;white-space:nowrap;}
+    .segmented{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#fff;}
+    .segmented button{border:0;padding:6px 10px;background:transparent;font-size:12px;color:var(--muted);cursor:pointer;}
+    .segmented button + button{border-left:1px solid var(--line);} .segmented button.active{color:#fff;background:var(--primary);font-weight:700;}
+    .hint { font-size:12px; color:var(--muted); }
+    .viewer { position:relative; height:100%; }
+    iframe { width:100%; height:100%; border:0; display:block; background:#fff; }
+    .loading,.error{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;font-size:14px;color:var(--muted);background:var(--bg);z-index:2;}
+    .hidden{display:none;} @media(max-width:900px){.brand,.hint{display:none;} .controls{gap:6px;} .segmented button{padding:5px 8px;}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">Qiaotian Stitch Viewer</div>
+      <nav class="links">
+        <a href="home.html">Home</a>
+        <a href="product-center.html">Product Center</a>
+        <a href="factory-strength.html">Factory Strength</a>
+        <a href="product-details.html">Product Details</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="about.html">About</a>
+        <a href="logo.html">Logo</a>
+        <a href="design-system.html">Design System</a>
+      </nav>
+      <div class="controls">
+        <div class="segmented" id="device-mode">
+          <button type="button" data-mode="auto" class="active">Auto</button>
+          <button type="button" data-mode="desktop">Desktop</button>
+          <button type="button" data-mode="mobile">Mobile</button>
+        </div>
+        <div class="hint" id="hint">Desktop</div>
+      </div>
+    </header>
+    <main class="viewer">
+      <div id="loading" class="loading">Loading page...</div>
+      <div id="error" class="error hidden">Page file not found.</div>
+      <iframe id="view" title="About Us"></iframe>
+    </main>
+  </div>
+  <script>
+    (function(){
+      var desktopFile = "stitch_/about_us_mobile/code.html";
+      var mobileFile = "stitch_/about_us_mobile/code.html";
+      var modeKey = "qiaotian_stitch_device_mode";
+      var mode = localStorage.getItem(modeKey) || "auto";
+      function useMobile(){ if(mode==="desktop") return false; if(mode==="mobile") return true; return window.matchMedia("(max-width:768px)").matches; }
+      function markActiveNav(){
+        var path = location.pathname.toLowerCase().split('/').pop();
+        var links = document.querySelectorAll('.links a');
+        for(var i=0;i<links.length;i++){
+          var linkPath = links[i].getAttribute('href').toLowerCase();
+          links[i].classList.toggle('active', linkPath===path);
+        }
+      }
+      function applyModeUI(){
+        var buttons=document.querySelectorAll('#device-mode button');
+        for(var i=0;i<buttons.length;i++) buttons[i].classList.toggle('active', buttons[i].getAttribute('data-mode')===mode);
+      }
+      function renderMarkdown(iframe,text){
+        var doc=iframe.contentWindow.document;
+        var safe=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        doc.open();
+        doc.write("<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><style>body{font-family:Inter,Arial,sans-serif;background:#fff;color:#0f172a;padding:24px;line-height:1.6}pre{white-space:pre-wrap;word-break:break-word;background:#f8fafc;border:1px solid #e2e8f0;padding:16px;border-radius:6px}</style></head><body><pre>"+safe+"</pre></body></html>");
+        doc.close();
+      }
+      function render(){
+        var iframe=document.getElementById('view');
+        var loading=document.getElementById('loading');
+        var error=document.getElementById('error');
+        var hint=document.getElementById('hint');
+        var file=useMobile()?mobileFile:desktopFile;
+        markActiveNav(); applyModeUI();
+        hint.textContent=(useMobile()?"Mobile":"Desktop") + (mode==="auto"?" (Auto)":" (Forced)");
+        loading.classList.remove('hidden'); error.classList.add('hidden');
+        if(file.toLowerCase().endsWith('.md')){
+          iframe.src='about:blank';
+          fetch(file).then(function(r){return r.ok?r.text():Promise.reject(new Error('load fail'));}).then(function(text){ renderMarkdown(iframe,text); loading.classList.add('hidden'); }).catch(function(){ loading.classList.add('hidden'); error.classList.remove('hidden'); error.textContent='Unable to load source file.'; });
+        }else{
+          iframe.src=file;
+        }
+      }
+      document.getElementById('device-mode').addEventListener('click',function(e){
+        var m=e.target && e.target.getAttribute('data-mode'); if(!m) return;
+        mode=m; localStorage.setItem(modeKey,mode); render();
+      });
+      document.getElementById('view').addEventListener('load',function(){ document.getElementById('loading').classList.add('hidden'); });
+      document.getElementById('view').addEventListener('error',function(){ document.getElementById('loading').classList.add('hidden'); document.getElementById('error').classList.remove('hidden'); });
+      window.addEventListener('resize',function(){ clearTimeout(window.__rt); window.__rt=setTimeout(render,120); });
+      render();
+    })();
++  </script>
++</body>
++</html>
+

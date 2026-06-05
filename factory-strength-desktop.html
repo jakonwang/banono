@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .industrial-grid {
+            background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f7f9fb",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed-variant": "#003ea8",
+                        "tertiary-container": "#0b1c30",
+                        "secondary": "#0051d5",
+                        "on-secondary-fixed": "#00174b",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed": "#dbe1ff",
+                        "surface-container": "#eceef0",
+                        "secondary-container": "#316bf3",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "outline": "#76777d",
+                        "on-background": "#191c1e",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-tint": "#565e74",
+                        "surface-variant": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "surface-bright": "#f7f9fb",
+                        "outline-variant": "#c6c6cd",
+                        "on-tertiary-container": "#75859d",
+                        "tertiary-fixed": "#d3e4fe",
+                        "primary": "#000000",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#131b2e",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "background": "#f7f9fb",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-primary-container": "#7c839b",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#dae2fd",
+                        "on-surface-variant": "#45464d",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "on-secondary-container": "#fefcff",
+                        "inverse-primary": "#bec6e0",
+                        "primary-fixed-dim": "#bec6e0",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "40px",
+                        "gutter": "24px",
+                        "unit_base": "8px",
+                        "section_padding": "80px",
+                        "grid_columns": "12"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary-fixed">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin py-4 max-w-7xl mx-auto">
+<div class="font-display-lg text-display-lg font-bold text-primary dark:text-inverse-on-surface">Qiaotian Enterprise</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md" href="home-desktop.html">Home</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md" href="product-center-desktop.html">Product Center</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-label-md text-label-md" href="factory-strength-desktop.html">Factory Strength</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md" href="about-mobile.html">About Us</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md" href="contact-desktop.html">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex bg-surface-container rounded px-3 py-1 items-center border border-outline-variant">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md w-32" placeholder="Search..." type="text"/>
+</div>
+<button class="font-label-md text-label-md text-secondary">EN/CN</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative bg-primary-container h-[614px] flex items-center overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover opacity-40 grayscale-[20%]" data-alt="A high-tech industrial manufacturing floor featuring automated robotic arms and precision assembly lines for electronics. The setting is clean and modern with bright cool-toned overhead lighting, creating a professional and efficient atmosphere. The color palette consists of deep slate grays, metallic silvers, and subtle blue accents, aligning with an industrial-professional aesthetic. The mood is powerful, organized, and technologically advanced." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyw8ckMgtr-cXEjwm83X9vxGIipc5CWdeAE_qwVatO9iM3tksu1FUuFc2F_zRQK1xvitHbd6WsnJnpdIZ30GZsQOtHGWjFq1f5T5IhJjJOD2gKdxY9gS78CYjGypKVybzwXh9F51gk0YnAqFzVDwWJfIUp4MGctToTndlSbm2Pt7iLbQffWCanMXj-ZKHVPvONJ2f9i6diVXgRMGAyMZeB7VqrMyBzLk1GTp4khf8bbjFpaboWE-W_em9vepiyvQWq0Z-JaVAKG0zM"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary-container via-primary-container/80 to-transparent"></div>
+<div class="relative w-full px-margin max-w-7xl mx-auto">
+<div class="max-w-2xl">
+<span class="bg-secondary text-on-secondary px-3 py-1 font-label-sm text-label-sm uppercase tracking-widest rounded-sm mb-6 inline-block">Professional Manufacturing</span>
+<h1 class="font-display-lg text-display-lg text-on-secondary mb-6 leading-tight">The Core of Our Quality: Advanced Manufacturing</h1>
+<p class="font-body-lg text-body-lg text-on-primary-container mb-8">Empowering global 3C brands with industrial precision, scalable output, and rigorous quality control at every stage of production.</p>
+<div class="flex gap-4">
+<button class="bg-secondary text-on-secondary px-8 py-4 font-label-md text-label-md rounded-lg shadow-lg hover:bg-on-secondary-fixed-variant transition-all">Schedule a Virtual Factory Tour</button>
+<button class="border border-on-secondary text-on-secondary px-8 py-4 font-label-md text-label-md rounded-lg hover:bg-on-secondary/10 transition-all">Download Catalog</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Capability Stats -->
+<section class="bg-surface-container-lowest py-16">
+<div class="max-w-7xl mx-auto px-margin grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="flex flex-col items-center text-center p-8 border-r border-outline-variant last:border-0">
+<span class="font-display-lg text-display-lg text-secondary mb-2">5000sqm</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Factory Area</span>
+</div>
+<div class="flex flex-col items-center text-center p-8 border-r border-outline-variant last:border-0">
+<span class="font-display-lg text-display-lg text-secondary mb-2">20+</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Production Lines</span>
+</div>
+<div class="flex flex-col items-center text-center p-8">
+<span class="font-display-lg text-display-lg text-secondary mb-2">50k+</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Daily Output Units</span>
+</div>
+</div>
+</section>
+<!-- Factory Tour Gallery - Bento Grid -->
+<section class="py-section_padding bg-surface">
+<div class="max-w-7xl mx-auto px-margin">
+<div class="mb-12">
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Our World-Class Facilities</h2>
+<div class="w-20 h-1 bg-secondary"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter h-auto md:h-[800px]">
+<!-- Production Lines -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-xl border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A wide-angle view of a vast, modern electronic production line inside a clean-room facility. Workers in professional blue anti-static uniforms are operating advanced surface-mount technology (SMT) machines. The scene is illuminated by neutral, bright lighting, emphasizing precision and industrial scale. The overall style is clean, corporate, and highly organized with a focus on manufacturing excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOFukchFxF9JLnY3szbIopob2HIYXhIjPWyw3QysH8TyHAhGc9A3vbn07xSttBiDWnjA5VhtazLkEJ6uvP2l_cYUt71XnQexrlibLDXShxC37x9mtaYb_It5d19sKIS3oxy6cV6eUm-HzobqmsIjt-OwBIchROKmHgcXxOloEtGtC9CRJPrzO_OeeP93RKsvxqbxmX9Gqy7dwTCUMbR0ZWh3xAG9Uw_fWK5a3pv93BOcN5gINohIOWyDMHC_LxsWx3ughnM2e8ZE0n"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+<h3 class="text-white font-headline-sm text-headline-sm">Production Lines</h3>
+<p class="text-white/80 font-body-md text-body-md mt-2">Equipped with 20+ high-speed SMT lines for rapid component assembly.</p>
+</div>
+</div>
+<!-- R&D Labs -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-xl border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sophisticated electronics research and development laboratory with high-end testing equipment like oscilloscopes and microscopic inspection tools. The environment is sterile and professional, featuring white surfaces and bright led lighting. The visual style is modern industrial with a focus on technical innovation and reliability, dominated by soft blues and metallic tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAJFmFiheaCkqMtkGLq0l5cxcAP0beCXJnoSJ7AGkCeWlbPEWrOoyfCET3qzEXUquRs0n1T7bFR-nmyN60z7qjjwi1v08M3LFqwkzNwVYMEBqwlY0xt-nxb3DKmmuRpAuudtwex00u20h_m4jJsKgmZjW7bMdX3FcCdpKVYfo1-omdlB-d1F1SHVWnFo1bGfGMHw4P7OC2myyubsAkMS8F0XdaTVH_DSBxxqQ_atrdN4m9KeHYLBzAqKLxAEl_i17esjh8rfXnoqqz"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+<h3 class="text-white font-headline-sm text-headline-sm">R&amp;D Labs</h3>
+<p class="text-white/80 font-body-md text-body-md mt-2">Where innovation meets engineering for custom 3C solutions.</p>
+</div>
+</div>
+<!-- Quality Control -->
+<div class="md:col-span-5 group relative overflow-hidden rounded-xl border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A technician performing rigorous quality control inspections on a series of smartphone accessories using automated optical inspection machinery. The setting is a brightly lit, high-tech manufacturing environment. The color palette is professional, focusing on silver, white, and subtle corporate blue, emphasizing transparency and manufacturing precision. The mood is one of intense focus and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTA2sc7nGiQtNTohRvDxRPjVmi4TTzE7s5JvODrIvQ8Yql6jbalVwfS4G2rIdJ_iJSwhm87viLUNGtj29UQJ88-IDKyHcIs1fF8jvCbRM4KdtdNiFmqxY0Abf8jWn1-wyqdRaamqlpUB69WWdICU4i58gg4E1s8J-YfebuZkS0eOqeXOrsfGBMqRWI19QCPfbd7hQQG80HYyLj-ktGeZ1UVE-nZic4L4gXHaxAH9VPhrvydV-tldkV0nzvylAJWdrHYJYKA_T2-hld"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+<h3 class="text-white font-headline-sm text-headline-sm">QC Centers</h3>
+<p class="text-white/80 font-body-md text-body-md mt-2">Multi-stage testing protocols ensuring 0% defect rates.</p>
+</div>
+</div>
+<!-- Warehouse -->
+<div class="md:col-span-7 group relative overflow-hidden rounded-xl border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A massive, highly organized industrial warehouse with tall racking systems and professional inventory management technology. The space is illuminated by bright, high-ceiling warehouse lighting, showcasing a clean and efficient logistics operation. The color theme is neutral with industrial grays and whites, signifying scale and operational efficiency for global exports. The mood is professional and logistical." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuUcVE4Q8XY64VBpYUXLWOFZSIxbY7XC_3pecBebJJqIY2hVABgn15FLsFWWGQW078YM4RgCGUc5u-SuAkT8aH7rUwadOf70AjlFtpeSTDc_BIWrKtE5F7TVu5WYe3uJZG4s_jWZkQQtuespi_Y2pXX0lNfk4d3PmsHoSpKxrN__WwM5coyQoLNsSf7x-Ttjcj8b44o40SCqwpp6OTi4oXEXuysf6vbv_sXjbUxgbYEb06dE-VC_8eA7y30c7pUaYBbk7SMs1OlVl_"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+<h3 class="text-white font-headline-sm text-headline-sm">Global Warehouse</h3>
+<p class="text-white/80 font-body-md text-body-md mt-2">Smart logistics handling 50k+ daily shipments worldwide.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quality Control Section -->
+<section class="py-section_padding industrial-grid bg-white border-y border-outline-variant">
+<div class="max-w-7xl mx-auto px-margin">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<h2 class="font-headline-md text-headline-md text-primary mb-4">Uncompromising Quality Assurance</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Our 3-step inspection process is the cornerstone of our manufacturing excellence, ensuring every product meets international standards.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Step 1 -->
+<div class="relative bg-surface p-10 rounded-xl border border-outline-variant shadow-sm">
+<div class="absolute -top-6 left-10 bg-secondary text-on-secondary w-12 h-12 flex items-center justify-center font-bold text-xl rounded-lg">01</div>
+<div class="mb-6 mt-4">
+<span class="material-symbols-outlined text-secondary text-[48px]">magnification_small</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-4">IQC: Incoming Materials</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Raw material screening for purity and compliance with global environmental standards like RoHS and REACH before production begins.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative bg-surface p-10 rounded-xl border border-outline-variant shadow-sm">
+<div class="absolute -top-6 left-10 bg-secondary text-on-secondary w-12 h-12 flex items-center justify-center font-bold text-xl rounded-lg">02</div>
+<div class="mb-6 mt-4">
+<span class="material-symbols-outlined text-secondary text-[48px]">precision_manufacturing</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-4">IPQC: In-Process Control</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Continuous monitoring of the production line with real-time automated optical inspection (AOI) to detect and correct deviations instantly.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative bg-surface p-10 rounded-xl border border-outline-variant shadow-sm">
+<div class="absolute -top-6 left-10 bg-secondary text-on-secondary w-12 h-12 flex items-center justify-center font-bold text-xl rounded-lg">03</div>
+<div class="mb-6 mt-4">
+<span class="material-symbols-outlined text-secondary text-[48px]">verified</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-4">OQC: Final Inspection</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Random sampling and functional stress testing of finished goods ensuring perfect performance and packaging integrity before export.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Certificate Wall -->
+<section class="py-section_padding bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-margin text-center">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-12 uppercase tracking-widest">Global Certifications &amp; Compliance</h2>
+<div class="flex flex-wrap justify-center items-center gap-16 grayscale opacity-60 hover:opacity-100 transition-opacity">
+<div class="flex flex-col items-center gap-2 hover:grayscale-0 transition-all cursor-pointer">
+<img alt="ISO Logo" class="h-20 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0Q_yNMZbEBdjOQIj1euWmDWiDfwUfF8mDi-xB-Ph0Y1UjSJbPfHivGQU0L_OHarOqgRRVahx6Dvzh1PyvpaNuyBBqpignGmOzxTNnuq6vHOvPIdDT3od2HDEhCWHqc5PVycnSfzBM-bSXYB0vqae6vaG-bUWbqR9b0fNMothmQ7EW9CoOlOqLW8vVKAiYAaQFC2uW1SXH4UC2pB88hyikpGc8df-Mg56M_7PXyXy8H2o3-5ta9uoHjXdJHbav_VEc1dEXG6mPO5CM"/>
+<span class="font-label-sm text-label-sm">ISO 9001:2015</span>
+</div>
+<div class="flex flex-col items-center gap-2 hover:grayscale-0 transition-all cursor-pointer">
+<img alt="CE Logo" class="h-20 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArA4SreQwWsMxsBdGmUoVva2hIIzqcZJDHZrOWf5j2nqvnynUZVW8ZndyFGW9Pl3ikTSyxsHzrGV8ImX4QdcjFxNE9cv5ByN938li8kB8DaXKhsNvUJXkfEkEWCnoOUhWWKodZlkDoVVoZWKhzaX43wj9w3u-KsH4StBPoiAArxo9D1ni464kLSm4PjeR82nh5CSkLvXzFnY2stFm0i4TSllqcCDltW8xrlOnbWhfLy336GybjRc9c7AJ70Y57520FcQDPuKte0DRO"/>
+<span class="font-label-sm text-label-sm">CE Certified</span>
+</div>
+<div class="flex flex-col items-center gap-2 hover:grayscale-0 transition-all cursor-pointer">
+<img alt="FCC Logo" class="h-20 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1jSNcUbLt8Jji3rxjaj4zqD2dE84QveOOWnrZGxApw8vPNHYcFekuhev_7mP-CeZ_J2MMLAc4pafw21SmQLi_9E_epxlFC_VZ4Su588rPj5Pg5EzLtPC4KetLntZAl7m4o2h0VBug74UTii38feLlioajTrugSdaKhOYbFBt0lSPLGsOT32Toojnp63EtET1cQvhniqc3LfCL71YVKrRUZFp3f_qbqOp-2_Y-eVQRt0V6UvL0ECQAUapRg3HaoTcUFXpxsZqc3Tlf"/>
+<span class="font-label-sm text-label-sm">FCC Compliant</span>
+</div>
+<div class="flex flex-col items-center gap-2 hover:grayscale-0 transition-all cursor-pointer">
+<img alt="RoHS Logo" class="h-20 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfbDLpI8SXX9vprf_xhdLD54aN-dw7O3SCEjREgwAq02aiPRot1dbbGTIrt53rWXjYNChPHAJoYve47mkhkA6gVunOJM5b0Sgdz00FxN2JCbcLws9I1Rm5Eenn10hAwqIkI-moqKv4nLKPwlvqLbZtGfB4mgO7gbWoywCS_Bf8XTaMIrB4ZqaaGRfWJNZV7SxN1h8rlSguHGd47bhYC127SoLa9nW2Kw5PZmTwnmoJHgcgiXBv6XO7OBusXvjW53r7LE6DmukE-0Iz"/>
+<span class="font-label-sm text-label-sm">RoHS Standards</span>
+</div>
+<div class="flex flex-col items-center gap-2 hover:grayscale-0 transition-all cursor-pointer">
+<img alt="UL Logo" class="h-20 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa8Eza1oNIg8Jag59QnK80bS2Ux-5J9FLPASgll88TdLceyUATmCkx3lrDDVPhZ1aUUY2dcuF09LnWo0rJ-xEU3dKcgcXOeqX6F2-2QRhaOOKcQylasyxmPfTARzYkbep48mJ46Apf_pAzeTVdnAsTsxBW_ZlUdkg-vTLYNj_naaRJxuB3JII2h8l2yw6QysTXS2soKq3f4KT5m7fXR_NhCGnzRiMt-tFUhIR1HUKT2Vf3SWTeB65sl6fW8aB8GT69H1oPq1vk-_qs"/>
+<span class="font-label-sm text-label-sm">UL Safety</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="bg-primary py-24 relative overflow-hidden">
+<div class="absolute inset-0 opacity-10">
+<div class="absolute top-0 right-0 w-96 h-96 bg-secondary rounded-full blur-[100px] -mr-48 -mt-48"></div>
+<div class="absolute bottom-0 left-0 w-96 h-96 bg-on-secondary-fixed-variant rounded-full blur-[100px] -ml-48 -mb-48"></div>
+</div>
+<div class="max-w-4xl mx-auto px-margin text-center relative z-10">
+<h2 class="font-display-lg text-display-lg text-white mb-6">Experience Excellence Firsthand</h2>
+<p class="font-body-lg text-body-lg text-white/70 mb-10">Can't visit us in person? Take a deep dive into our manufacturing processes with a live-guided virtual tour of our facilities.</p>
+<button class="bg-secondary text-white px-12 py-5 rounded-lg font-headline-sm text-headline-sm shadow-xl hover:scale-105 transition-transform duration-300">
+                Schedule a Virtual Factory Tour
+            </button>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-tertiary-container border-t border-outline-variant">
+<div class="grid grid-cols-12 gap-gutter px-margin py-section_padding w-full max-w-7xl mx-auto">
+<div class="col-span-12 md:col-span-4">
+<div class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-on-surface mb-6">Qiaotian Enterprise</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mb-8">Your trusted partner for professional 3C accessories manufacturing and global distribution.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 flex items-center justify-center bg-surface-container-high rounded-full hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="w-10 h-10 flex items-center justify-center bg-surface-container-high rounded-full hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
+<a class="w-10 h-10 flex items-center justify-center bg-surface-container-high rounded-full hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined">call</span></a>
+</div>
+</div>
+<div class="col-span-6 md:col-span-2">
+<h5 class="font-label-md text-label-md font-bold mb-6">Solutions</h5>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">Product Catalog</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">OEM/ODM Services</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">Manufacturing</a></li>
+</ul>
+</div>
+<div class="col-span-6 md:col-span-2">
+<h5 class="font-label-md text-label-md font-bold mb-6">Resources</h5>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">Certifications</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">Case Studies</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">FAQs</a></li>
+</ul>
+</div>
+<div class="col-span-12 md:col-span-4">
+<h5 class="font-label-md text-label-md font-bold mb-6">Stay Informed</h5>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Get the latest manufacturing insights and product updates.</p>
+<div class="flex">
+<input class="bg-surface rounded-l-lg border-outline-variant focus:ring-secondary w-full" placeholder="Email address" type="email"/>
+<button class="bg-primary text-white px-4 py-2 rounded-r-lg hover:bg-on-primary-fixed transition-colors">Join</button>
+</div>
+</div>
+<div class="col-span-12 border-t border-outline-variant pt-8 mt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Qiaotian Enterprise. All Rights Reserved. Professional 3C Accessories Manufacturing.</p>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm" href="privacy-desktop.html">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm" href="privacy-desktop.html">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll reveal effect for statistics
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+
+        // Initialize immediate load for hero
+        window.addEventListener('load', () => {
+            const hero = document.querySelector('header');
+            hero.classList.remove('opacity-0', 'translate-y-10');
+            hero.classList.add('opacity-100', 'translate-y-0');
+        });
+    </script>
+</body></html>

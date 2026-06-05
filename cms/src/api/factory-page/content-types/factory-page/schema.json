@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "factory_pages",
+  "info": {
+    "singularName": "factory-page",
+    "pluralName": "factory-pages",
+    "displayName": "Factory Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "heroTitleCn": { "type": "string" },
+    "heroTitleEn": { "type": "string" },
+    "heroBodyCn": { "type": "text" },
+    "heroBodyEn": { "type": "text" },
+    "gallery": { "type": "media", "multiple": true, "allowedTypes": ["images"] },
+    "capabilities": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.localized-point"
+    },
+    "qualityPoints": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.localized-point"
+    }
+  }
+}

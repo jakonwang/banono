@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "global_settings",
+  "info": {
+    "singularName": "global-setting",
+    "pluralName": "global-settings",
+    "displayName": "Global Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "brandCn": { "type": "string" },
+    "brandEn": { "type": "string" },
+    "phone": { "type": "string" },
+    "email": { "type": "string" },
+    "addressCn": { "type": "text" },
+    "addressEn": { "type": "text" },
+    "seoTitle": { "type": "string" },
+    "seoDescription": { "type": "text" },
+    "navItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.nav-item"
+    }
+  }
+}
