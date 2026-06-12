@@ -43,6 +43,56 @@ const ensureUploadPluginStore = async (strapi: Core.Strapi) => {
       sort: 'createdAt:DESC'
     }
   })
+
+  const uploadPlugin = strapi.plugin('upload')
+  const uploadService = uploadPlugin?.service('upload') as
+    | {
+        getSettings?: () => Promise<Record<string, unknown> | null>
+        setSettings?: (value: Record<string, unknown>) => Promise<void>
+        getConfiguration?: () => Promise<Record<string, unknown> | null>
+        setConfiguration?: (value: Record<string, unknown>) => Promise<void>
+      }
+    | undefined
+
+  const expectedSettings = {
+    sizeOptimization: true,
+    responsiveDimensions: true,
+    autoOrientation: false,
+    aiMetadata: true
+  }
+
+  const expectedConfiguration = {
+    pageSize: 24,
+    sort: 'createdAt:DESC'
+  }
+
+  if (uploadService?.getSettings && uploadService?.setSettings) {
+    const currentSettings = (await uploadService.getSettings()) || {}
+    const missingSettings = Object.keys(expectedSettings).filter(
+      (key) => !Object.prototype.hasOwnProperty.call(currentSettings, key)
+    )
+
+    if (missingSettings.length > 0) {
+      await uploadService.setSettings({ ...expectedSettings, ...currentSettings })
+      strapi.log.info(
+        `[self-heal] patched upload service settings: ${missingSettings.join(', ')}`
+      )
+    }
+  }
+
+  if (uploadService?.getConfiguration && uploadService?.setConfiguration) {
+    const currentConfiguration = (await uploadService.getConfiguration()) || {}
+    const missingConfiguration = Object.keys(expectedConfiguration).filter(
+      (key) => !Object.prototype.hasOwnProperty.call(currentConfiguration, key)
+    )
+
+    if (missingConfiguration.length > 0) {
+      await uploadService.setConfiguration({ ...expectedConfiguration, ...currentConfiguration })
+      strapi.log.info(
+        `[self-heal] patched upload service configuration: ${missingConfiguration.join(', ')}`
+      )
+    }
+  }
 }
 
 export const runBootstrapSelfHeal = async (strapi: Core.Strapi) => {
