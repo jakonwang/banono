@@ -1173,9 +1173,10 @@ function bindInquiryForm() {
         feedback.className = 'form-feedback is-success'
       }
       nextForm.reset()
-    } catch {
+    } catch (error) {
       if (feedback) {
-        feedback.textContent = t().formError
+        const message = error instanceof Error && error.message ? error.message : t().formError
+        feedback.textContent = `${t().formError} ${message}`
         feedback.className = 'form-feedback is-error'
       }
     } finally {

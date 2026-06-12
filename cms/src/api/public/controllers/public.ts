@@ -123,18 +123,23 @@ export default {
       return ctx.badRequest('name, email and message are required')
     }
 
-    const created = await (strapi.documents('api::inquiry.inquiry') as any).create({
-      data: {
-        name: payload.name,
-        company: payload.company || '',
-        email: payload.email,
-        phone: payload.phone || '',
-        message: payload.message,
-        status: 'new',
-        notes: ''
-      }
-    })
+    try {
+      const created = await (strapi.documents('api::inquiry.inquiry') as any).create({
+        data: {
+          name: payload.name,
+          company: payload.company || '',
+          email: payload.email,
+          phone: payload.phone || '',
+          message: payload.message,
+          status: 'new',
+          notes: ''
+        }
+      })
 
-    ctx.body = { ok: true, id: created.documentId || created.id }
+      ctx.body = { ok: true, id: created.documentId || created.id }
+    } catch (error) {
+      strapi.log.error('Failed to create inquiry', error)
+      ctx.internalServerError('Failed to create inquiry')
+    }
   }
 }

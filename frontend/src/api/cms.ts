@@ -48,8 +48,29 @@ export async function loadSiteFromCms() {
 export async function submitInquiryToCms(payload: InquiryPayload) {
   const response = await fetch(`${cmsBase}/api/public/inquiry`, {
     method: 'POST',
+    cache: 'no-store',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   })
-  if (!response.ok) throw new Error('Failed to submit inquiry')
+  if (!response.ok) {
+    const contentType = response.headers.get('content-type') || ''
+    let detail = ''
+
+    try {
+      if (contentType.includes('application/json')) {
+        const data = await response.json()
+        detail =
+          data?.error?.message ||
+          data?.message ||
+          data?.data?.message ||
+          JSON.stringify(data)
+      } else {
+        detail = (await response.text()).trim()
+      }
+    } catch {
+      detail = ''
+    }
+
+    throw new Error(detail || `Failed to submit inquiry (${response.status})`)
+  }
 }
