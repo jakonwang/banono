@@ -23,7 +23,7 @@ export type ProductCategory = {
   name: Localized
   description?: Localized
   sort?: number
-  status?: 'enabled' | 'disabled'
+  availability?: 'enabled' | 'disabled'
 }
 
 export type Product = {

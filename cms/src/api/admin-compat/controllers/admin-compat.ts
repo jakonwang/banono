@@ -10,7 +10,7 @@ type AdminCategoryPayload = {
   name?: LocalizedValue
   description?: LocalizedValue
   sort?: number
-  status?: 'enabled' | 'disabled'
+  availability?: 'enabled' | 'disabled'
   slug?: string
 }
 
@@ -155,7 +155,7 @@ const mapCategory = (item: any) => ({
   name: localized(item.nameCn || '', item.nameEn || ''),
   description: localized(item.descriptionCn || '', item.descriptionEn || ''),
   sort: item.sort || 0,
-  status: normalizeCategoryStatus(item.status),
+  availability: normalizeCategoryStatus(item.availability),
   slug: item.slug || ''
 })
 
@@ -197,7 +197,7 @@ const categoryInputFromPayload = (payload: AdminCategoryPayload) => ({
   descriptionCn: firstString(payload.description?.cn),
   descriptionEn: firstString(payload.description?.en),
   sort: typeof payload.sort === 'number' ? payload.sort : 0,
-  status: normalizeCategoryStatus(payload.status),
+  availability: normalizeCategoryStatus(payload.availability),
   slug: firstString(payload.slug, payload.name?.en, payload.name?.cn, `category-${Date.now()}`)
 })
 

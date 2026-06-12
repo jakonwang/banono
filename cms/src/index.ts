@@ -123,10 +123,10 @@ export default {
     if (!existingCategories.length) {
       for (const item of seedData.categories) {
         await strapi.documents('api::product-category.product-category').create({
-          data: {
-            ...item,
-            status: item.status as 'enabled' | 'disabled'
-          }
+            data: {
+              ...item,
+              availability: item.availability as 'enabled' | 'disabled'
+            }
         })
       }
     } else {
@@ -137,10 +137,10 @@ export default {
             await strapi.documents('api::product-category.product-category').update({
               documentId: existing.documentId,
               status: 'draft',
-              data: {
-                ...item,
-                status: item.status as 'enabled' | 'disabled'
-              }
+                data: {
+                  ...item,
+                  availability: item.availability as 'enabled' | 'disabled'
+                }
             })
           }
         }

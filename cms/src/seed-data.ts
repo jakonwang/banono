@@ -4,7 +4,7 @@ type CategorySeed = {
   descriptionCn: string
   descriptionEn: string
   sort: number
-  status: 'enabled' | 'disabled'
+  availability: 'enabled' | 'disabled'
   slug: string
 }
 
@@ -202,7 +202,7 @@ export const seedData = {
       descriptionCn: '适用于手机和平板的保护膜产品方案。',
       descriptionEn: 'Protective film solutions for phones and tablets.',
       sort: 1,
-      status: 'enabled',
+      availability: 'enabled',
       slug: 'screen-protection'
     },
     {
@@ -211,7 +211,7 @@ export const seedData = {
       descriptionCn: '手机壳与周边防护配件产品。',
       descriptionEn: 'Phone cases and related protective accessories.',
       sort: 2,
-      status: 'enabled',
+      availability: 'enabled',
       slug: 'protective-cases'
     },
     {
@@ -220,7 +220,7 @@ export const seedData = {
       descriptionCn: '镜头膜及相机区域防护配件。',
       descriptionEn: 'Lens film and camera module accessories.',
       sort: 3,
-      status: 'enabled',
+      availability: 'enabled',
       slug: 'camera-accessories'
     }
   ] as CategorySeed[],

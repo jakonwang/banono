@@ -15,7 +15,7 @@
     "descriptionCn": { "type": "text" },
     "descriptionEn": { "type": "text" },
     "sort": { "type": "integer", "default": 0 },
-    "status": { "type": "enumeration", "enum": ["enabled", "disabled"], "default": "enabled" },
+    "availability": { "type": "enumeration", "enum": ["enabled", "disabled"], "default": "enabled" },
     "slug": { "type": "uid", "targetField": "nameEn", "required": true },
     "products": {
       "type": "relation",

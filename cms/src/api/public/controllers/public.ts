@@ -103,7 +103,7 @@ export default {
         name: localized(item.nameCn || '', item.nameEn || ''),
         description: localized(item.descriptionCn || '', item.descriptionEn || ''),
         sort: item.sort || 0,
-        status: item.status || 'enabled'
+        availability: item.availability || 'enabled'
       })),
       certificates: certificateList.map((item) => ({
         id: item.documentId || String(item.id),
