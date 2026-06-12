@@ -3,7 +3,15 @@ import path from 'node:path'
 
 const SPA_ENTRY = 'index.html'
 const STATIC_FILE_PATTERN = /\.[a-z0-9]+$/i
-const RESERVED_PREFIXES = ['/admin', '/api', '/uploads', '/content-manager', '/content-type-builder', '/i18n']
+const RESERVED_PREFIXES = [
+  '/admin',
+  '/api',
+  '/upload',
+  '/uploads',
+  '/content-manager',
+  '/content-type-builder',
+  '/i18n'
+]
 
 const shouldServeFrontendEntry = (urlPath: string) => {
   if (!urlPath || urlPath === '/') return true
