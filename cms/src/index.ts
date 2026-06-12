@@ -1,4 +1,5 @@
 import type { Core } from '@strapi/strapi'
+import { runBootstrapSelfHeal } from './bootstrap-self-heal'
 import { seedData } from './seed-data'
 
 const suspiciousTextPattern = /[浼鍒銆闈㈠悜鍝佺墝鍟嗘笭閬撳晢鈥€]/
@@ -47,6 +48,8 @@ export default {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    await runBootstrapSelfHeal(strapi)
+
     const globalSetting = await strapi.documents('api::global-setting.global-setting').findFirst({ status: 'draft' })
     if (!globalSetting) {
       await strapi.documents('api::global-setting.global-setting').create({ data: seedData.globalSetting })
