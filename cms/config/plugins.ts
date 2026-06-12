@@ -11,6 +11,21 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
       },
     },
   },
+  upload: {
+    config: {
+      provider: 'local',
+      providerOptions: {},
+      sizeLimit: 10 * 1024 * 1024,
+      breakpoints: {
+        large: 1000,
+        medium: 750,
+        small: 500,
+      },
+      actionOptions: {},
+      sort: 'createdAt:DESC',
+      pageSize: 24,
+    },
+  },
 });
 
 export default config;
