@@ -1157,22 +1157,23 @@ function bindInquiryForm() {
     event.preventDefault()
     if (state.submitting) return
 
+    const currentForm = event.currentTarget as HTMLFormElement | null
+    if (!currentForm) return
+
+    const payload = Object.fromEntries(new FormData(currentForm).entries()) as unknown as InquiryPayload
     state.submitting = true
     renderCurrentRoute()
 
-    const nextForm = document.querySelector<HTMLFormElement>('#lead-form')
     const feedback = document.querySelector<HTMLParagraphElement>('#lead-form-feedback')
-    if (!nextForm) return
-
-    const payload = Object.fromEntries(new FormData(nextForm).entries()) as unknown as InquiryPayload
 
     try {
       await submitInquiryToCms(payload)
+      const nextForm = document.querySelector<HTMLFormElement>('#lead-form')
       if (feedback) {
         feedback.textContent = t().formSuccess
         feedback.className = 'form-feedback is-success'
       }
-      nextForm.reset()
+      nextForm?.reset()
     } catch (error) {
       if (feedback) {
         const message = error instanceof Error && error.message ? error.message : t().formError
