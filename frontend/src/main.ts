@@ -62,7 +62,7 @@ const fallbackProducts: Product[] = [
     name: { cn: '钢化膜方案', en: 'Tempered Glass Program' },
     summary: { cn: '适用于主流机型的屏幕保护产品。', en: 'Screen protection products for mainstream devices.' },
     tags: ['OEM', 'Hot'],
-    image: '/stitch_/homepage_desktop/screen.png',
+    image: '/site-assets/product-3d-glass.png',
     categorySlug: 'screen-protection'
   },
   {
@@ -70,7 +70,7 @@ const fallbackProducts: Product[] = [
     name: { cn: '保护壳方案', en: 'Protective Case Program' },
     summary: { cn: '支持材质、颜色与品牌定制。', en: 'Supports material, color, and brand customization.' },
     tags: ['Custom', 'Case'],
-    image: '/stitch_/contact_us_desktop/screen.png',
+    image: '/site-assets/product-phone-case.png',
     categorySlug: 'protective-cases'
   },
   {
@@ -78,7 +78,7 @@ const fallbackProducts: Product[] = [
     name: { cn: '镜头配件方案', en: 'Lens Accessory Program' },
     summary: { cn: '面向高端机型的镜头防护与配件。', en: 'Lens protection and accessory solutions for premium devices.' },
     tags: ['Camera', 'Protection'],
-    image: '/stitch_/about_us_mobile/screen.png',
+    image: '/site-assets/product-lens-film.jpg',
     categorySlug: 'camera-accessories'
   }
 ]
@@ -581,7 +581,7 @@ function renderHome() {
       <main>
         <section class="hero hero--home">
           <div class="hero__media">
-            <img src="${siteImage('homeHero', '/stitch_/homepage_desktop/screen.png')}" alt="Qiaotian manufacturing" />
+            <img src="${siteImage('homeHero', '/site-assets/office-1.jpg')}" alt="Qiaotian manufacturing" />
           </div>
           <div class="hero__veil"></div>
           <div class="shell hero__content">
@@ -671,7 +671,7 @@ function renderHome() {
         <section class="section section--slate">
           <div class="shell split-section">
             <div class="split-section__media">
-              <img src="${siteImage('factoryGalleryMain', '/stitch_/factory_strength_desktop/screen.png')}" alt="Factory strength" />
+              <img src="${siteImage('factoryGalleryMain', '/site-assets/office-3.jpg')}" alt="Factory strength" />
             </div>
             <div class="split-section__content">
               <span class="eyebrow">${t().factoryEyebrow}</span>
@@ -845,7 +845,7 @@ function renderFactoryStrength() {
       <main>
         <section class="page-hero page-hero--dark">
           <div class="hero__media">
-            <img src="${siteImage('factoryHero', '/stitch_/factory_strength_desktop/screen.png')}" alt="Factory floor" />
+            <img src="${siteImage('factoryHero', '/site-assets/office-2.jpg')}" alt="Factory floor" />
           </div>
           <div class="hero__veil"></div>
           <div class="shell page-hero__stack">
@@ -873,21 +873,21 @@ function renderFactoryStrength() {
         <section class="section section--light section--tight-top">
           <div class="shell gallery-grid">
             <article class="gallery-card gallery-card--wide">
-              <img src="${siteImage('factoryGalleryMain', '/stitch_/factory_strength_desktop/screen.png')}" alt="Production line" />
+              <img src="${siteImage('factoryGalleryMain', '/site-assets/office-3.jpg')}" alt="Production line" />
               <div class="gallery-card__caption">
                 <h3>${t().galleryCaptions[0].title}</h3>
                 <p>${t().galleryCaptions[0].body}</p>
               </div>
             </article>
             <article class="gallery-card">
-              <img src="${siteImage('factoryGalleryLab', '/stitch_/contact_us_desktop/screen.png')}" alt="Quality inspection" />
+              <img src="${siteImage('factoryGalleryLab', '/site-assets/team-1.jpg')}" alt="Quality inspection" />
               <div class="gallery-card__caption">
                 <h3>${t().galleryCaptions[1].title}</h3>
                 <p>${t().galleryCaptions[1].body}</p>
               </div>
             </article>
             <article class="gallery-card">
-              <img src="${siteImage('factoryGalleryQc', '/stitch_/about_us_mobile/screen.png')}" alt="Packing zone" />
+              <img src="${siteImage('factoryGalleryQc', '/site-assets/product-lens-film.jpg')}" alt="Packing zone" />
               <div class="gallery-card__caption">
                 <h3>${t().galleryCaptions[2].title}</h3>
                 <p>${t().galleryCaptions[2].body}</p>
@@ -943,7 +943,7 @@ function renderAbout() {
       <main>
         <section class="page-hero page-hero--dark page-hero--about">
           <div class="hero__media">
-            <img src="${siteImage('aboutHero', '/stitch_/about_us_mobile/screen.png')}" alt="About Qiaotian" />
+            <img src="${siteImage('aboutHero', '/site-assets/team-1.jpg')}" alt="About Qiaotian" />
           </div>
           <div class="hero__veil"></div>
           <div class="shell page-hero__stack">
@@ -1061,7 +1061,7 @@ function renderContact() {
                 <p>${escapeHtml(getContactSupportText())}</p>
               </div>
               <div class="contact-map">
-                <img src="${siteImage('contactMap', '/stitch_/contact_us_desktop/screen.png')}" alt="Office and factory" />
+                <img src="${siteImage('contactMap', '/site-assets/office-2.jpg')}" alt="Office and factory" />
               </div>
               <div class="contact-note">
                 <h3>${escapeHtml(siteBrand('en', 'Qiaotian Enterprise'))}</h3>

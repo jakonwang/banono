@@ -5,8 +5,12 @@ const ensureArray = <T>(value: unknown): T[] => (Array.isArray(value) ? (value a
 const mediaUrl = (media: any) => {
   const url = media?.url
   if (!url) return ''
-  const base = strapi.config.get('server.url') || `http://127.0.0.1:${strapi.config.get('server.port', 1337)}`
-  return url.startsWith('http') ? url : `${base}${url}`
+  if (url.startsWith('http')) return url
+
+  const base = strapi.config.get('server.url')
+  if (!base) return url
+
+  return `${String(base).replace(/\/$/, '')}${url}`
 }
 
 export default {
