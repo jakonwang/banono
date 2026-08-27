@@ -22,6 +22,22 @@ export type SiteData = {
     contact?: { heroTitle?: { cn?: string; en?: string }; heroBody?: { cn?: string; en?: string } }
     privacy?: { heroTitle?: { cn?: string; en?: string }; heroBody?: { cn?: string; en?: string } }
   }
+  categories?: Array<{
+    id: string
+    parentId?: string
+    slug?: string
+    name?: { cn?: string; en?: string }
+    description?: { cn?: string; en?: string }
+    sort?: number
+    status?: string
+  }>
+  certificates?: Array<{
+    id: string
+    title?: { cn?: string; en?: string }
+    issuer?: string
+    image?: string
+    sort?: number
+  }>
 }
 
 export type InquiryPayload = {
@@ -35,13 +51,20 @@ export type InquiryPayload = {
 const cmsBase = ((import.meta.env.VITE_CMS_BASE as string | undefined) || '').replace(/\/$/, '')
 
 async function cmsFetch<T>(path: string, options: RequestInit = {}) {
-  const response = await fetch(`${cmsBase}${path}`, options)
+  const response = await fetch(`${cmsBase}${path}`, {
+    cache: 'no-store',
+    ...options,
+    headers: {
+      Accept: 'application/json',
+      ...(options.headers || {})
+    }
+  })
   if (!response.ok) throw new Error(`CMS request failed: ${path}`)
   return response.json() as Promise<T>
 }
 
 export async function loadSiteFromCms() {
-  const result = await cmsFetch<{ brand?: SiteData['brand']; hero?: SiteData['hero']; products?: SiteData['products']; stats?: SiteData['stats']; contact?: SiteData['contact']; images?: SiteData['images']; sections?: SiteData['sections'] }>('/api/public/site')
+  const result = await cmsFetch<SiteData>('/api/public/site')
   return { site: result }
 }
 

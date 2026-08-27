@@ -17,6 +17,18 @@
     "sort": { "type": "integer", "default": 0 },
     "availability": { "type": "enumeration", "enum": ["enabled", "disabled"], "default": "enabled" },
     "slug": { "type": "uid", "targetField": "nameEn", "required": true },
+    "parent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-category.product-category",
+      "inversedBy": "children"
+    },
+    "children": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-category.product-category",
+      "mappedBy": "parent"
+    },
     "products": {
       "type": "relation",
       "relation": "oneToMany",

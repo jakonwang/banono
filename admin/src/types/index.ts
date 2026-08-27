@@ -20,10 +20,11 @@ export type Inquiry = {
 
 export type ProductCategory = {
   id: string
+  parentId?: string
   name: Localized
   description?: Localized
   sort?: number
-  availability?: 'enabled' | 'disabled'
+  status?: 'enabled' | 'disabled'
 }
 
 export type Product = {

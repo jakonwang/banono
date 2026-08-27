@@ -25,6 +25,7 @@ export default {
         (strapi.documents('api::privacy-page.privacy-page') as any).findFirst({ status: 'draft' }),
         (strapi.documents('api::product-category.product-category') as any).findMany({
           status: 'draft',
+          populate: ['parent'],
           sort: ['sort:asc', 'id:asc']
         }),
         (strapi.documents('api::product.product') as any).findMany({
@@ -103,10 +104,12 @@ export default {
       },
       categories: categoryList.map((item) => ({
         id: item.documentId || String(item.id),
+        parentId: item.parent?.documentId || (item.parent?.id ? String(item.parent.id) : ''),
         slug: item.slug || '',
         name: localized(item.nameCn || '', item.nameEn || ''),
         description: localized(item.descriptionCn || '', item.descriptionEn || ''),
         sort: item.sort || 0,
+        status: item.availability || 'enabled',
         availability: item.availability || 'enabled'
       })),
       certificates: certificateList.map((item) => ({

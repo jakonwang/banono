@@ -14,6 +14,15 @@ type Product = {
   categorySlug?: string
   categoryId?: string
 }
+type ProductCategory = {
+  id: string
+  parentId?: string
+  slug?: string
+  name?: LocalizedText
+  description?: LocalizedText
+  sort?: number
+  status?: string
+}
 type SiteData = {
   brand?: LocalizedText
   hero?: { title?: LocalizedText; body?: LocalizedText }
@@ -27,17 +36,10 @@ type SiteData = {
     contact?: { heroTitle?: LocalizedText; heroBody?: LocalizedText }
     privacy?: { heroTitle?: LocalizedText; heroBody?: LocalizedText }
   }
-  categories?: Array<{
-    id: string
-    slug?: string
-    name: LocalizedText
-    description?: LocalizedText
-    sort?: number
-    status?: string
-  }>
+  categories?: ProductCategory[]
   certificates?: Array<{
     id: string
-    title: LocalizedText
+    title?: LocalizedText
     issuer?: string
     image?: string
     sort?: number
@@ -391,11 +393,15 @@ const state: {
   locale: Locale
   site: SiteData | null
   submitting: boolean
+  mobileMenuOpen: boolean
+  selectedCategoryId: string
 } = {
   route: 'home',
   locale: 'cn',
   site: null,
-  submitting: false
+  submitting: false,
+  mobileMenuOpen: false,
+  selectedCategoryId: ''
 }
 
 function readRoute(): Route {
@@ -499,6 +505,8 @@ function getHeroBody() {
 }
 
 function productCategory(product: Product) {
+  const category = state.site?.categories?.find((item) => item.id === product.categoryId || item.slug === product.categorySlug)
+  if (category) return textOf(category.name) || category.id
   const fromTags = (product.tags || []).join(' ').toLowerCase()
   const fromSlug = (product.categorySlug || '').toLowerCase()
   if (fromSlug.includes('screen') || fromTags.includes('film')) return state.locale === 'cn' ? '屏幕保护' : 'Screen Protection'
@@ -507,9 +515,41 @@ function productCategory(product: Product) {
   return state.locale === 'cn' ? '配件方案' : 'Accessory Program'
 }
 
-function uniqueCategories(products: Product[]) {
-  const items = products.map((product) => productCategory(product))
-  return [t().filterAll, ...new Set(items)]
+function categoryItems(products: Product[]): ProductCategory[] {
+  const configured = (state.site?.categories || []).filter((item) => item.status !== 'disabled').sort((a, b) => (a.sort || 0) - (b.sort || 0))
+  if (configured.length) return configured
+  return [...new Set(products.map((product) => productCategory(product)))].map((name, index) => ({ id: `fallback-${index}`, name: { cn: name, en: name } }))
+}
+
+function renderCategoryNavigation(categories: ProductCategory[]) {
+  const categoryIds = new Set(categories.map((category) => category.id))
+  const roots = categories.filter((category) => !category.parentId || !categoryIds.has(category.parentId))
+
+  return roots
+    .map((parent) => {
+      const children = categories.filter((category) => category.parentId === parent.id)
+      return `
+        <div class="category-group">
+          <button class="category-chip category-chip--parent ${parent.id === state.selectedCategoryId ? 'is-active' : ''}" data-category-id="${escapeHtml(parent.id)}">
+            ${escapeHtml(textOf(parent.name) || parent.id)}
+          </button>
+          ${children.length ? `
+            <div class="category-children">
+              ${children
+                .map(
+                  (child) => `
+                    <button class="category-chip category-chip--child ${child.id === state.selectedCategoryId ? 'is-active' : ''}" data-category-id="${escapeHtml(child.id)}">
+                      ${escapeHtml(textOf(child.name) || child.id)}
+                    </button>
+                  `
+                )
+                .join('')}
+            </div>
+          ` : ''}
+        </div>
+      `
+    })
+    .join('')
 }
 
 function renderHeader(active: Route) {
@@ -531,7 +571,34 @@ function renderHeader(active: Route) {
             )
             .join('')}
         </nav>
-        <button id="lang-toggle" class="site-lang" type="button">${t().langToggle}</button>
+        <div class="site-header__actions">
+          <button id="lang-toggle" class="site-lang" type="button">${t().langToggle}</button>
+          <button
+            id="mobile-menu-toggle"
+            class="site-menu-toggle"
+            type="button"
+            aria-expanded="${state.mobileMenuOpen ? 'true' : 'false'}"
+            aria-controls="mobile-site-nav"
+            aria-label="${state.locale === 'cn' ? '打开菜单' : 'Open menu'}"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-site-nav" class="mobile-nav ${state.mobileMenuOpen ? 'is-open' : ''}">
+        <div class="shell mobile-nav__inner">
+          ${navRoutes
+            .map(
+              (item) => `
+                <a class="mobile-nav__link ${item.route === active ? 'is-active' : ''}" href="#/${item.route}">
+                  ${t().nav[item.label]}
+                </a>
+              `
+            )
+            .join('')}
+        </div>
       </div>
     </header>
   `
@@ -753,7 +820,22 @@ function renderHome() {
 
 function renderProductCenter() {
   const products = getProducts()
-  const categories = uniqueCategories(products)
+  const categories = categoryItems(products)
+  const selectedIds = new Set<string>()
+  if (state.selectedCategoryId) {
+    selectedIds.add(state.selectedCategoryId)
+    let changed = true
+    while (changed) {
+      changed = false
+      categories.forEach((category) => {
+        if (category.parentId && selectedIds.has(category.parentId) && !selectedIds.has(category.id)) {
+          selectedIds.add(category.id)
+          changed = true
+        }
+      })
+    }
+  }
+  const visibleProducts = state.selectedCategoryId ? products.filter((product) => selectedIds.has(product.categoryId || '')) : products
 
   app.innerHTML = `
     <div class="site-page">
@@ -777,7 +859,8 @@ function renderProductCenter() {
                 <h3>${t().categoryTitle}</h3>
                 <p>${t().categoryBody}</p>
                 <div class="category-list">
-                  ${categories.map((item) => `<span class="category-chip">${escapeHtml(item)}</span>`).join('')}
+                  <button class="category-chip category-chip--all ${state.selectedCategoryId ? '' : 'is-active'}" data-category-id="">${t().filterAll}</button>
+                  ${renderCategoryNavigation(categories)}
                 </div>
               </div>
               <div class="sidebar-card sidebar-card--dark">
@@ -790,7 +873,7 @@ function renderProductCenter() {
             </aside>
             <div class="catalog-main">
               <div class="catalog-grid">
-                ${products
+                ${visibleProducts
                   .map(
                     (product) => `
                       <article class="catalog-card">
@@ -1145,9 +1228,26 @@ function renderInquiryForm() {
 }
 
 function bindCommonEvents() {
+  document.querySelectorAll<HTMLButtonElement>('[data-category-id]').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.selectedCategoryId = button.dataset.categoryId || ''
+      renderCurrentRoute()
+    })
+  })
   document.querySelector<HTMLButtonElement>('#lang-toggle')?.addEventListener('click', () => {
     state.locale = state.locale === 'cn' ? 'en' : 'cn'
     renderCurrentRoute()
+  })
+
+  document.querySelector<HTMLButtonElement>('#mobile-menu-toggle')?.addEventListener('click', () => {
+    state.mobileMenuOpen = !state.mobileMenuOpen
+    renderCurrentRoute()
+  })
+
+  document.querySelectorAll<HTMLAnchorElement>('.mobile-nav__link').forEach((link) => {
+    link.addEventListener('click', () => {
+      state.mobileMenuOpen = false
+    })
   })
 }
 
@@ -1193,8 +1293,11 @@ async function loadSite() {
   state.site = result.site
 }
 
-function renderCurrentRoute() {
+function renderCurrentRoute(options?: { closeMobileMenu?: boolean }) {
   state.route = readRoute()
+  if (options?.closeMobileMenu) {
+    state.mobileMenuOpen = false
+  }
   if (state.route === 'product-center') renderProductCenter()
   else if (state.route === 'factory-strength') renderFactoryStrength()
   else if (state.route === 'about') renderAbout()
@@ -1211,7 +1314,7 @@ async function bootstrap() {
   renderCurrentRoute()
 }
 
-window.addEventListener('hashchange', () => renderCurrentRoute())
+window.addEventListener('hashchange', () => renderCurrentRoute({ closeMobileMenu: true }))
 
 bootstrap().catch((error) => {
   console.error(error)

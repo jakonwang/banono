@@ -730,6 +730,12 @@ export interface ApiProductCategoryProductCategory
     draftAndPublish: true;
   };
   attributes: {
+    availability: Schema.Attribute.Enumeration<['enabled', 'disabled']> &
+      Schema.Attribute.DefaultTo<'enabled'>;
+    children: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-category.product-category'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -743,12 +749,14 @@ export interface ApiProductCategoryProductCategory
       Schema.Attribute.Private;
     nameCn: Schema.Attribute.String & Schema.Attribute.Required;
     nameEn: Schema.Attribute.String & Schema.Attribute.Required;
+    parent: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::product-category.product-category'
+    >;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'nameEn'> & Schema.Attribute.Required;
     sort: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    status: Schema.Attribute.Enumeration<['enabled', 'disabled']> &
-      Schema.Attribute.DefaultTo<'enabled'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

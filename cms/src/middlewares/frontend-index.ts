@@ -6,8 +6,10 @@ const STATIC_FILE_PATTERN = /\.[a-z0-9]+$/i
 const RESERVED_PREFIXES = [
   '/admin',
   '/api',
+  '/email',
   '/upload',
   '/uploads',
+  '/users-permissions',
   '/content-manager',
   '/content-type-builder',
   '/i18n'

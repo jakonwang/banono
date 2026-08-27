@@ -97,9 +97,9 @@ const defaults = {
     { username: 'sales', passwordHash: hashPassword('sales123'), role: 'sales' }
   ],
   productCategories: [
-    { id: 'screen-protection', name: { cn: '屏幕保护', en: 'Screen Protection' }, description: { cn: '适用于手机和平板的保护膜产品。', en: 'Protective film solutions for phones and tablets.' }, sort: 1, status: 'enabled' },
-    { id: 'protective-cases', name: { cn: '保护壳', en: 'Protective Cases' }, description: { cn: '手机壳与周边防护配件。', en: 'Phone cases and related protective accessories.' }, sort: 2, status: 'enabled' },
-    { id: 'camera-accessories', name: { cn: '镜头配件', en: 'Camera Accessories' }, description: { cn: '镜头膜及相机区域配件。', en: 'Lens film and camera module accessories.' }, sort: 3, status: 'enabled' }
+    { id: 'screen-protection', parentId: '', name: { cn: '屏幕保护', en: 'Screen Protection' }, description: { cn: '适用于手机和平板的保护膜产品。', en: 'Protective film solutions for phones and tablets.' }, sort: 1, status: 'enabled' },
+    { id: 'protective-cases', parentId: '', name: { cn: '保护壳', en: 'Protective Cases' }, description: { cn: '手机壳与周边防护配件。', en: 'Phone cases and related protective accessories.' }, sort: 2, status: 'enabled' },
+    { id: 'camera-accessories', parentId: '', name: { cn: '镜头配件', en: 'Camera Accessories' }, description: { cn: '镜头膜及相机区域配件。', en: 'Lens film and camera module accessories.' }, sort: 3, status: 'enabled' }
   ],
   certificates: [
     { id: 'cert-iso9001', title: { cn: 'ISO 9001 认证', en: 'ISO 9001 Certificate' }, issuer: 'SGS', image: '/site-assets/cert-iso9001.jpg', sort: 1 },
@@ -121,7 +121,7 @@ async function ensureData() {
 
 function migrateData(loaded = {}) {
   const site = { ...defaults.site, ...(loaded.site || {}) }
-  const categories = loaded.productCategories || defaults.productCategories
+  const categories = (loaded.productCategories || defaults.productCategories).map((item) => ({ parentId: '', ...item }))
   const certificates = loaded.certificates || defaults.certificates
   const products = (site.products || defaults.site.products).map((item) => ({
     status: 'published',
@@ -180,6 +180,8 @@ function migrateData(loaded = {}) {
     products,
     certificates
   }
+
+  site.categories = categories
 
   return {
     ...defaults,
@@ -269,6 +271,7 @@ function rebuildSiteFromModel(data) {
   }
   data.site.products = model.products || []
   data.productCategories = model.productCategories || []
+  data.site.categories = data.productCategories
   data.certificates = model.certificates || []
 }
 
@@ -394,7 +397,7 @@ const server = http.createServer(async (req, res) => {
 
   if (url.pathname === '/api/auth/me') return sendJson(res, 200, { tokenOk: isAuthed(req), username: currentUser(req), role: currentRole(req) })
 
-  if (url.pathname === '/api/site' && req.method === 'GET') return sendJson(res, 200, data.site)
+  if ((url.pathname === '/api/site' || url.pathname === '/api/public/site') && req.method === 'GET') return sendJson(res, 200, data.site)
   if (url.pathname === '/api/admin/site-model' && req.method === 'GET') {
     if (!isAuthed(req)) return sendJson(res, 401, { message: 'unauthorized' })
     return sendJson(res, 200, data.siteModel)
@@ -423,7 +426,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (url.pathname === '/api/inquiries' && req.method === 'GET') return sendJson(res, 200, data.inquiries)
-  if (url.pathname === '/api/inquiries' && req.method === 'POST') {
+  if ((url.pathname === '/api/inquiries' || url.pathname === '/api/public/inquiry') && req.method === 'POST') {
     const body = await readBody(req)
     const inquiry = {
       id: `inq-${String(data.inquiries.length + 1).padStart(3, '0')}`,
@@ -461,7 +464,7 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === '/api/product-categories' && req.method === 'POST') {
     if (!requireRole(req, ['super_admin', 'editor'])) return sendJson(res, 403, { message: 'forbidden' })
     const body = await readBody(req)
-    const item = { id: body.id || `cat-${Date.now()}`, name: body.name || { cn: '', en: '' }, description: body.description || { cn: '', en: '' }, sort: Number(body.sort || 0), status: body.status || 'enabled' }
+    const item = { id: body.id || `cat-${Date.now()}`, parentId: body.parentId || '', name: body.name || { cn: '', en: '' }, description: body.description || { cn: '', en: '' }, sort: Number(body.sort || 0), status: body.status || 'enabled' }
     data.productCategories.unshift(item)
     data.siteModel.productCategories = data.productCategories
     rebuildSiteFromModel(data)
@@ -483,7 +486,8 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname.startsWith('/api/product-categories/') && req.method === 'DELETE') {
     if (!requireRole(req, ['super_admin', 'editor'])) return sendJson(res, 403, { message: 'forbidden' })
     const id = url.pathname.split('/').pop()
-    data.productCategories = data.productCategories.filter((item) => item.id !== id)
+    const removedIds = new Set([id, ...data.productCategories.filter((item) => item.parentId === id).map((item) => item.id)])
+    data.productCategories = data.productCategories.filter((item) => !removedIds.has(item.id))
     data.siteModel.productCategories = data.productCategories
     rebuildSiteFromModel(data)
     pushAudit(data, 'delete_category', id, currentUser(req))

@@ -7,6 +7,7 @@ type LocalizedValue = {
 }
 
 type AdminCategoryPayload = {
+  parentId?: string
   name?: LocalizedValue
   description?: LocalizedValue
   sort?: number
@@ -152,6 +153,7 @@ const appendAuditLog = async (action: string, detail: string, actor: string) => 
 
 const mapCategory = (item: any) => ({
   id: item.documentId || String(item.id),
+  parentId: item.parent?.documentId || (item.parent?.id ? String(item.parent.id) : ''),
   name: localized(item.nameCn || '', item.nameEn || ''),
   description: localized(item.descriptionCn || '', item.descriptionEn || ''),
   sort: item.sort || 0,
@@ -191,15 +193,22 @@ const mapInquiry = (item: any) => ({
   notes: item.notes || ''
 })
 
-const categoryInputFromPayload = (payload: AdminCategoryPayload) => ({
-  nameCn: firstString(payload.name?.cn, payload.name?.en, '未命名分类'),
-  nameEn: firstString(payload.name?.en, payload.name?.cn, 'Category'),
-  descriptionCn: firstString(payload.description?.cn),
-  descriptionEn: firstString(payload.description?.en),
-  sort: typeof payload.sort === 'number' ? payload.sort : 0,
-  availability: normalizeCategoryStatus(payload.availability),
-  slug: firstString(payload.slug, payload.name?.en, payload.name?.cn, `category-${Date.now()}`)
-})
+const categoryInputFromPayload = async (payload: AdminCategoryPayload) => {
+  const parent = payload.parentId
+    ? await (strapi.documents('api::product-category.product-category') as any).findOne({ documentId: payload.parentId, status: 'draft' })
+    : null
+
+  return {
+    nameCn: firstString(payload.name?.cn, payload.name?.en, '未命名分类'),
+    nameEn: firstString(payload.name?.en, payload.name?.cn, 'Category'),
+    descriptionCn: firstString(payload.description?.cn),
+    descriptionEn: firstString(payload.description?.en),
+    sort: typeof payload.sort === 'number' ? payload.sort : 0,
+    availability: normalizeCategoryStatus(payload.availability),
+    slug: firstString(payload.slug, payload.name?.en, payload.name?.cn, `category-${Date.now()}`),
+    parent: parent?.documentId || null
+  }
+}
 
 const productInputFromPayload = async (payload: AdminProductPayload) => {
   let category: string | null = null
@@ -240,7 +249,7 @@ const buildSiteModel = async () => {
       getSingleDraft('api::about-page.about-page'),
       getSingleDraft('api::contact-page.contact-page'),
       getSingleDraft('api::privacy-page.privacy-page'),
-      (strapi.documents('api::product-category.product-category') as any).findMany({ status: 'draft', sort: ['sort:asc', 'id:asc'] }),
+      (strapi.documents('api::product-category.product-category') as any).findMany({ status: 'draft', populate: ['parent'], sort: ['sort:asc', 'id:asc'] }),
       (strapi.documents('api::product.product') as any).findMany({ status: 'draft', populate: ['category', 'coverImage'], sort: ['id:asc'] }),
       (strapi.documents('api::certificate.certificate') as any).findMany({ status: 'draft', populate: ['image'], sort: ['sort:asc', 'id:asc'] })
     ])
@@ -383,13 +392,13 @@ export default {
   async categories(ctx: any) {
     const records = await strapi
       .documents('api::product-category.product-category')
-      .findMany({ status: 'draft', sort: ['sort:asc', 'id:asc'] })
+      .findMany({ status: 'draft', populate: ['parent'], sort: ['sort:asc', 'id:asc'] })
     ctx.body = ensureArray<any>(records).map(mapCategory)
   },
 
   async createCategory(ctx: any) {
     const created = await (strapi.documents('api::product-category.product-category') as any).create({
-      data: categoryInputFromPayload(ctx.request.body || {})
+      data: await categoryInputFromPayload(ctx.request.body || {})
     })
     ctx.body = mapCategory(created)
   },
@@ -398,7 +407,7 @@ export default {
     const updated = await (strapi.documents('api::product-category.product-category') as any).update({
       documentId: ctx.params.id,
       status: 'draft',
-      data: categoryInputFromPayload(ctx.request.body || {})
+      data: await categoryInputFromPayload(ctx.request.body || {})
     })
     ctx.body = mapCategory(updated)
   },

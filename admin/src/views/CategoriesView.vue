@@ -5,9 +5,11 @@
     </template>
 
     <el-table :data="store.categories">
-      <el-table-column prop="name.cn" label="Name CN" />
+      <el-table-column label="Name CN">
+        <template #default="{ row }"><span :style="{ paddingLeft: row.parentId ? '24px' : '0' }">{{ row.parentId ? '-- ' : '' }}{{ row.name.cn }}</span></template>
+      </el-table-column>
       <el-table-column prop="name.en" label="Name EN" />
-      <el-table-column prop="availability" label="Availability" width="120" />
+      <el-table-column prop="status" label="Availability" width="120" />
       <el-table-column prop="sort" label="Sort" width="100" />
       <el-table-column label="Actions" width="180">
         <template #default="{ row }">
@@ -25,6 +27,11 @@
         <el-form-item label="Name EN">
           <el-input v-model="form.name.en" />
         </el-form-item>
+        <el-form-item label="Parent Category">
+          <el-select v-model="form.parentId" clearable placeholder="Top-level category">
+            <el-option v-for="item in parentCategories" :key="item.id" :label="item.name.cn || item.name.en || item.id" :value="item.id" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="Description CN">
           <el-input v-model="form.description.cn" type="textarea" />
         </el-form-item>
@@ -35,7 +42,7 @@
           <el-input-number v-model="form.sort" :min="0" />
         </el-form-item>
         <el-form-item label="Availability">
-          <el-select v-model="form.availability">
+          <el-select v-model="form.status">
             <el-option label="enabled" value="enabled" />
             <el-option label="disabled" value="disabled" />
           </el-select>
@@ -51,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import PageCard from '../components/PageCard.vue'
 import { useContentStore } from '../stores/content'
@@ -62,10 +69,11 @@ const visible = ref(false)
 const editingId = ref('')
 const form = reactive<ProductCategory>({
   id: '',
+  parentId: '',
   name: { cn: '', en: '' },
   description: { cn: '', en: '' },
   sort: 0,
-  availability: 'enabled'
+  status: 'enabled'
 })
 
 onMounted(() => {
@@ -74,10 +82,11 @@ onMounted(() => {
 
 function resetForm() {
   form.id = ''
+  form.parentId = ''
   form.name = { cn: '', en: '' }
   form.description = { cn: '', en: '' }
   form.sort = 0
-  form.availability = 'enabled'
+  form.status = 'enabled'
 }
 
 function openCreate() {
@@ -89,12 +98,15 @@ function openCreate() {
 function openEdit(item: ProductCategory) {
   editingId.value = item.id
   form.id = item.id
+  form.parentId = item.parentId || ''
   form.name = { ...item.name }
   form.description = { ...(item.description || {}) }
   form.sort = item.sort || 0
-  form.availability = item.availability || 'enabled'
+  form.status = item.status || 'enabled'
   visible.value = true
 }
+
+const parentCategories = computed(() => store.categories.filter((item) => item.id !== editingId.value && !item.parentId))
 
 async function save() {
   if (editingId.value) {

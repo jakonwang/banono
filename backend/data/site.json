@@ -206,10 +206,56 @@
           "en": "Effective Date: January 1, 2024. Your privacy and trust are paramount to Qiaotian Enterprise's commitment to industrial excellence."
         }
       }
-    }
+    },
+    "categories": [
+      {
+        "parentId": "",
+        "id": "screen-protection",
+        "name": {
+          "cn": "屏幕保护",
+          "en": "Screen Protection"
+        },
+        "description": {
+          "cn": "适用于手机和平板的保护膜产品。",
+          "en": "Protective film solutions for phones and tablets."
+        },
+        "sort": 1,
+        "status": "enabled"
+      },
+      {
+        "parentId": "",
+        "id": "protective-cases",
+        "name": {
+          "cn": "保护壳",
+          "en": "Protective Cases"
+        },
+        "description": {
+          "cn": "手机壳与周边防护配件。",
+          "en": "Phone cases and related protective accessories."
+        },
+        "sort": 2,
+        "status": "enabled"
+      },
+      {
+        "parentId": "",
+        "id": "camera-accessories",
+        "name": {
+          "cn": "镜头配件",
+          "en": "Camera Accessories"
+        },
+        "description": {
+          "cn": "镜头膜及相机区域配件。",
+          "en": "Lens film and camera module accessories."
+        },
+        "sort": 3,
+        "status": "enabled"
+      }
+    ]
   },
   "inquiries": [
     {
+      "updatedAt": "2026-06-03T16:19:23.548Z",
+      "notes": "",
       "id": "inq-001",
       "name": "Li Wei",
       "company": "Sample Tech",
@@ -251,21 +297,88 @@
       "role": "sales"
     }
   ],
-  "sessions": [
+  "productCategories": [
     {
-      "token": "62c394acd0bbc9feb9cd7ad610b62d1d",
-      "username": "admin",
-      "role": "super_admin",
-      "createdAt": 1780540437155
+      "parentId": "",
+      "id": "screen-protection",
+      "name": {
+        "cn": "屏幕保护",
+        "en": "Screen Protection"
+      },
+      "description": {
+        "cn": "适用于手机和平板的保护膜产品。",
+        "en": "Protective film solutions for phones and tablets."
+      },
+      "sort": 1,
+      "status": "enabled"
     },
     {
-      "token": "06ee6fbda605767ace9c1a223bc0a162",
+      "parentId": "",
+      "id": "protective-cases",
+      "name": {
+        "cn": "保护壳",
+        "en": "Protective Cases"
+      },
+      "description": {
+        "cn": "手机壳与周边防护配件。",
+        "en": "Phone cases and related protective accessories."
+      },
+      "sort": 2,
+      "status": "enabled"
+    },
+    {
+      "parentId": "",
+      "id": "camera-accessories",
+      "name": {
+        "cn": "镜头配件",
+        "en": "Camera Accessories"
+      },
+      "description": {
+        "cn": "镜头膜及相机区域配件。",
+        "en": "Lens film and camera module accessories."
+      },
+      "sort": 3,
+      "status": "enabled"
+    }
+  ],
+  "certificates": [
+    {
+      "id": "cert-iso9001",
+      "title": {
+        "cn": "ISO 9001 认证",
+        "en": "ISO 9001 Certificate"
+      },
+      "issuer": "SGS",
+      "image": "/site-assets/cert-iso9001.jpg",
+      "sort": 1
+    },
+    {
+      "id": "cert-iso14001",
+      "title": {
+        "cn": "ISO 14001 认证",
+        "en": "ISO 14001 Certificate"
+      },
+      "issuer": "SGS",
+      "image": "/site-assets/cert-iso14001.jpg",
+      "sort": 2
+    }
+  ],
+  "sessions": [
+    {
+      "token": "7d846b3a482b169f103710097eb5bb1e",
       "username": "admin",
       "role": "super_admin",
-      "createdAt": 1780541390636
+      "createdAt": 1787802781934
     }
   ],
   "auditLogs": [
+    {
+      "id": "log-1787802781934",
+      "action": "login",
+      "detail": "admin",
+      "actor": "admin",
+      "createdAt": "2026-08-27T03:53:01.935Z"
+    },
     {
       "id": "log-1780541390637",
       "action": "login",

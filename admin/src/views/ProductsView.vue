@@ -6,7 +6,9 @@
     <el-table :data="store.products">
       <el-table-column prop="name.cn" label="中文名" min-width="180" />
       <el-table-column prop="name.en" label="英文名" min-width="180" />
-      <el-table-column prop="categoryId" label="分类" min-width="140" />
+      <el-table-column label="分类" min-width="160">
+        <template #default="{ row }">{{ categoryLabel(row.categoryId) }}</template>
+      </el-table-column>
       <el-table-column prop="status" label="状态" width="120" />
       <el-table-column prop="image" label="图片路径" min-width="240" show-overflow-tooltip />
       <el-table-column label="操作" width="180">
@@ -24,7 +26,7 @@
           <el-col :span="12">
             <el-form-item label="所属分类">
               <el-select v-model="form.categoryId">
-                <el-option v-for="item in store.categories" :key="item.id" :label="item.name.cn || item.name.en || item.id" :value="item.id" />
+                <el-option v-for="item in store.categories" :key="item.id" :label="categoryLabel(item.id)" :value="item.id" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -117,4 +119,11 @@ async function remove(id: string) {
 }
 
 computed(() => store.categories)
+
+function categoryLabel(id?: string) {
+  const item = store.categories.find((category) => category.id === id)
+  if (!item) return id || '-'
+  const parent = item.parentId ? store.categories.find((category) => category.id === item.parentId) : null
+  return `${parent ? `${parent.name.cn || parent.name.en} / ` : ''}${item.name.cn || item.name.en || item.id}`
+}
 </script>
