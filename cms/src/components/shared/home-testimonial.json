@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_shared_home_testimonials",
+  "info": { "displayName": "Home Testimonial" },
+  "attributes": {
+    "quoteCn": { "type": "text" }, "quoteEn": { "type": "text" },
+    "authorCn": { "type": "string" }, "authorEn": { "type": "string" },
+    "company": { "type": "string" }
+  }
+}

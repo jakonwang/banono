@@ -30,6 +30,14 @@ type SiteData = {
   stats?: { value: string; label: LocalizedText }[]
   contact?: { phone?: string; email?: string; address?: LocalizedText }
   images?: Record<string, string>
+  home?: {
+    downloads?: Array<{ title: LocalizedText; body: LocalizedText; file: string }>
+    cases?: Array<{ title: LocalizedText; body: LocalizedText; image: string }>
+    testimonials?: Array<{ quote: LocalizedText; author: LocalizedText; company: string }>
+    video?: { title: LocalizedText; body: LocalizedText; url: string; poster: string }
+    customization?: Array<{ title: LocalizedText; body: LocalizedText }>
+    faq?: Array<{ question: LocalizedText; answer: LocalizedText }>
+  }
   sections?: {
     factory?: { heroTitle?: LocalizedText; heroBody?: LocalizedText }
     about?: { heroTitle?: LocalizedText; heroBody?: LocalizedText }
@@ -89,6 +97,7 @@ const copy = {
   en: {
     nav: {
       home: 'Home',
+      oem: 'OEM / ODM',
       productCenter: 'Product Center',
       factoryStrength: 'Factory Strength',
       about: 'About Us',
@@ -249,6 +258,7 @@ const copy = {
   cn: {
     nav: {
       home: '首页',
+      oem: 'OEM / ODM',
       productCenter: '产品中心',
       factoryStrength: '工厂实力',
       about: '关于我们',
@@ -557,7 +567,6 @@ function renderHeader(active: Route) {
     <header class="site-header">
       <div class="shell site-header__inner">
         <a class="site-brand" href="#/home">
-          <span class="site-brand__cn">${escapeHtml(siteBrand('cn', '乔天企业'))}</span>
           <span class="site-brand__en">${escapeHtml(siteBrand('en', 'Qiaotian Enterprise'))}</span>
         </a>
         <nav class="site-nav" aria-label="Primary">
@@ -570,6 +579,7 @@ function renderHeader(active: Route) {
               `
             )
             .join('')}
+          <a class="site-nav__link" href="#customization">${t().nav.oem}</a>
         </nav>
         <div class="site-header__actions">
           <button id="lang-toggle" class="site-lang" type="button">${t().langToggle}</button>
@@ -598,6 +608,7 @@ function renderHeader(active: Route) {
               `
             )
             .join('')}
+          <a class="mobile-nav__link" href="#customization">${t().nav.oem}</a>
         </div>
       </div>
     </header>
@@ -611,7 +622,6 @@ function renderFooter() {
       <div class="shell site-footer__inner">
         <div class="site-footer__brand-block">
           <div class="site-brand site-brand--footer">
-            <span class="site-brand__cn">${escapeHtml(siteBrand('cn', '乔天企业'))}</span>
             <span class="site-brand__en">${escapeHtml(siteBrand('en', 'Qiaotian Enterprise'))}</span>
           </div>
           <p class="site-footer__text">${t().footerBody}</p>
@@ -641,6 +651,38 @@ function renderHome() {
   const contact = state.site?.contact
   const homeStats = getHomeStats()
   const homeHighlights = getHomeHighlights()
+  const configuredDownloads = state.site?.home?.downloads || []
+  const configuredCases = state.site?.home?.cases || []
+  const configuredTestimonials = state.site?.home?.testimonials || []
+  const demoDownloads = [
+    {
+      title: { cn: '演示目录样例（临时）', en: 'Demo Catalog Sample (Temporary)' },
+      body: { cn: '仅用于前台版式预览，请在后台替换为正式产品目录。', en: 'For layout preview only. Replace with the approved product catalog in CMS.' },
+      file: '/site-assets/demo-catalog.csv'
+    }
+  ]
+  const demoCases = [
+    {
+      title: { cn: '演示案例：屏幕保护产品方案', en: 'Demo Case: Screen Protection Program' },
+      body: { cn: '临时版式示例，不代表真实客户项目；请替换为已授权案例。', en: 'Temporary layout sample, not a real customer project. Replace with an approved case.' },
+      image: '/site-assets/product-3d-glass.png'
+    },
+    {
+      title: { cn: '演示案例：品牌保护壳方案', en: 'Demo Case: Branded Protective Case' },
+      body: { cn: '展示案例卡片样式的临时内容，请勿作为真实合作案例引用。', en: 'Temporary card preview. Do not present as a real customer engagement.' },
+      image: '/site-assets/product-phone-case.png'
+    }
+  ]
+  const demoTestimonials = [
+    {
+      quote: { cn: '演示评价文案：用于预览客户评价模块排版，不代表真实客户反馈。', en: 'Demo testimonial copy for layout preview only. This is not genuine customer feedback.' },
+      author: { cn: '演示联系人', en: 'Demo Contact' },
+      company: state.locale === 'cn' ? '演示内容，请替换' : 'Demo content - replace before launch'
+    }
+  ]
+  const downloads = configuredDownloads.length ? configuredDownloads : demoDownloads
+  const cases = configuredCases.length ? configuredCases : demoCases
+  const testimonials = configuredTestimonials.length ? configuredTestimonials : demoTestimonials
 
   app.innerHTML = `
     <div class="site-page">
@@ -774,8 +816,9 @@ function renderHome() {
               ${(state.site?.certificates || [])
                 .map(
                   (item) => `
-                    <article class="value-card value-card--light">
+                    <article class="value-card value-card--light certificate-card">
                       <span class="value-card__line"></span>
+                      ${item.image ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(textOf(item.title))}" />` : ''}
                       <h3>${escapeHtml(textOf(item.title))}</h3>
                       <p>${escapeHtml(item.issuer || '')}</p>
                     </article>
@@ -784,6 +827,45 @@ function renderHome() {
                 .join('')}
             </div>
           </div>
+        </section>
+
+        <section class="section section--slate home-customization" id="customization">
+          <div class="shell">
+            <div class="section-head">
+              <div><span class="eyebrow">${state.locale === 'cn' ? '定制服务' : 'Custom Programs'}</span><h2>${state.locale === 'cn' ? '从材质到包装，一站式支持品牌定制' : 'Customize materials, branding, and packaging in one workflow'}</h2></div>
+              <p>${state.locale === 'cn' ? '明确的定制边界帮助您更快确认需求、报价和打样。' : 'A clear customization scope helps your team move faster from brief to quotation and sample.'}</p>
+            </div>
+            <div class="value-grid">
+              ${(state.site?.home?.customization || []).map((item) => `<article class="value-card"><span class="value-card__line"></span><h3>${escapeHtml(textOf(item.title))}</h3><p>${escapeHtml(textOf(item.body))}</p></article>`).join('')}
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--light home-media-section">
+          <div class="shell">
+            <div class="section-head"><div><span class="eyebrow">${state.locale === 'cn' ? '真实场景' : 'Real Operations'}</span><h2>${state.locale === 'cn' ? '团队与客户合作现场' : 'Our team and customer collaboration'}</h2></div><p>${state.locale === 'cn' ? '用真实生产与合作场景，展示我们对品质和交付的承诺。' : 'Real production and collaboration moments that make our quality and delivery promise tangible.'}</p></div>
+            <div class="home-photo-grid">${siteImage('homeTeam', '/site-assets/team-1.jpg') ? `<figure><img src="${siteImage('homeTeam', '/site-assets/team-1.jpg')}" alt="Qiaotian team" /><figcaption>${state.locale === 'cn' ? '乔天团队合照' : 'Qiaotian team'}</figcaption></figure>` : ''}${state.site?.images?.homeCustomer ? `<figure><img src="${escapeHtml(state.site.images.homeCustomer)}" alt="Overseas customer collaboration" /><figcaption>${state.locale === 'cn' ? '海外客户合作现场' : 'Overseas customer collaboration'}</figcaption></figure>` : ''}</div>
+          </div>
+        </section>
+
+        <section class="section section--slate home-downloads-section">
+          <div class="shell"><div class="section-head"><div><span class="eyebrow">${state.locale === 'cn' ? '下载目录' : 'Downloads'}</span><h2>${state.locale === 'cn' ? '把关键资料带回团队评估' : 'Bring the right materials back to your sourcing team'}</h2></div><p>${state.locale === 'cn' ? '产品目录与 OEM/ODM 能力资料可直接下载。' : 'Download our catalog and OEM/ODM capability deck for internal review.'}</p></div><div class="download-grid">${downloads.map((item) => `<a class="download-card" href="${escapeHtml(item.file)}" download><span class="download-card__icon">${escapeHtml(item.file.split('.').pop()?.toUpperCase() || 'FILE')}</span><div><h3>${escapeHtml(textOf(item.title))}</h3><p>${escapeHtml(textOf(item.body))}</p></div><span class="download-card__arrow">+</span></a>`).join('')}</div></div>
+        </section>
+
+        <section class="section section--light home-cases-section">
+          <div class="shell"><div class="section-head"><div><span class="eyebrow">${state.locale === 'cn' ? '案例展示' : 'Case Studies'}</span><h2>${state.locale === 'cn' ? '为不同市场交付可复制的方案' : 'Repeatable programs for different markets'}</h2></div><p>${state.locale === 'cn' ? '从品牌定制到零售包装，覆盖海外采购常见场景。' : 'From private label to retail packaging, built around common overseas sourcing needs.'}</p></div><div class="case-grid">${cases.map((item) => `<article class="case-card"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(textOf(item.title))}" /><div><span class="eyebrow">${configuredCases.length ? 'Case' : (state.locale === 'cn' ? '演示内容' : 'Demo Content')}</span><h3>${escapeHtml(textOf(item.title))}</h3><p>${escapeHtml(textOf(item.body))}</p></div></article>`).join('')}</div></div>
+        </section>
+
+        <section class="section section--dark home-video-section">
+          <div class="shell video-layout"><div class="video-poster">${state.site?.home?.video?.url ? `<video src="${escapeHtml(state.site.home.video.url)}" poster="${escapeHtml(state.site.home.video.poster || '')}" controls preload="metadata"></video>` : `<img src="${escapeHtml(state.site?.home?.video?.poster || '/site-assets/office-3.jpg')}" alt="Manufacturing" />`}</div><div><span class="eyebrow eyebrow--light">${state.locale === 'cn' ? '产品视频' : 'Product Video'}</span><h2>${escapeHtml(textOf(state.site?.home?.video?.title) || (state.locale === 'cn' ? '走进乔天制造现场' : 'Inside Qiaotian Manufacturing'))}</h2><p>${escapeHtml(textOf(state.site?.home?.video?.body))}</p></div></div>
+        </section>
+
+        <section class="section section--light home-testimonials-section">
+          <div class="shell"><div class="section-head"><div><span class="eyebrow">${state.locale === 'cn' ? '客户评价' : 'Customer Voice'}</span><h2>${state.locale === 'cn' ? '长期合作来自稳定的每一个细节' : 'Long-term partnerships are built on consistent details'}</h2></div></div><div class="testimonial-grid">${testimonials.map((item) => `<blockquote class="testimonial-card">${configuredTestimonials.length ? '' : `<span class="eyebrow">${state.locale === 'cn' ? '演示内容，非真实客户评价' : 'Demo only - not real customer feedback'}</span>`}<p>&ldquo;${escapeHtml(textOf(item.quote))}&rdquo;</p><footer><strong>${escapeHtml(textOf(item.author))}</strong><span>${escapeHtml(item.company)}</span></footer></blockquote>`).join('')}</div></div>
+        </section>
+
+        <section class="section section--slate">
+          <div class="shell"><div class="section-head"><div><span class="eyebrow">FAQ</span><h2>${state.locale === 'cn' ? '下单前，先了解这些关键问题' : 'Answers to common sourcing questions'}</h2></div><p>${state.locale === 'cn' ? '关于 MOQ、交期、打样、认证与售后的常见答案。' : 'Quick answers on MOQ, lead time, samples, certifications, and after-sales.'}</p></div><div class="faq-list">${(state.site?.home?.faq || []).map((item) => `<details class="faq-item"><summary>${escapeHtml(textOf(item.question))}<span>+</span></summary><p>${escapeHtml(textOf(item.answer))}</p></details>`).join('')}</div></div>
         </section>
 
         <section class="section section--contact">
@@ -1305,7 +1387,25 @@ function renderCurrentRoute(options?: { closeMobileMenu?: boolean }) {
   else if (state.route === 'privacy') renderPrivacy()
   else renderHome()
 
+  if (state.route === 'home') {
+    document.querySelector('.home-downloads-section')?.toggleAttribute('hidden', false)
+    document.querySelector('.home-cases-section')?.toggleAttribute('hidden', false)
+    document.querySelector('.home-testimonials-section')?.toggleAttribute('hidden', false)
+  }
+
   bindCommonEvents()
+  const revealItems = document.querySelectorAll<HTMLElement>('.section, .product-card, .case-card, .value-card, .download-card, .testimonial-card')
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible')
+        observer.unobserve(entry.target)
+      }
+    }), { threshold: 0.12 })
+    revealItems.forEach((element) => { element.classList.add('reveal'); observer.observe(element) })
+  } else {
+    revealItems.forEach((element) => element.classList.add('is-visible'))
+  }
   if (state.route === 'home' || state.route === 'contact') bindInquiryForm()
 }
 

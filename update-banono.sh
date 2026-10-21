@@ -9,21 +9,20 @@ APP_NAME="banono-cms"
 
 echo "[1/6] Pulling latest code"
 cd "$ROOT_DIR"
-git pull --ff-only
+git pull --ff-only origin main
 
 echo "[2/6] Building frontend"
 cd "$FRONTEND_DIR"
-npm install
+npm ci
 npm run build
 
 echo "[3/6] Updating CMS static public files"
 mkdir -p "$CMS_PUBLIC_DIR"
-find "$CMS_PUBLIC_DIR" -mindepth 1 -maxdepth 1 ! -name uploads -exec rm -rf {} +
-cp -r "$FRONTEND_DIR/dist/"* "$CMS_PUBLIC_DIR/"
+cp -r "$FRONTEND_DIR/dist/." "$CMS_PUBLIC_DIR/"
 
 echo "[4/6] Building CMS"
 cd "$CMS_DIR"
-npm install
+npm ci
 npm run build
 
 echo "[5/6] Restarting PM2 service"

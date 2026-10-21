@@ -627,9 +627,14 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
   };
   attributes: {
     advantages: Schema.Attribute.Component<'shared.localized-block', true>;
+    cases: Schema.Attribute.Component<'shared.home-case', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    customerImage: Schema.Attribute.Media<'images'>;
+    customization: Schema.Attribute.Component<'shared.localized-block', true>;
+    downloads: Schema.Attribute.Component<'shared.home-download', true>;
+    faq: Schema.Attribute.Component<'shared.home-faq', true>;
     heroBodyCn: Schema.Attribute.Text;
     heroBodyEn: Schema.Attribute.Text;
     heroImage: Schema.Attribute.Media<'images'>;
@@ -643,9 +648,17 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     stats: Schema.Attribute.Component<'shared.stat-item', true>;
+    teamImage: Schema.Attribute.Media<'images'>;
+    testimonials: Schema.Attribute.Component<'shared.home-testimonial', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    videoBodyCn: Schema.Attribute.Text;
+    videoBodyEn: Schema.Attribute.Text;
+    videoPoster: Schema.Attribute.Media<'images'>;
+    videoTitleCn: Schema.Attribute.String;
+    videoTitleEn: Schema.Attribute.String;
+    videoUrl: Schema.Attribute.String;
   };
 }
 

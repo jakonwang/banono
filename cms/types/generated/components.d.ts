@@ -1,5 +1,60 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface SharedHomeCase extends Struct.ComponentSchema {
+  collectionName: 'components_shared_home_cases';
+  info: {
+    displayName: 'Home Case';
+  };
+  attributes: {
+    bodyCn: Schema.Attribute.Text;
+    bodyEn: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'>;
+    titleCn: Schema.Attribute.String;
+    titleEn: Schema.Attribute.String;
+  };
+}
+
+export interface SharedHomeDownload extends Struct.ComponentSchema {
+  collectionName: 'components_shared_home_downloads';
+  info: {
+    displayName: 'Home Download';
+  };
+  attributes: {
+    bodyCn: Schema.Attribute.Text;
+    bodyEn: Schema.Attribute.Text;
+    file: Schema.Attribute.String;
+    titleCn: Schema.Attribute.String;
+    titleEn: Schema.Attribute.String;
+  };
+}
+
+export interface SharedHomeFaq extends Struct.ComponentSchema {
+  collectionName: 'components_shared_home_faqs';
+  info: {
+    displayName: 'Home FAQ';
+  };
+  attributes: {
+    answerCn: Schema.Attribute.Text;
+    answerEn: Schema.Attribute.Text;
+    questionCn: Schema.Attribute.String;
+    questionEn: Schema.Attribute.String;
+  };
+}
+
+export interface SharedHomeTestimonial extends Struct.ComponentSchema {
+  collectionName: 'components_shared_home_testimonials';
+  info: {
+    displayName: 'Home Testimonial';
+  };
+  attributes: {
+    authorCn: Schema.Attribute.String;
+    authorEn: Schema.Attribute.String;
+    company: Schema.Attribute.String;
+    quoteCn: Schema.Attribute.Text;
+    quoteEn: Schema.Attribute.Text;
+  };
+}
+
 export interface SharedLocalizedBlock extends Struct.ComponentSchema {
   collectionName: 'components_shared_localized_blocks';
   info: {
@@ -67,6 +122,10 @@ export interface SharedTimelineItem extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'shared.home-case': SharedHomeCase;
+      'shared.home-download': SharedHomeDownload;
+      'shared.home-faq': SharedHomeFaq;
+      'shared.home-testimonial': SharedHomeTestimonial;
       'shared.localized-block': SharedLocalizedBlock;
       'shared.localized-point': SharedLocalizedPoint;
       'shared.nav-item': SharedNavItem;

@@ -1,3 +1,5 @@
+import { seedData } from '../../../seed-data'
+
 const localized = (cn = '', en = '') => ({ cn, en })
 
 const ensureArray = <T>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : [])
@@ -18,7 +20,10 @@ export default {
     const [globalSetting, homePage, factoryPage, aboutPage, contactPage, privacyPage, categories, products, certificates] =
       await Promise.all([
         (strapi.documents('api::global-setting.global-setting') as any).findFirst({ status: 'draft' }),
-        (strapi.documents('api::home-page.home-page') as any).findFirst({ status: 'draft', populate: ['heroImage'] }),
+        (strapi.documents('api::home-page.home-page') as any).findFirst({
+          status: 'draft',
+          populate: '*'
+        }),
         (strapi.documents('api::factory-page.factory-page') as any).findFirst({ status: 'draft', populate: ['gallery'] }),
         (strapi.documents('api::about-page.about-page') as any).findFirst({ status: 'draft', populate: ['teamImages'] }),
         (strapi.documents('api::contact-page.contact-page') as any).findFirst({ status: 'draft', populate: ['mapImage'] }),
@@ -64,6 +69,37 @@ export default {
         value: item?.value || '',
         label: localized(item?.labelCn || '', item?.labelEn || '')
       })),
+      home: {
+        downloads: ensureArray<any>(homePage?.downloads).map((item) => ({
+          title: localized(item.titleCn || '', item.titleEn || ''),
+          body: localized(item.bodyCn || '', item.bodyEn || ''),
+          file: item.file || ''
+        })),
+        cases: ensureArray<any>(homePage?.cases).map((item) => ({
+          title: localized(item.titleCn || '', item.titleEn || ''),
+          body: localized(item.bodyCn || '', item.bodyEn || ''),
+          image: mediaUrl(item.image)
+        })),
+        testimonials: ensureArray<any>(homePage?.testimonials).map((item) => ({
+          quote: localized(item.quoteCn || '', item.quoteEn || ''),
+          author: localized(item.authorCn || '', item.authorEn || ''),
+          company: item.company || ''
+        })),
+        video: {
+          title: localized(homePage?.videoTitleCn || '', homePage?.videoTitleEn || ''),
+          body: localized(homePage?.videoBodyCn || '', homePage?.videoBodyEn || ''),
+          url: homePage?.videoUrl || '',
+          poster: mediaUrl(homePage?.videoPoster)
+        },
+        customization: ensureArray<any>(homePage?.customization?.length ? homePage.customization : seedData.homePage.customization).map((item) => ({
+          title: localized(item.titleCn || '', item.titleEn || ''),
+          body: localized(item.bodyCn || '', item.bodyEn || '')
+        })),
+        faq: ensureArray<any>(homePage?.faq?.length ? homePage.faq : seedData.homePage.faq).map((item) => ({
+          question: localized(item.questionCn || '', item.questionEn || ''),
+          answer: localized(item.answerCn || '', item.answerEn || '')
+        }))
+      },
       contact: {
         phone: contactPage?.phone || globalSetting?.phone || '',
         email: contactPage?.email || globalSetting?.email || '',
@@ -71,6 +107,8 @@ export default {
       },
       images: {
         homeHero: mediaUrl(homePage?.heroImage),
+        homeTeam: mediaUrl(homePage?.teamImage) || '/site-assets/team-1.jpg',
+        homeCustomer: mediaUrl(homePage?.customerImage),
         factoryHero: ensureArray<any>(factoryPage?.gallery)[0] ? mediaUrl(ensureArray<any>(factoryPage?.gallery)[0]) : '',
         factoryGalleryMain: ensureArray<any>(factoryPage?.gallery)[0] ? mediaUrl(ensureArray<any>(factoryPage?.gallery)[0]) : '',
         factoryGalleryLab: ensureArray<any>(factoryPage?.gallery)[1] ? mediaUrl(ensureArray<any>(factoryPage?.gallery)[1]) : '',

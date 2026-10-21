@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_shared_home_cases",
+  "info": { "displayName": "Home Case" },
+  "attributes": {
+    "titleCn": { "type": "string" }, "titleEn": { "type": "string" },
+    "bodyCn": { "type": "text" }, "bodyEn": { "type": "text" },
+    "image": { "type": "media", "multiple": false, "allowedTypes": ["images"] }
+  }
+}

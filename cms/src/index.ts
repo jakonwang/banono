@@ -74,6 +74,16 @@ export default {
         data: seedData.homePage
       })
     }
+    if (homePage && (!Array.isArray((homePage as any).customization) || (homePage as any).customization.length === 0 || !Array.isArray((homePage as any).faq) || (homePage as any).faq.length === 0)) {
+      await strapi.documents('api::home-page.home-page').update({
+        documentId: (homePage as any).documentId,
+        status: 'draft',
+        data: {
+          ...(!Array.isArray((homePage as any).customization) || (homePage as any).customization.length === 0 ? { customization: seedData.homePage.customization } : {}),
+          ...(!Array.isArray((homePage as any).faq) || (homePage as any).faq.length === 0 ? { faq: seedData.homePage.faq } : {})
+        }
+      })
+    }
 
     const factoryPage = await strapi.documents('api::factory-page.factory-page').findFirst({ status: 'draft' })
     if (!factoryPage) {

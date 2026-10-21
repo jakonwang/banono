@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_shared_home_downloads",
+  "info": { "displayName": "Home Download" },
+  "attributes": {
+    "titleCn": { "type": "string" }, "titleEn": { "type": "string" },
+    "bodyCn": { "type": "text" }, "bodyEn": { "type": "text" },
+    "file": { "type": "string" }
+  }
+}

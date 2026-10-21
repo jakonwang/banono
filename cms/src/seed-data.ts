@@ -60,7 +60,21 @@ export const seedData = {
         bodyCn: '面向国际市场交付要求，协助推进认证、包装与发运准备。',
         bodyEn: 'Aligned with export requirements for certification, packing, and shipment readiness.'
       }
-    ]
+    ],
+    customization: [
+      { titleCn: '材质与工艺', titleEn: 'Materials & Finishes', bodyCn: '玻璃、TPU、PC、硅胶等材质，以及丝印、UV、镭雕等工艺。', bodyEn: 'Glass, TPU, PC, silicone, plus silk screen, UV, and laser engraving.' },
+      { titleCn: 'Logo与外观', titleEn: 'Logo & Appearance', bodyCn: '支持Logo、颜色、结构和功能细节定制。', bodyEn: 'Customize logo, color, structure, and functional details.' },
+      { titleCn: '包装与标签', titleEn: 'Packaging & Labels', bodyCn: '支持彩盒、吸塑、说明书、条码与多语言标签。', bodyEn: 'Support boxes, blister packs, inserts, barcodes, and multilingual labels.' }
+    ],
+    faq: [
+      { questionCn: '最低起订量是多少？', questionEn: 'What is the MOQ?', answerCn: 'MOQ 会根据产品型号、定制内容和包装要求确认，请提供目标产品与数量范围以便核实。', answerEn: 'MOQ depends on the product, customization, and packaging. Share the target item and quantity range for confirmation.' },
+      { questionCn: '交期通常需要多久？', questionEn: 'What is the lead time?', answerCn: '交期取决于产品、订单数量和定制要求，具体时间以确认后的报价与生产计划为准。', answerEn: 'Lead time depends on product, quantity, and customization. The confirmed quotation and production plan provide the schedule.' },
+      { questionCn: '可以先打样吗？', questionEn: 'Can we request samples?', answerCn: '请提供产品型号和需求，我们会确认样品可行性、费用与安排。', answerEn: 'Share the target model and requirements so we can confirm sample availability, cost, and timing.' },
+      { questionCn: '支持哪些认证？', questionEn: 'Which certifications are supported?', answerCn: '认证要求取决于产品和目标市场，请提供具体型号与市场以便核对。', answerEn: 'Requirements depend on the product and destination market. Share both so we can verify.' },
+      { questionCn: '售后如何处理？', questionEn: 'How is after-sales handled?', answerCn: '请提供订单号、产品信息和问题描述，业务团队会按订单约定跟进处理。', answerEn: 'Provide the order reference, product details, and issue description. Our team will follow the agreed order terms.' }
+    ],
+    videoTitleCn: '走进乔天制造现场', videoTitleEn: 'Inside Qiaotian Manufacturing',
+    videoBodyCn: '查看研发、生产、质检与包装协同流程。', videoBodyEn: 'Explore our engineering, production, QC, and packaging workflow.', videoUrl: ''
   },
   factoryPage: {
     heroTitleCn: '品质背后的核心：先进制造',

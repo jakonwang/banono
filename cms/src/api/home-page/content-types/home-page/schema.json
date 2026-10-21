@@ -24,6 +24,17 @@
       "type": "component",
       "repeatable": true,
       "component": "shared.localized-block"
-    }
+    },
+    "downloads": { "type": "component", "repeatable": true, "component": "shared.home-download" },
+    "cases": { "type": "component", "repeatable": true, "component": "shared.home-case" },
+    "testimonials": { "type": "component", "repeatable": true, "component": "shared.home-testimonial" },
+    "customization": { "type": "component", "repeatable": true, "component": "shared.localized-block" },
+    "faq": { "type": "component", "repeatable": true, "component": "shared.home-faq" },
+    "videoTitleCn": { "type": "string" }, "videoTitleEn": { "type": "string" },
+    "videoBodyCn": { "type": "text" }, "videoBodyEn": { "type": "text" },
+    "videoUrl": { "type": "string" },
+    "videoPoster": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "teamImage": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "customerImage": { "type": "media", "multiple": false, "allowedTypes": ["images"] }
   }
 }
