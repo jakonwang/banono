@@ -4,6 +4,6 @@
   "attributes": {
     "titleCn": { "type": "string" }, "titleEn": { "type": "string" },
     "bodyCn": { "type": "text" }, "bodyEn": { "type": "text" },
-    "file": { "type": "string" }
+    "file": { "type": "media", "multiple": false, "allowedTypes": ["files"] }
   }
 }

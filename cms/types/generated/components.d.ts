@@ -22,7 +22,7 @@ export interface SharedHomeDownload extends Struct.ComponentSchema {
   attributes: {
     bodyCn: Schema.Attribute.Text;
     bodyEn: Schema.Attribute.Text;
-    file: Schema.Attribute.String;
+    file: Schema.Attribute.Media<'files'>;
     titleCn: Schema.Attribute.String;
     titleEn: Schema.Attribute.String;
   };

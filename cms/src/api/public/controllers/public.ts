@@ -73,7 +73,7 @@ export default {
         downloads: ensureArray<any>(homePage?.downloads).map((item) => ({
           title: localized(item.titleCn || '', item.titleEn || ''),
           body: localized(item.bodyCn || '', item.bodyEn || ''),
-          file: item.file || ''
+          file: typeof item.file === 'string' ? item.file : mediaUrl(item.file)
         })),
         cases: ensureArray<any>(homePage?.cases).map((item) => ({
           title: localized(item.titleCn || '', item.titleEn || ''),
