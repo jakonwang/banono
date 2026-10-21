@@ -31,6 +31,40 @@ const shouldRepairProduct = (record: any) =>
 
 const shouldRepairCertificate = (record: any) => !record || looksGarbled(record.titleCn)
 
+const homePageEditableFields = [
+  'heroTitleCn', 'heroTitleEn', 'heroBodyCn', 'heroBodyEn', 'heroImage',
+  'stats.value', 'stats.labelCn', 'stats.labelEn',
+  'advantages.titleCn', 'advantages.titleEn', 'advantages.bodyCn', 'advantages.bodyEn',
+  'downloads.titleCn', 'downloads.titleEn', 'downloads.bodyCn', 'downloads.bodyEn', 'downloads.file',
+  'cases.titleCn', 'cases.titleEn', 'cases.bodyCn', 'cases.bodyEn', 'cases.image',
+  'testimonials.quoteCn', 'testimonials.quoteEn', 'testimonials.authorCn', 'testimonials.authorEn', 'testimonials.company',
+  'customization.titleCn', 'customization.titleEn', 'customization.bodyCn', 'customization.bodyEn',
+  'faq.questionCn', 'faq.questionEn', 'faq.answerCn', 'faq.answerEn',
+  'videoTitleCn', 'videoTitleEn', 'videoBodyCn', 'videoBodyEn', 'videoUrl', 'videoPoster',
+  'teamImage', 'customerImage'
+]
+
+const syncHomePagePermissions = async (strapi: Core.Strapi) => {
+  const permissions = await strapi.db.query('admin::permission').findMany({
+    where: {
+      subject: 'api::home-page.home-page',
+      action: { $in: ['plugin::content-manager.explorer.create', 'plugin::content-manager.explorer.read', 'plugin::content-manager.explorer.update'] }
+    },
+    populate: ['role']
+  })
+
+  for (const permission of permissions as any[]) {
+    const roleCode = permission.role?.code
+    if (roleCode !== 'strapi-editor' && roleCode !== 'strapi-author') continue
+    const currentFields = permission.properties?.fields || []
+    if (homePageEditableFields.every((field) => currentFields.includes(field))) continue
+    await strapi.db.query('admin::permission').update({
+      where: { id: permission.id },
+      data: { properties: { ...(permission.properties || {}), fields: homePageEditableFields } }
+    })
+  }
+}
+
 export default {
   /**
    * An asynchronous register function that runs before
@@ -84,6 +118,7 @@ export default {
         }
       })
     }
+    await syncHomePagePermissions(strapi)
 
     const factoryPage = await strapi.documents('api::factory-page.factory-page').findFirst({ status: 'draft' })
     if (!factoryPage) {
