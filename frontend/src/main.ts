@@ -651,7 +651,7 @@ function renderHome() {
   const contact = state.site?.contact
   const homeStats = getHomeStats()
   const homeHighlights = getHomeHighlights()
-  const configuredDownloads = state.site?.home?.downloads || []
+  const configuredDownloads = (state.site?.home?.downloads || []).filter((item) => item.file)
   const configuredCases = state.site?.home?.cases || []
   const configuredTestimonials = state.site?.home?.testimonials || []
   const demoDownloads = [

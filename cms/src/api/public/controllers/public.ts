@@ -22,7 +22,19 @@ export default {
         (strapi.documents('api::global-setting.global-setting') as any).findFirst({ status: 'draft' }),
         (strapi.documents('api::home-page.home-page') as any).findFirst({
           status: 'draft',
-          populate: '*'
+          populate: {
+            heroImage: true,
+            stats: true,
+            advantages: true,
+            downloads: { populate: ['file'] },
+            cases: { populate: ['image'] },
+            testimonials: true,
+            customization: true,
+            faq: true,
+            videoPoster: true,
+            teamImage: true,
+            customerImage: true
+          }
         }),
         (strapi.documents('api::factory-page.factory-page') as any).findFirst({ status: 'draft', populate: ['gallery'] }),
         (strapi.documents('api::about-page.about-page') as any).findFirst({ status: 'draft', populate: ['teamImages'] }),
