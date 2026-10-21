@@ -9,6 +9,10 @@ APP_NAME="banono-cms"
 
 echo "[1/6] Pulling latest code"
 cd "$ROOT_DIR"
+if ! git diff --quiet -- cms/public/index.html || ! git diff --cached --quiet -- cms/public/index.html; then
+  echo "Local generated cms/public/index.html differs; restoring it before pull"
+  git restore --staged --worktree -- cms/public/index.html
+fi
 git pull --ff-only origin main
 
 echo "[2/6] Building frontend"
