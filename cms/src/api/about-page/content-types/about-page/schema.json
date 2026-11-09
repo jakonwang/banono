@@ -14,6 +14,7 @@
     "heroTitleEn": { "type": "string" },
     "heroBodyCn": { "type": "text" },
     "heroBodyEn": { "type": "text" },
+    "heroBackgroundUrl": { "type": "string" },
     "introCn": { "type": "richtext" },
     "introEn": { "type": "richtext" },
     "teamImages": { "type": "media", "multiple": true, "allowedTypes": ["images"] },

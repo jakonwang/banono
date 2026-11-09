@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "oem_pages",
+  "info": {
+    "singularName": "oem-page",
+    "pluralName": "oem-pages",
+    "displayName": "OEM ODM Page"
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "heroTitleCn": { "type": "string" },
+    "heroTitleEn": { "type": "string" },
+    "heroBodyCn": { "type": "text" },
+    "heroBodyEn": { "type": "text" },
+    "introCn": { "type": "text" },
+    "introEn": { "type": "text" },
+    "heroImage": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "capabilities": { "type": "component", "repeatable": true, "component": "shared.localized-block" }
+  }
+}

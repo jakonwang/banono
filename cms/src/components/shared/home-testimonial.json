@@ -4,6 +4,9 @@
   "attributes": {
     "quoteCn": { "type": "text" }, "quoteEn": { "type": "text" },
     "authorCn": { "type": "string" }, "authorEn": { "type": "string" },
-    "company": { "type": "string" }
+    "company": { "type": "string" },
+    "avatar": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "location": { "type": "string" },
+    "rating": { "type": "integer", "min": 1, "max": 5, "default": 5 }
   }
 }

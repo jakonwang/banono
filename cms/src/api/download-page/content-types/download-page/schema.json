@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "download_pages",
+  "info": {
+    "singularName": "download-page",
+    "pluralName": "download-pages",
+    "displayName": "Download Page"
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "heroTitleCn": { "type": "string" },
+    "heroTitleEn": { "type": "string" },
+    "heroBodyCn": { "type": "text" },
+    "heroBodyEn": { "type": "text" },
+    "introCn": { "type": "text" },
+    "introEn": { "type": "text" },
+    "heroImage": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "downloads": { "type": "component", "repeatable": true, "component": "shared.home-download" }
+  }
+}

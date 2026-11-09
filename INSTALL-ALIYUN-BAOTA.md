@@ -240,7 +240,15 @@ http://127.0.0.1:1337
 
 ## 十、后续更新代码
 
-以后代码有更新，只需要：
+### 推荐方式：Git 一键更新
+
+先在本地提交并推送代码：
+
+```bash
+git push origin main
+```
+
+然后登录服务器，只需要执行：
 
 ```bash
 cd /www/wwwroot/banono
@@ -248,16 +256,56 @@ bash update-banono.sh
 ```
 
 这个脚本会自动完成：
+- 备份 SQLite 数据库和已上传文件
+- 从 GitHub 拉取 `main` 分支最新版本
+- 按锁文件安装依赖
 - 重新构建前台
-- 更新 `cms/public`
+- 清理旧前台资源并更新 `cms/public`
 - 重新构建 CMS
-- 重启 `pm2` 服务
+- 重启或创建 `pm2` 服务
+- 检查公开数据接口是否恢复正常
 
-如果你是用 git 拉代码，更新顺序建议：
+备份文件保存在：
+
+```text
+/www/wwwroot/banono/backups/日期-时间/
+```
+
+如果线上使用的不是 `main` 分支，可以指定分支：
 
 ```bash
 cd /www/wwwroot/banono
-git pull
+BRANCH=你的分支 bash update-banono.sh
+```
+
+如果域名或端口不同，可以指定健康检查地址：
+
+```bash
+HEALTH_URL=https://你的域名/api/public/site bash update-banono.sh
+```
+
+### 手动上传压缩包后的更新
+
+如果不使用 Git，请先在宝塔面板备份并覆盖项目源码，但必须保留以下内容：
+
+```text
+cms/.env
+cms/.tmp/data.db
+cms/public/uploads/
+```
+
+覆盖完成后仍然执行：
+
+```bash
+cd /www/wwwroot/banono
+bash update-banono.sh
+```
+
+注意：一键脚本默认使用 Git 获取最新版本。手动上传模式下，如果服务器代码没有关联 Git 仓库，请执行首次部署脚本：
+
+```bash
+bash deploy-banono.sh
+```
 bash update-banono.sh
 ```
 

@@ -79,6 +79,8 @@ export type SessionItem = {
 export type SiteModel = {
   company: {
     brand: Localized
+    logoMark?: string
+    brandTagline?: string
     phone: string
     email: string
     address: Localized

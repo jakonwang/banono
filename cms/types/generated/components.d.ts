@@ -49,9 +49,20 @@ export interface SharedHomeTestimonial extends Struct.ComponentSchema {
   attributes: {
     authorCn: Schema.Attribute.String;
     authorEn: Schema.Attribute.String;
+    avatar: Schema.Attribute.Media<'images'>;
     company: Schema.Attribute.String;
+    location: Schema.Attribute.String;
     quoteCn: Schema.Attribute.Text;
     quoteEn: Schema.Attribute.Text;
+    rating: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<5>;
   };
 }
 

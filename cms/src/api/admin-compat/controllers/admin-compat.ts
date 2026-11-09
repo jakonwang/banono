@@ -244,9 +244,9 @@ const buildSiteModel = async () => {
   const [globalSetting, homePage, factoryPage, aboutPage, contactPage, privacyPage, categories, products, certificates] =
     await Promise.all([
       getSingleDraft('api::global-setting.global-setting'),
-      getSingleDraft('api::home-page.home-page'),
+      (strapi.documents('api::home-page.home-page') as any).findFirst({ status: 'draft', populate: { heroImage: true } }),
       getSingleDraft('api::factory-page.factory-page'),
-      getSingleDraft('api::about-page.about-page'),
+      (strapi.documents('api::about-page.about-page') as any).findFirst({ status: 'draft', populate: ['teamImages'] }),
       getSingleDraft('api::contact-page.contact-page'),
       getSingleDraft('api::privacy-page.privacy-page'),
       (strapi.documents('api::product-category.product-category') as any).findMany({ status: 'draft', populate: ['parent'], sort: ['sort:asc', 'id:asc'] }),
@@ -264,6 +264,8 @@ const buildSiteModel = async () => {
   return {
     company: {
       brand: localized(companyDoc?.brandCn || '', companyDoc?.brandEn || ''),
+      logoMark: companyDoc?.logoMark || '',
+      brandTagline: companyDoc?.brandTagline || '',
       phone: companyDoc?.phone || '',
       email: companyDoc?.email || '',
       address: localized(companyDoc?.addressCn || '', companyDoc?.addressEn || '')
@@ -276,7 +278,7 @@ const buildSiteModel = async () => {
         label: localized(firstString(item?.labelCn), firstString(item?.labelEn))
       })),
       images: {
-        heroImage: homeDoc?.heroImage?.url || ''
+        heroImage: homeDoc?.heroBackgroundUrl || homeDoc?.heroImage?.url || ''
       }
     },
     factory: {
@@ -287,7 +289,7 @@ const buildSiteModel = async () => {
     about: {
       heroTitle: localized(aboutDoc?.heroTitleCn || '', aboutDoc?.heroTitleEn || ''),
       heroBody: localized(aboutDoc?.heroBodyCn || '', aboutDoc?.heroBodyEn || ''),
-      images: {}
+      images: { aboutHero: aboutDoc?.heroBackgroundUrl || (Array.isArray(aboutDoc?.teamImages) ? aboutDoc.teamImages[0]?.url || '' : '') }
     },
     contact: {
       heroTitle: localized(contactDoc?.heroTitleCn || '', contactDoc?.heroTitleEn || ''),
@@ -333,6 +335,8 @@ export default {
       await updateSingleSection('api::global-setting.global-setting', {
         brandCn: firstString(payload.brand?.cn, payload.brand?.en),
         brandEn: firstString(payload.brand?.en, payload.brand?.cn),
+        logoMark: firstString(payload.logoMark).slice(0, 4),
+        brandTagline: firstString(payload.brandTagline),
         phone: firstString(payload.phone),
         email: firstString(payload.email),
         addressCn: firstString(payload.address?.cn),
@@ -344,6 +348,7 @@ export default {
         heroTitleEn: firstString(payload.heroTitle?.en, payload.heroTitle?.cn),
         heroBodyCn: firstString(payload.heroBody?.cn),
         heroBodyEn: firstString(payload.heroBody?.en),
+        heroBackgroundUrl: firstString(payload.images?.heroImage),
         stats: ensureArray<any>(payload.stats).map((item) => ({
           value: firstString(item?.value),
           labelCn: firstString(item?.label?.cn),
@@ -362,7 +367,8 @@ export default {
         heroTitleCn: firstString(payload.heroTitle?.cn, payload.heroTitle?.en),
         heroTitleEn: firstString(payload.heroTitle?.en, payload.heroTitle?.cn),
         heroBodyCn: firstString(payload.heroBody?.cn),
-        heroBodyEn: firstString(payload.heroBody?.en)
+        heroBodyEn: firstString(payload.heroBody?.en),
+        heroBackgroundUrl: firstString(payload.images?.aboutHero)
       })
     } else if (section === 'contact') {
       await updateSingleSection('api::contact-page.contact-page', {

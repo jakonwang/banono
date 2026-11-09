@@ -454,6 +454,7 @@ export interface ApiAboutPageAboutPage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    heroBackgroundUrl: Schema.Attribute.String;
     heroBodyCn: Schema.Attribute.Text;
     heroBodyEn: Schema.Attribute.Text;
     heroTitleCn: Schema.Attribute.String;
@@ -545,6 +546,41 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiDownloadPageDownloadPage extends Struct.SingleTypeSchema {
+  collectionName: 'download_pages';
+  info: {
+    displayName: 'Download Page';
+    pluralName: 'download-pages';
+    singularName: 'download-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    downloads: Schema.Attribute.Component<'shared.home-download', true>;
+    heroBodyCn: Schema.Attribute.Text;
+    heroBodyEn: Schema.Attribute.Text;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroTitleCn: Schema.Attribute.String;
+    heroTitleEn: Schema.Attribute.String;
+    introCn: Schema.Attribute.Text;
+    introEn: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::download-page.download-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFactoryPageFactoryPage extends Struct.SingleTypeSchema {
   collectionName: 'factory_pages';
   info: {
@@ -594,6 +630,7 @@ export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
     addressEn: Schema.Attribute.Text;
     brandCn: Schema.Attribute.String;
     brandEn: Schema.Attribute.String;
+    brandTagline: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -604,6 +641,10 @@ export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
       'api::global-setting.global-setting'
     > &
       Schema.Attribute.Private;
+    logoMark: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 4;
+      }>;
     navItems: Schema.Attribute.Component<'shared.nav-item', true>;
     phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
@@ -635,6 +676,7 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     customization: Schema.Attribute.Component<'shared.localized-block', true>;
     downloads: Schema.Attribute.Component<'shared.home-download', true>;
     faq: Schema.Attribute.Component<'shared.home-faq', true>;
+    heroBackgroundUrl: Schema.Attribute.String;
     heroBodyCn: Schema.Attribute.Text;
     heroBodyEn: Schema.Attribute.Text;
     heroImage: Schema.Attribute.Media<'images'>;
@@ -693,6 +735,41 @@ export interface ApiInquiryInquiry extends Struct.CollectionTypeSchema {
       ['new', 'processing', 'quoted', 'done']
     > &
       Schema.Attribute.DefaultTo<'new'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiOemPageOemPage extends Struct.SingleTypeSchema {
+  collectionName: 'oem_pages';
+  info: {
+    displayName: 'OEM ODM Page';
+    pluralName: 'oem-pages';
+    singularName: 'oem-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    capabilities: Schema.Attribute.Component<'shared.localized-block', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heroBodyCn: Schema.Attribute.Text;
+    heroBodyEn: Schema.Attribute.Text;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroTitleCn: Schema.Attribute.String;
+    heroTitleEn: Schema.Attribute.String;
+    introCn: Schema.Attribute.Text;
+    introEn: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::oem-page.oem-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1333,10 +1410,12 @@ declare module '@strapi/strapi' {
       'api::about-page.about-page': ApiAboutPageAboutPage;
       'api::certificate.certificate': ApiCertificateCertificate;
       'api::contact-page.contact-page': ApiContactPageContactPage;
+      'api::download-page.download-page': ApiDownloadPageDownloadPage;
       'api::factory-page.factory-page': ApiFactoryPageFactoryPage;
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::inquiry.inquiry': ApiInquiryInquiry;
+      'api::oem-page.oem-page': ApiOemPageOemPage;
       'api::privacy-page.privacy-page': ApiPrivacyPagePrivacyPage;
       'api::product-category.product-category': ApiProductCategoryProductCategory;
       'api::product.product': ApiProductProduct;

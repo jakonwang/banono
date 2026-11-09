@@ -4,6 +4,8 @@
       <el-row :gutter="16">
         <el-col :span="12"><el-form-item label="品牌中文名"><el-input v-model="form.brand.cn" /></el-form-item></el-col>
         <el-col :span="12"><el-form-item label="品牌英文名"><el-input v-model="form.brand.en" /></el-form-item></el-col>
+        <el-col :span="12"><el-form-item label="&#26631;&#24535;&#31616;&#31216;"><el-input v-model="form.logoMark" maxlength="4" placeholder="QT" /></el-form-item></el-col>
+        <el-col :span="12"><el-form-item label="&#21697;&#29260;&#21103;&#26631;"><el-input v-model="form.brandTagline" placeholder="MANUFACTURING / GLOBAL" /></el-form-item></el-col>
         <el-col :span="12"><el-form-item label="联系电话"><el-input v-model="form.phone" /></el-form-item></el-col>
         <el-col :span="12"><el-form-item label="联系邮箱"><el-input v-model="form.email" /></el-form-item></el-col>
         <el-col :span="12"><el-form-item label="中文地址"><el-input v-model="form.address.cn" /></el-form-item></el-col>
@@ -25,6 +27,8 @@ import { useContentStore } from '../stores/content'
 const store = useContentStore()
 const form = reactive({
   brand: { cn: '', en: '' },
+  logoMark: '',
+  brandTagline: '',
   phone: '',
   email: '',
   address: { cn: '', en: '' }
@@ -35,6 +39,8 @@ watch(
   (value) => {
     if (!value) return
     form.brand = { ...value.brand }
+    form.logoMark = value.logoMark || ''
+    form.brandTagline = value.brandTagline || ''
     form.phone = value.phone
     form.email = value.email
     form.address = { ...value.address }

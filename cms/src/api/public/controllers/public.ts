@@ -17,7 +17,7 @@ const mediaUrl = (media: any) => {
 
 export default {
   async site(ctx: any) {
-    const [globalSetting, homePage, factoryPage, aboutPage, contactPage, privacyPage, categories, products, certificates] =
+    const [globalSetting, homePage, factoryPage, aboutPage, contactPage, privacyPage, oemPage, downloadPage, categories, products, certificates] =
       await Promise.all([
         (strapi.documents('api::global-setting.global-setting') as any).findFirst({ status: 'draft' }),
         (strapi.documents('api::home-page.home-page') as any).findFirst({
@@ -28,7 +28,7 @@ export default {
             advantages: true,
             downloads: { populate: ['file'] },
             cases: { populate: ['image'] },
-            testimonials: true,
+            testimonials: { populate: ['avatar'] },
             customization: true,
             faq: true,
             videoPoster: true,
@@ -40,6 +40,8 @@ export default {
         (strapi.documents('api::about-page.about-page') as any).findFirst({ status: 'draft', populate: ['teamImages'] }),
         (strapi.documents('api::contact-page.contact-page') as any).findFirst({ status: 'draft', populate: ['mapImage'] }),
         (strapi.documents('api::privacy-page.privacy-page') as any).findFirst({ status: 'draft' }),
+        (strapi.documents('api::oem-page.oem-page') as any).findFirst({ status: 'draft', populate: ['heroImage', 'capabilities'] }),
+        (strapi.documents('api::download-page.download-page') as any).findFirst({ status: 'draft', populate: { heroImage: true, downloads: { populate: ['file'] } } }),
         (strapi.documents('api::product-category.product-category') as any).findMany({
           status: 'draft',
           populate: ['parent'],
@@ -47,7 +49,7 @@ export default {
         }),
         (strapi.documents('api::product.product') as any).findMany({
           status: 'draft',
-          populate: ['category', 'coverImage'],
+          populate: ['category', 'coverImage', 'gallery', 'specifications', 'sellingPoints'],
           sort: ['id:asc']
         }),
         (strapi.documents('api::certificate.certificate') as any).findMany({
@@ -63,6 +65,10 @@ export default {
 
     ctx.body = {
       brand: localized(globalSetting?.brandCn || 'Qiaotian Enterprise', globalSetting?.brandEn || 'Qiaotian Enterprise'),
+      brandIdentity: {
+        mark: globalSetting?.logoMark || '',
+        tagline: globalSetting?.brandTagline || ''
+      },
       hero: {
         title: localized(homePage?.heroTitleCn || '', homePage?.heroTitleEn || ''),
         body: localized(homePage?.heroBodyCn || '', homePage?.heroBodyEn || '')
@@ -74,6 +80,9 @@ export default {
         summary: localized(item.summaryCn || '', item.summaryEn || ''),
         tags: ensureArray<string>(item.tags),
         image: mediaUrl(item.coverImage),
+        gallery: ensureArray<any>(item.gallery).map(mediaUrl).filter(Boolean),
+        specifications: ensureArray<any>(item.specifications).map((point) => ({ label: localized(point.labelCn || '', point.labelEn || ''), value: localized(point.valueCn || '', point.valueEn || '') })),
+        sellingPoints: ensureArray<any>(item.sellingPoints).map((point) => ({ label: localized(point.labelCn || '', point.labelEn || ''), value: localized(point.valueCn || '', point.valueEn || '') })),
         categorySlug: item.category?.slug || '',
         categoryId: item.category?.documentId || (item.category?.id ? String(item.category.id) : '')
       })),
@@ -95,7 +104,10 @@ export default {
         testimonials: ensureArray<any>(homePage?.testimonials).map((item) => ({
           quote: localized(item.quoteCn || '', item.quoteEn || ''),
           author: localized(item.authorCn || '', item.authorEn || ''),
-          company: item.company || ''
+          company: item.company || '',
+          avatar: mediaUrl(item.avatar),
+          location: item.location || '',
+          rating: Math.min(5, Math.max(1, Number(item.rating) || 5))
         })),
         video: {
           title: localized(homePage?.videoTitleCn || '', homePage?.videoTitleEn || ''),
@@ -112,13 +124,34 @@ export default {
           answer: localized(item.answerCn || '', item.answerEn || '')
         }))
       },
+      oemPage: {
+        heroTitle: localized(oemPage?.heroTitleCn || '', oemPage?.heroTitleEn || ''),
+        heroBody: localized(oemPage?.heroBodyCn || '', oemPage?.heroBodyEn || ''),
+        intro: localized(oemPage?.introCn || '', oemPage?.introEn || ''),
+        heroImage: mediaUrl(oemPage?.heroImage),
+        capabilities: ensureArray<any>(oemPage?.capabilities).map((item) => ({
+          title: localized(item.titleCn || '', item.titleEn || ''),
+          body: localized(item.bodyCn || '', item.bodyEn || '')
+        }))
+      },
+      downloadPage: {
+        heroTitle: localized(downloadPage?.heroTitleCn || '', downloadPage?.heroTitleEn || ''),
+        heroBody: localized(downloadPage?.heroBodyCn || '', downloadPage?.heroBodyEn || ''),
+        intro: localized(downloadPage?.introCn || '', downloadPage?.introEn || ''),
+        heroImage: mediaUrl(downloadPage?.heroImage),
+        downloads: ensureArray<any>(downloadPage?.downloads).map((item) => ({
+          title: localized(item.titleCn || '', item.titleEn || ''),
+          body: localized(item.bodyCn || '', item.bodyEn || ''),
+          file: mediaUrl(item.file)
+        }))
+      },
       contact: {
         phone: contactPage?.phone || globalSetting?.phone || '',
         email: contactPage?.email || globalSetting?.email || '',
         address: localized(contactPage?.addressCn || globalSetting?.addressCn || '', contactPage?.addressEn || globalSetting?.addressEn || '')
       },
       images: {
-        homeHero: mediaUrl(homePage?.heroImage),
+        homeHero: homePage?.heroBackgroundUrl || mediaUrl(homePage?.heroImage),
         homeTeam: mediaUrl(homePage?.teamImage) || '/site-assets/team-1.jpg',
         homeCustomer: mediaUrl(homePage?.customerImage),
         factoryHero: ensureArray<any>(factoryPage?.gallery)[0] ? mediaUrl(ensureArray<any>(factoryPage?.gallery)[0]) : '',
@@ -126,7 +159,7 @@ export default {
         factoryGalleryLab: ensureArray<any>(factoryPage?.gallery)[1] ? mediaUrl(ensureArray<any>(factoryPage?.gallery)[1]) : '',
         factoryGalleryQc: ensureArray<any>(factoryPage?.gallery)[2] ? mediaUrl(ensureArray<any>(factoryPage?.gallery)[2]) : '',
         factoryGalleryWarehouse: ensureArray<any>(factoryPage?.gallery)[3] ? mediaUrl(ensureArray<any>(factoryPage?.gallery)[3]) : '',
-        aboutHero: ensureArray<any>(aboutPage?.teamImages)[0] ? mediaUrl(ensureArray<any>(aboutPage?.teamImages)[0]) : '',
+        aboutHero: aboutPage?.heroBackgroundUrl || (ensureArray<any>(aboutPage?.teamImages)[0] ? mediaUrl(ensureArray<any>(aboutPage?.teamImages)[0]) : ''),
         aboutLeaderOne: ensureArray<any>(aboutPage?.teamImages)[0] ? mediaUrl(ensureArray<any>(aboutPage?.teamImages)[0]) : '',
         aboutLeaderTwo: ensureArray<any>(aboutPage?.teamImages)[1] ? mediaUrl(ensureArray<any>(aboutPage?.teamImages)[1]) : '',
         contactMap: mediaUrl(contactPage?.mapImage),
@@ -141,7 +174,8 @@ export default {
         },
         about: {
           heroTitle: localized(aboutPage?.heroTitleCn || '', aboutPage?.heroTitleEn || ''),
-          heroBody: localized(aboutPage?.heroBodyCn || '', aboutPage?.heroBodyEn || '')
+          heroBody: localized(aboutPage?.heroBodyCn || '', aboutPage?.heroBodyEn || ''),
+          intro: localized(aboutPage?.introCn || '', aboutPage?.introEn || '')
         },
         contact: {
           heroTitle: localized(contactPage?.heroTitleCn || '', contactPage?.heroTitleEn || ''),

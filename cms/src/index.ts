@@ -32,12 +32,12 @@ const shouldRepairProduct = (record: any) =>
 const shouldRepairCertificate = (record: any) => !record || looksGarbled(record.titleCn)
 
 const homePageEditableFields = [
-  'heroTitleCn', 'heroTitleEn', 'heroBodyCn', 'heroBodyEn', 'heroImage',
+  'heroTitleCn', 'heroTitleEn', 'heroBodyCn', 'heroBodyEn', 'heroImage', 'heroBackgroundUrl',
   'stats.value', 'stats.labelCn', 'stats.labelEn',
   'advantages.titleCn', 'advantages.titleEn', 'advantages.bodyCn', 'advantages.bodyEn',
   'downloads.titleCn', 'downloads.titleEn', 'downloads.bodyCn', 'downloads.bodyEn', 'downloads.file',
   'cases.titleCn', 'cases.titleEn', 'cases.bodyCn', 'cases.bodyEn', 'cases.image',
-  'testimonials.quoteCn', 'testimonials.quoteEn', 'testimonials.authorCn', 'testimonials.authorEn', 'testimonials.company',
+  'testimonials.quoteCn', 'testimonials.quoteEn', 'testimonials.authorCn', 'testimonials.authorEn', 'testimonials.company', 'testimonials.avatar', 'testimonials.location', 'testimonials.rating',
   'customization.titleCn', 'customization.titleEn', 'customization.bodyCn', 'customization.bodyEn',
   'faq.questionCn', 'faq.questionEn', 'faq.answerCn', 'faq.answerEn',
   'videoTitleCn', 'videoTitleEn', 'videoBodyCn', 'videoBodyEn', 'videoUrl', 'videoPoster',
@@ -63,6 +63,44 @@ const syncHomePagePermissions = async (strapi: Core.Strapi) => {
       data: { properties: { ...(permission.properties || {}), fields: homePageEditableFields } }
     })
   }
+}
+
+const repairHomeTestimonialLinks = async (strapi: Core.Strapi) => {
+  const db = strapi.db.connection
+  const hasTable = await db.schema.hasTable('components_shared_home_testimonials')
+  if (!hasTable || !(await db.schema.hasTable('home_pages_cmps'))) return
+
+  const homePages = await db('home_pages').select('id').orderBy('id')
+  if (!homePages.length) return
+
+  const homePageId = homePages[0].id
+  const components = await db('components_shared_home_testimonials').select('id').orderBy('id')
+  if (!components.length) return
+
+  const links = await db('home_pages_cmps')
+    .select('cmp_id')
+    .where({ entity_id: homePageId, component_type: 'shared.home-testimonial', field: 'testimonials' })
+  const linkedIds = new Set(links.map((link: { cmp_id: number }) => String(link.cmp_id)))
+  const missing = components.filter((component: { id: number }) => !linkedIds.has(String(component.id)))
+  if (!missing.length) return
+
+  const currentOrder = await db('home_pages_cmps')
+    .where({ entity_id: homePageId, field: 'testimonials' })
+    .max({ maxOrder: 'order' })
+    .first()
+  let order = Number(currentOrder?.maxOrder || 0)
+  await db.transaction(async (trx) => {
+    for (const component of missing) {
+      order += 1
+      await trx('home_pages_cmps').insert({
+        entity_id: homePageId,
+        cmp_id: component.id,
+        component_type: 'shared.home-testimonial',
+        field: 'testimonials',
+        order
+      })
+    }
+  })
 }
 
 export default {
@@ -119,6 +157,7 @@ export default {
       })
     }
     await syncHomePagePermissions(strapi)
+    await repairHomeTestimonialLinks(strapi)
 
     const factoryPage = await strapi.documents('api::factory-page.factory-page').findFirst({ status: 'draft' })
     if (!factoryPage) {

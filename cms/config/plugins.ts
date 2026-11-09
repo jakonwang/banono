@@ -15,7 +15,7 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
     config: {
       provider: 'local',
       providerOptions: {},
-      sizeLimit: 10 * 1024 * 1024,
+      sizeLimit: 100 * 1024 * 1024,
       breakpoints: {
         large: 1000,
         medium: 750,

@@ -1,7 +1,7 @@
 import './style.css'
 import { loadSiteFromCms, submitInquiryToCms } from './api/cms'
 
-type Route = 'home' | 'product-center' | 'factory-strength' | 'about' | 'contact' | 'privacy'
+type Route = 'home' | 'product-center' | 'factory-strength' | 'about' | 'contact' | 'privacy' | 'oem' | 'downloads'
 type Locale = 'en' | 'cn'
 type LocalizedText = { cn?: string; en?: string }
 type Product = {
@@ -9,6 +9,9 @@ type Product = {
   slug?: string
   name: LocalizedText
   summary: LocalizedText
+  gallery?: string[]
+  specifications?: Array<{ label: LocalizedText; value: LocalizedText }>
+  sellingPoints?: Array<{ label: LocalizedText; value: LocalizedText }>
   tags?: string[]
   image?: string
   categorySlug?: string
@@ -25,6 +28,7 @@ type ProductCategory = {
 }
 type SiteData = {
   brand?: LocalizedText
+  brandIdentity?: { mark?: string; tagline?: string }
   hero?: { title?: LocalizedText; body?: LocalizedText }
   products?: Product[]
   stats?: { value: string; label: LocalizedText }[]
@@ -33,14 +37,28 @@ type SiteData = {
   home?: {
     downloads?: Array<{ title: LocalizedText; body: LocalizedText; file: string }>
     cases?: Array<{ title: LocalizedText; body: LocalizedText; image: string }>
-    testimonials?: Array<{ quote: LocalizedText; author: LocalizedText; company: string }>
+    testimonials?: Array<{ quote: LocalizedText; author: LocalizedText; company: string; avatar?: string; location?: string; rating?: number }>
     video?: { title: LocalizedText; body: LocalizedText; url: string; poster: string }
     customization?: Array<{ title: LocalizedText; body: LocalizedText }>
     faq?: Array<{ question: LocalizedText; answer: LocalizedText }>
   }
+  oemPage?: {
+    heroTitle?: LocalizedText
+    heroBody?: LocalizedText
+    intro?: LocalizedText
+    heroImage?: string
+    capabilities?: Array<{ title: LocalizedText; body: LocalizedText }>
+  }
+  downloadPage?: {
+    heroTitle?: LocalizedText
+    heroBody?: LocalizedText
+    intro?: LocalizedText
+    heroImage?: string
+    downloads?: Array<{ title: LocalizedText; body: LocalizedText; file: string }>
+  }
   sections?: {
     factory?: { heroTitle?: LocalizedText; heroBody?: LocalizedText }
-    about?: { heroTitle?: LocalizedText; heroBody?: LocalizedText }
+    about?: { heroTitle?: LocalizedText; heroBody?: LocalizedText; intro?: LocalizedText }
     contact?: { heroTitle?: LocalizedText; heroBody?: LocalizedText }
     privacy?: { heroTitle?: LocalizedText; heroBody?: LocalizedText }
   }
@@ -416,7 +434,7 @@ const state: {
 
 function readRoute(): Route {
   const route = location.hash.replace(/^#\/?/, '') || 'home'
-  if (route === 'product-center' || route === 'factory-strength' || route === 'about' || route === 'contact' || route === 'privacy') {
+  if (route === 'product-center' || route === 'factory-strength' || route === 'about' || route === 'contact' || route === 'privacy' || route === 'oem' || route === 'downloads') {
     return route
   }
   return 'home'
@@ -450,6 +468,29 @@ function siteSectionText(section: keyof NonNullable<SiteData['sections']>, field
 
 function siteBrand(part: 'cn' | 'en', fallback: string) {
   return state.site?.brand?.[part] || fallback
+}
+
+function siteLogoMark() {
+  const configured = state.site?.brandIdentity?.mark?.trim()
+  if (configured) return configured.slice(0, 4).toUpperCase()
+
+  const words = siteBrand('en', 'Qiaotian Enterprise').trim().split(/\s+/).filter(Boolean)
+  return words.slice(0, 2).map((word) => word[0]).join('').toUpperCase() || 'QT'
+}
+
+function siteBrandTagline() {
+  return state.site?.brandIdentity?.tagline?.trim() || 'MANUFACTURING / GLOBAL'
+}
+
+function youtubeEmbedUrl(value: string) {
+  try {
+    const url = new URL(value)
+    let videoId = ''
+    if (url.hostname === 'youtu.be') videoId = url.pathname.slice(1)
+    else if (url.hostname.endsWith('youtube.com')) videoId = url.searchParams.get('v') || url.pathname.split('/').filter(Boolean).pop() || ''
+    if (/^[\w-]{11}$/.test(videoId)) return `https://www.youtube-nocookie.com/embed/${videoId}`
+  } catch {}
+  return ''
 }
 
 function getHomeStats() {
@@ -566,7 +607,7 @@ function renderHeader(active: Route) {
   return `
     <header class="site-header">
       <div class="shell site-header__inner">
-        <a class="site-brand" href="#/home">
+        <a class="site-brand" href="#/home" data-logo-mark="${escapeHtml(siteLogoMark())}" data-logo-tagline="${escapeHtml(siteBrandTagline())}">
           <span class="site-brand__en">${escapeHtml(siteBrand('en', 'Qiaotian Enterprise'))}</span>
         </a>
         <nav class="site-nav" aria-label="Primary">
@@ -579,7 +620,8 @@ function renderHeader(active: Route) {
               `
             )
             .join('')}
-          <a class="site-nav__link" href="#customization">${t().nav.oem}</a>
+          <a class="site-nav__link ${active === 'oem' ? 'is-active' : ''}" href="#/oem">${t().nav.oem}</a>
+          <a class="site-nav__link ${active === 'downloads' ? 'is-active' : ''}" href="#/downloads">${state.locale === 'cn' ? '目录下载' : 'Downloads'}</a>
         </nav>
         <div class="site-header__actions">
           <button id="lang-toggle" class="site-lang" type="button">${t().langToggle}</button>
@@ -608,7 +650,8 @@ function renderHeader(active: Route) {
               `
             )
             .join('')}
-          <a class="mobile-nav__link" href="#customization">${t().nav.oem}</a>
+          <a class="mobile-nav__link ${active === 'oem' ? 'is-active' : ''}" href="#/oem">${t().nav.oem}</a>
+          <a class="mobile-nav__link ${active === 'downloads' ? 'is-active' : ''}" href="#/downloads">${state.locale === 'cn' ? '目录下载' : 'Downloads'}</a>
         </div>
       </div>
     </header>
@@ -677,7 +720,10 @@ function renderHome() {
     {
       quote: { cn: '演示评价文案：用于预览客户评价模块排版，不代表真实客户反馈。', en: 'Demo testimonial copy for layout preview only. This is not genuine customer feedback.' },
       author: { cn: '演示联系人', en: 'Demo Contact' },
-      company: state.locale === 'cn' ? '演示内容，请替换' : 'Demo content - replace before launch'
+      company: state.locale === 'cn' ? '演示内容，请替换' : 'Demo content - replace before launch',
+      avatar: '',
+      location: '',
+      rating: 5
     }
   ]
   const downloads = configuredDownloads.length ? configuredDownloads : demoDownloads
@@ -713,7 +759,7 @@ function renderHome() {
                   .map(
                     (item) => `
                       <div class="hero__metric">
-                        <strong>${escapeHtml(item.value)}</strong>
+                        <strong data-count-value="${escapeHtml(item.value)}">${escapeHtml(item.value)}</strong>
                         <span>${escapeHtml(item.label)}</span>
                       </div>
                     `
@@ -749,7 +795,7 @@ function renderHome() {
               ${products
                 .map(
                   (product, index) => `
-                    <article class="product-card">
+                    <article class="product-card" data-product-card-id="${escapeHtml(product.id)}">
                       <div class="product-card__image">
                         <img src="${product.image}" alt="${escapeHtml(textOf(product.name))}" />
                       </div>
@@ -848,7 +894,7 @@ function renderHome() {
           </div>
         </section>
 
-        <section class="section section--slate home-downloads-section">
+        <section class="section section--slate home-downloads-section" id="downloads">
           <div class="shell"><div class="section-head"><div><span class="eyebrow">${state.locale === 'cn' ? '下载目录' : 'Downloads'}</span><h2>${state.locale === 'cn' ? '把关键资料带回团队评估' : 'Bring the right materials back to your sourcing team'}</h2></div><p>${state.locale === 'cn' ? '产品目录与 OEM/ODM 能力资料可直接下载。' : 'Download our catalog and OEM/ODM capability deck for internal review.'}</p></div><div class="download-grid">${downloads.map((item) => `<a class="download-card" href="${escapeHtml(item.file)}" download><span class="download-card__icon">${escapeHtml(item.file.split('.').pop()?.toUpperCase() || 'FILE')}</span><div><h3>${escapeHtml(textOf(item.title))}</h3><p>${escapeHtml(textOf(item.body))}</p></div><span class="download-card__arrow">+</span></a>`).join('')}</div></div>
         </section>
 
@@ -857,11 +903,11 @@ function renderHome() {
         </section>
 
         <section class="section section--dark home-video-section">
-          <div class="shell video-layout"><div class="video-poster">${state.site?.home?.video?.url ? `<video src="${escapeHtml(state.site.home.video.url)}" poster="${escapeHtml(state.site.home.video.poster || '')}" controls preload="metadata"></video>` : `<img src="${escapeHtml(state.site?.home?.video?.poster || '/site-assets/office-3.jpg')}" alt="Manufacturing" />`}</div><div><span class="eyebrow eyebrow--light">${state.locale === 'cn' ? '产品视频' : 'Product Video'}</span><h2>${escapeHtml(textOf(state.site?.home?.video?.title) || (state.locale === 'cn' ? '走进乔天制造现场' : 'Inside Qiaotian Manufacturing'))}</h2><p>${escapeHtml(textOf(state.site?.home?.video?.body))}</p></div></div>
+          <div class="shell video-layout"><div class="video-poster">${state.site?.home?.video?.url ? (youtubeEmbedUrl(state.site.home.video.url) ? `<iframe src="${escapeHtml(youtubeEmbedUrl(state.site.home.video.url))}" title="${escapeHtml(textOf(state.site.home.video.title) || 'Product video')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>` : `<video src="${escapeHtml(state.site.home.video.url)}" poster="${escapeHtml(state.site.home.video.poster || '')}" controls preload="metadata"></video>`) : `<img src="${escapeHtml(state.site?.home?.video?.poster || '/site-assets/office-3.jpg')}" alt="Manufacturing" />`}</div><div><span class="eyebrow eyebrow--light">${state.locale === 'cn' ? '产品视频' : 'Product Video'}</span><h2>${escapeHtml(textOf(state.site?.home?.video?.title) || (state.locale === 'cn' ? '走进乔天制造现场' : 'Inside Qiaotian Manufacturing'))}</h2><p>${escapeHtml(textOf(state.site?.home?.video?.body))}</p></div></div>
         </section>
 
         <section class="section section--light home-testimonials-section">
-          <div class="shell"><div class="section-head"><div><span class="eyebrow">${state.locale === 'cn' ? '客户评价' : 'Customer Voice'}</span><h2>${state.locale === 'cn' ? '长期合作来自稳定的每一个细节' : 'Long-term partnerships are built on consistent details'}</h2></div></div><div class="testimonial-grid">${testimonials.map((item) => `<blockquote class="testimonial-card">${configuredTestimonials.length ? '' : `<span class="eyebrow">${state.locale === 'cn' ? '演示内容，非真实客户评价' : 'Demo only - not real customer feedback'}</span>`}<p>&ldquo;${escapeHtml(textOf(item.quote))}&rdquo;</p><footer><strong>${escapeHtml(textOf(item.author))}</strong><span>${escapeHtml(item.company)}</span></footer></blockquote>`).join('')}</div></div>
+          <div class="shell"><div class="section-head"><div><span class="eyebrow">${state.locale === 'cn' ? '客户评价' : 'Customer Voice'}</span><h2>${state.locale === 'cn' ? '长期合作来自稳定的每一个细节' : 'Long-term partnerships are built on consistent details'}</h2></div></div><div class="testimonial-grid">${testimonials.map((item) => `<blockquote class="testimonial-card">${configuredTestimonials.length ? '' : `<span class="eyebrow">${state.locale === 'cn' ? '演示内容，非真实客户评价' : 'Demo only - not real customer feedback'}</span>`}<div class="testimonial-card__rating" aria-label="${escapeHtml(String(item.rating || 5))} out of 5 stars">${'\u2605'.repeat(Math.min(5, Math.max(1, item.rating || 5)))}</div><p>&ldquo;${escapeHtml(textOf(item.quote))}&rdquo;</p><footer>${item.avatar ? `<img class="testimonial-card__avatar" src="${escapeHtml(item.avatar)}" alt="" />` : `<span class="testimonial-card__avatar testimonial-card__avatar--empty" aria-hidden="true">${escapeHtml(textOf(item.author).slice(0, 1) || '?')}</span>`}<span class="testimonial-card__identity"><strong>${escapeHtml(textOf(item.author))}</strong><span>${escapeHtml(item.location || item.company)}</span></span></footer></blockquote>`).join('')}</div></div>
         </section>
 
         <section class="section section--slate">
@@ -958,7 +1004,7 @@ function renderProductCenter() {
                 ${visibleProducts
                   .map(
                     (product) => `
-                      <article class="catalog-card">
+                      <article class="catalog-card" data-product-card-id="${escapeHtml(product.id)}">
                         <div class="catalog-card__image">
                           <img src="${product.image}" alt="${escapeHtml(textOf(product.name))}" />
                         </div>
@@ -970,7 +1016,7 @@ function renderProductCenter() {
                             ${(product.tags || []).slice(0, 2).map((tag) => `<span class="pill">${escapeHtml(tag)}</span>`).join('')}
                           </div>
                           <div class="catalog-card__actions">
-                            <a class="button button--outline" href="#/contact">${t().details}</a>
+                            <button class="button button--outline" type="button" data-product-id="${escapeHtml(product.id)}">${t().details}</button>
                           </div>
                         </div>
                       </article>
@@ -1117,6 +1163,8 @@ function renderAbout() {
             <p>${siteSectionText('about', 'heroBody', t().aboutBody)}</p>
           </div>
         </section>
+
+        ${textOf(state.site?.sections?.about?.intro) ? `<section class="section section--about-intro"><div class="shell about-intro" style="--about-intro-image: url('${escapeHtml(siteImage('aboutHero', '/site-assets/office-3.jpg'))}')"><div><span class="eyebrow">${state.locale === 'cn' ? '关于我们' : 'About Us'}</span><h2>${state.locale === 'cn' ? '值得信赖的长期制造伙伴' : 'A manufacturing partner built for the long term'}</h2><div class="about-intro__copy">${escapeHtml(textOf(state.site?.sections?.about?.intro)).replaceAll('\n', '<br>')}</div><a class="button button--primary" href="#/contact">${state.locale === 'cn' ? '\u52a0\u5165\u6211\u4eec' : 'Join Us'}</a></div></div></section>` : ''}
 
         <section class="section section--light">
           <div class="shell timeline-layout">
@@ -1278,6 +1326,64 @@ function renderPrivacy() {
   `
 }
 
+function renderOemPage() {
+  const page = state.site?.oemPage
+  const capabilities = page?.capabilities?.length ? page.capabilities : (state.site?.home?.customization || [])
+  const title = textOf(page?.heroTitle) || (state.locale === 'cn' ? '\u5b9a\u5236\u670d\u52a1' : 'OEM / ODM Programs')
+  const body = textOf(page?.heroBody) || (state.locale === 'cn'
+    ? '\u4ece\u4ea7\u54c1\u5b9a\u4e49\u3001\u6253\u6837\u5230\u5305\u88c5\u4e0e\u4ea4\u4ed8\uff0c\u4e3a\u54c1\u724c\u9879\u76ee\u63d0\u4f9b\u7a33\u5b9a\u652f\u6301\u3002'
+    : 'From product definition and sampling to packaging and delivery, we support repeatable brand programs.')
+
+  app.innerHTML = `
+    <div class="site-page">
+      ${renderHeader('oem')}
+      <main>
+        <section class="page-hero page-hero--dark">
+          <div class="hero__media"><img src="${escapeHtml(page?.heroImage || siteImage('factoryGalleryMain', '/site-assets/office-3.jpg'))}" alt="OEM and ODM" /></div>
+          <div class="hero__veil"></div>
+          <div class="shell page-hero__stack"><span class="eyebrow eyebrow--light">OEM / ODM</span><h1>${escapeHtml(title)}</h1><p>${escapeHtml(body)}</p></div>
+        </section>
+        <section class="section section--light">
+          <div class="shell">
+            <div class="section-head"><div><span class="eyebrow">OEM / ODM</span><h2>${escapeHtml(title)}</h2></div><p>${escapeHtml(textOf(page?.intro) || body)}</p></div>
+            <div class="value-grid">${capabilities.map((item) => `<article class="value-card"><span class="value-card__line"></span><h3>${escapeHtml(textOf(item.title))}</h3><p>${escapeHtml(textOf(item.body))}</p></article>`).join('')}</div>
+          </div>
+        </section>
+        <section class="section section--contact"><div class="shell cta-banner"><div><span class="eyebrow eyebrow--light">OEM / ODM</span><h2>${state.locale === 'cn' ? '\u544a\u8bc9\u6211\u4eec\u60a8\u7684\u5b9a\u5236\u9700\u6c42' : 'Tell us about your customization brief'}</h2><p>${state.locale === 'cn' ? '\u6211\u4eec\u5c06\u6839\u636e\u4ea7\u54c1\u3001\u6570\u91cf\u3001\u5e02\u573a\u4e0e\u5305\u88c5\u8981\u6c42\u7ed9\u51fa\u53ef\u6267\u884c\u65b9\u6848\u3002' : 'We will respond with a practical direction based on product, volume, market, and packaging requirements.'}</p></div><a class="button button--primary" href="#/contact">${t().heroSecondary}</a></div></section>
+      </main>
+      ${renderFooter()}
+    </div>`
+}
+
+function renderDownloadsPage() {
+  const page = state.site?.downloadPage
+  const downloads = page?.downloads?.length ? page.downloads : (state.site?.home?.downloads || [])
+  const title = textOf(page?.heroTitle) || (state.locale === 'cn' ? '\u76ee\u5f55\u4e0b\u8f7d' : 'Download Center')
+  const body = textOf(page?.heroBody) || (state.locale === 'cn'
+    ? '\u96c6\u4e2d\u83b7\u53d6\u4ea7\u54c1\u76ee\u5f55\u3001\u5b9a\u5236\u80fd\u529b\u4e0e\u6280\u672f\u8d44\u6599\u3002'
+    : 'Access product catalogs, customization capabilities, and technical materials in one place.')
+
+  app.innerHTML = `
+    <div class="site-page">
+      ${renderHeader('downloads')}
+      <main>
+        <section class="page-hero page-hero--dark">
+          <div class="hero__media"><img src="${escapeHtml(page?.heroImage || siteImage('homeHero', '/site-assets/office-1.jpg'))}" alt="Downloads" /></div>
+          <div class="hero__veil"></div>
+          <div class="shell page-hero__stack"><span class="eyebrow eyebrow--light">Downloads</span><h1>${escapeHtml(title)}</h1><p>${escapeHtml(body)}</p></div>
+        </section>
+        <section class="section section--light">
+          <div class="shell">
+            <div class="section-head"><div><span class="eyebrow">Downloads</span><h2>${escapeHtml(title)}</h2></div><p>${escapeHtml(textOf(page?.intro) || body)}</p></div>
+            <div class="download-grid">${downloads.map((item) => `<a class="download-card" href="${escapeHtml(item.file)}" download><span class="download-card__icon">${escapeHtml(item.file.split('.').pop()?.toUpperCase() || 'FILE')}</span><div><h3>${escapeHtml(textOf(item.title))}</h3><p>${escapeHtml(textOf(item.body))}</p></div><span class="download-card__arrow">+</span></a>`).join('')}</div>
+            ${downloads.length ? '' : `<div class="empty-state"><p>${state.locale === 'cn' ? '\u8bf7\u5728\u540e\u53f0\u6dfb\u52a0\u53ef\u4e0b\u8f7d\u6587\u4ef6\u3002' : 'Add downloadable files in the CMS.'}</p></div>`}
+          </div>
+        </section>
+      </main>
+      ${renderFooter()}
+    </div>`
+}
+
 function renderInquiryForm() {
   return `
     <form id="lead-form" class="lead-form">
@@ -1310,6 +1416,38 @@ function renderInquiryForm() {
 }
 
 function bindCommonEvents() {
+  if (!app.dataset.interactionsBound) {
+    app.dataset.interactionsBound = 'true'
+    app.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement
+      const routeLink = target.closest<HTMLAnchorElement>('a[href^="#/"]')
+      if (routeLink && !routeLink.matches('[data-home-section], [data-home-downloads]') && routeLink.hash === window.location.hash) {
+        event.preventDefault()
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+        document.querySelector('#mobile-site-nav')?.classList.remove('is-open')
+        return
+      }
+      const homeSectionLink = target.closest<HTMLAnchorElement>('[data-home-section], [data-home-downloads]')
+      if (homeSectionLink) {
+        event.preventDefault()
+        if (state.route !== 'home') window.location.hash = '/home'
+        document.querySelector('#mobile-site-nav')?.classList.remove('is-open')
+        const sectionId = homeSectionLink.dataset.homeSection || 'downloads'
+        window.setTimeout(() => document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' }), 100)
+        return
+      }
+      const productButton = target.closest<HTMLButtonElement>('[data-product-id]')
+      const productCard = target.closest<HTMLElement>('[data-product-card-id]')
+      if (productButton || (productCard && target.closest('img'))) {
+        const productId = productButton?.dataset.productId || productCard?.dataset.productCardId
+        const product = getProducts().find((item) => item.id === productId)
+        if (product) openProductDialog(product)
+        return
+      }
+      const image = target.closest<HTMLImageElement>('img')
+      if (image && !image.closest('.video-poster')) openImagePreview(image.currentSrc || image.src, image.alt)
+    })
+  }
   document.querySelectorAll<HTMLButtonElement>('[data-category-id]').forEach((button) => {
     button.addEventListener('click', () => {
       state.selectedCategoryId = button.dataset.categoryId || ''
@@ -1331,6 +1469,37 @@ function bindCommonEvents() {
       state.mobileMenuOpen = false
     })
   })
+}
+
+function openImagePreview(src: string, alt: string) {
+  document.querySelector('.image-preview')?.remove()
+  const preview = document.createElement('div')
+  preview.className = 'image-preview'
+  preview.setAttribute('role', 'dialog')
+  preview.setAttribute('aria-modal', 'true')
+  preview.innerHTML = `<button class="image-preview__close" type="button" aria-label="Close">&times;</button><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" />`
+  const close = () => { preview.remove(); document.removeEventListener('keydown', onKey) }
+  preview.addEventListener('click', (event) => { if (event.target === preview || (event.target as HTMLElement).closest('.image-preview__close')) close() })
+  const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') close() }
+  document.addEventListener('keydown', onKey)
+  document.body.append(preview)
+}
+
+function openProductDialog(product: Product) {
+  document.querySelector<HTMLDialogElement>('.product-dialog')?.remove()
+  const dialog = document.createElement('dialog')
+  dialog.className = 'product-dialog'
+  const images = [...new Set([product.image, ...(product.gallery || [])].filter(Boolean))]
+  const points = [...(product.specifications || []), ...(product.sellingPoints || [])]
+  dialog.innerHTML = `<button class="product-dialog__close" type="button" aria-label="Close">&times;</button><div class="product-dialog__content"><div class="product-dialog__gallery">${images.map((src) => `<img src="${escapeHtml(src)}" alt="${escapeHtml(textOf(product.name))}" />`).join('')}</div><div class="product-dialog__info"><span class="eyebrow">${escapeHtml(productCategory(product))}</span><h2>${escapeHtml(textOf(product.name))}</h2><p>${escapeHtml(textOf(product.summary))}</p>${points.length ? `<ul>${points.map((point) => `<li><strong>${escapeHtml(textOf(point.label))}</strong><span>${escapeHtml(textOf(point.value))}</span></li>`).join('')}</ul>` : ''}<div class="product-dialog__actions"><a class="button button--primary" href="#/contact">${t().heroSecondary}</a><a class="button button--outline" href="#/downloads">${state.locale === 'cn' ? '下载目录' : 'Download Catalog'}</a></div></div></div>`
+  dialog.addEventListener('click', (event) => { if (event.target === dialog || (event.target as HTMLElement).closest('.product-dialog__close')) dialog.close() })
+  dialog.addEventListener('close', () => dialog.remove(), { once: true })
+  dialog.addEventListener('click', (event) => {
+    const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('[data-home-downloads]')
+    if (link) { dialog.close(); if (state.route !== 'home') window.location.hash = '/home'; window.setTimeout(() => document.querySelector('#downloads')?.scrollIntoView({ behavior: 'smooth' }), 100) }
+  })
+  document.body.append(dialog)
+  dialog.showModal()
 }
 
 function bindInquiryForm() {
@@ -1375,6 +1544,61 @@ async function loadSite() {
   state.site = result.site
 }
 
+function animateCounter(element: HTMLElement) {
+  const rawValue = element.dataset.countValue || element.textContent || ''
+  const match = rawValue.match(/^([^0-9]*)([0-9][0-9,.]*)(.*)$/)
+  if (!match || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+  const target = Number(match[2].replaceAll(',', ''))
+  if (!Number.isFinite(target)) return
+
+  const prefix = match[1]
+  const suffix = match[3]
+  const duration = 1100
+  const startedAt = performance.now()
+  element.textContent = `${prefix}0${suffix}`
+
+  const update = (now: number) => {
+    const progress = Math.min((now - startedAt) / duration, 1)
+    const eased = 1 - Math.pow(1 - progress, 3)
+    const current = Math.round(target * eased)
+    element.textContent = `${prefix}${current.toLocaleString('en-US')}${suffix}`
+    if (progress < 1) requestAnimationFrame(update)
+  }
+
+  requestAnimationFrame(update)
+}
+
+function bindMotionEffects() {
+  const revealItems = document.querySelectorAll<HTMLElement>(
+    '.section, .page-hero__stack, .product-card, .catalog-card, .case-card, .value-card, .download-card, .testimonial-card, .timeline-card, .gallery-card, .certificate-card, .stat-card, .quality-card, .advantage-card, .contact-card, .legal-card, .sidebar-card, .inquiry-card'
+  )
+  revealItems.forEach((element, index) => {
+    element.classList.add('reveal')
+    element.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 70}ms`)
+  })
+
+  if (!('IntersectionObserver' in window)) {
+    revealItems.forEach((element) => element.classList.add('is-visible'))
+    document.querySelectorAll<HTMLElement>('[data-count-value]').forEach(animateCounter)
+    return
+  }
+
+  const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    if (!entry.isIntersecting) return
+    const element = entry.target as HTMLElement
+    element.classList.add('is-visible')
+    element.querySelectorAll<HTMLElement>('[data-count-value]').forEach(animateCounter)
+    if (element.matches('[data-count-value]')) animateCounter(element)
+    observer.unobserve(element)
+  }), { threshold: 0.14, rootMargin: '0px 0px -6% 0px' })
+
+  revealItems.forEach((element) => observer.observe(element))
+  document.querySelectorAll<HTMLElement>('[data-count-value]').forEach((element) => {
+    if (!element.closest('.reveal')) observer.observe(element)
+  })
+}
+
 function renderCurrentRoute(options?: { closeMobileMenu?: boolean }) {
   state.route = readRoute()
   if (options?.closeMobileMenu) {
@@ -1385,6 +1609,8 @@ function renderCurrentRoute(options?: { closeMobileMenu?: boolean }) {
   else if (state.route === 'about') renderAbout()
   else if (state.route === 'contact') renderContact()
   else if (state.route === 'privacy') renderPrivacy()
+  else if (state.route === 'oem') renderOemPage()
+  else if (state.route === 'downloads') renderDownloadsPage()
   else renderHome()
 
   if (state.route === 'home') {
@@ -1394,18 +1620,7 @@ function renderCurrentRoute(options?: { closeMobileMenu?: boolean }) {
   }
 
   bindCommonEvents()
-  const revealItems = document.querySelectorAll<HTMLElement>('.section, .product-card, .case-card, .value-card, .download-card, .testimonial-card')
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible')
-        observer.unobserve(entry.target)
-      }
-    }), { threshold: 0.12 })
-    revealItems.forEach((element) => { element.classList.add('reveal'); observer.observe(element) })
-  } else {
-    revealItems.forEach((element) => element.classList.add('is-visible'))
-  }
+  bindMotionEffects()
   if (state.route === 'home' || state.route === 'contact') bindInquiryForm()
 }
 
@@ -1414,7 +1629,10 @@ async function bootstrap() {
   renderCurrentRoute()
 }
 
-window.addEventListener('hashchange', () => renderCurrentRoute({ closeMobileMenu: true }))
+window.addEventListener('hashchange', () => {
+  renderCurrentRoute({ closeMobileMenu: true })
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+})
 
 bootstrap().catch((error) => {
   console.error(error)

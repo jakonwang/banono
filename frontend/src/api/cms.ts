@@ -4,6 +4,21 @@ export type StrapiMedia = {
 
 export type SiteData = {
   brand?: { cn?: string; en?: string }
+  brandIdentity?: { mark?: string; tagline?: string }
+  oemPage?: {
+    heroTitle?: { cn?: string; en?: string }
+    heroBody?: { cn?: string; en?: string }
+    intro?: { cn?: string; en?: string }
+    heroImage?: string
+    capabilities?: Array<{ title: { cn?: string; en?: string }; body: { cn?: string; en?: string } }>
+  }
+  downloadPage?: {
+    heroTitle?: { cn?: string; en?: string }
+    heroBody?: { cn?: string; en?: string }
+    intro?: { cn?: string; en?: string }
+    heroImage?: string
+    downloads?: Array<{ title: { cn?: string; en?: string }; body: { cn?: string; en?: string }; file: string }>
+  }
   hero?: { title?: { cn?: string; en?: string }; body?: { cn?: string; en?: string } }
   products?: Array<{
     id: string

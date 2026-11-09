@@ -12,6 +12,8 @@
   "attributes": {
     "brandCn": { "type": "string" },
     "brandEn": { "type": "string" },
+    "logoMark": { "type": "string", "maxLength": 4 },
+    "brandTagline": { "type": "string" },
     "phone": { "type": "string" },
     "email": { "type": "string" },
     "addressCn": { "type": "text" },
