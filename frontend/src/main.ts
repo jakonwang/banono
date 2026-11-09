@@ -1571,7 +1571,7 @@ function animateCounter(element: HTMLElement) {
 
 function bindMotionEffects() {
   const revealItems = document.querySelectorAll<HTMLElement>(
-    '.section, .page-hero__stack, .product-card, .catalog-card, .case-card, .value-card, .download-card, .testimonial-card, .timeline-card, .gallery-card, .certificate-card, .stat-card, .quality-card, .advantage-card, .contact-card, .legal-card, .sidebar-card, .inquiry-card'
+    '.page-hero__stack, .section-head, .split-section__media, .split-section__content, .inquiry-copy, .cta-banner, .product-card, .catalog-card, .case-card, .value-card, .download-card, .testimonial-card, .timeline-card, .gallery-card, .certificate-card, .stat-card, .quality-card, .advantage-card, .contact-card, .legal-card, .sidebar-card, .inquiry-card'
   )
   revealItems.forEach((element, index) => {
     element.classList.add('reveal')
