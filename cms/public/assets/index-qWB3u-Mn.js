@@ -314,25 +314,33 @@
               </div>
             </aside>
             <div class="catalog-main">
+              <div class="catalog-toolbar">
+                <div><strong>${r.length}</strong><span>${l.locale===`cn`?`款产品`:`Products`}</span></div>
+                <span>${l.locale===`cn`?`支持 OEM / ODM 定制与批量采购`:`OEM / ODM customization and bulk sourcing supported`}</span>
+              </div>
               <div class="catalog-grid">
-                ${r.map(e=>`
+                ${r.map((e,t)=>{let n=[...e.specifications||[],...e.sellingPoints||[]].slice(0,2);return`
                       <article class="catalog-card" data-product-card-id="${p(e.id)}">
                         <div class="catalog-card__image">
                           <img src="${e.image}" alt="${p(f(e.name))}" />
+                          <span class="catalog-card__number">${String(t+1).padStart(2,`0`)}</span>
                         </div>
                         <div class="catalog-card__body">
-                          <span class="card-tag">${p(O(e))}</span>
+                          <div class="catalog-card__meta"><span class="card-tag">${p(O(e))}</span><span class="catalog-card__status">OEM</span></div>
                           <h3>${p(f(e.name))}</h3>
                           <p>${p(f(e.summary))}</p>
+                          <div class="catalog-card__facts">
+                            ${n.length?n.map(e=>`<span><small>${p(f(e.label))}</small><strong>${p(f(e.value))}</strong></span>`).join(``):`<span><small>${l.locale===`cn`?`项目支持`:`Program`}</small><strong>${l.locale===`cn`?`品牌定制`:`Private Label`}</strong></span><span><small>${l.locale===`cn`?`交付`:`Delivery`}</small><strong>${l.locale===`cn`?`批量生产`:`Mass Production`}</strong></span>`}
+                          </div>
                           <div class="pill-row">
-                            ${(e.tags||[]).slice(0,2).map(e=>`<span class="pill">${p(e)}</span>`).join(``)}
+                            ${(e.tags||[]).slice(0,3).map(e=>`<span class="pill">${p(e)}</span>`).join(``)}
                           </div>
                           <div class="catalog-card__actions">
                             <button class="button button--outline" type="button" data-product-id="${p(e.id)}">${d().details}</button>
                           </div>
                         </div>
                       </article>
-                    `).join(``)}
+                    `}).join(``)}
               </div>
             </div>
           </div>

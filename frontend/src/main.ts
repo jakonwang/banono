@@ -1000,20 +1000,32 @@ function renderProductCenter() {
               </div>
             </aside>
             <div class="catalog-main">
+              <div class="catalog-toolbar">
+                <div><strong>${visibleProducts.length}</strong><span>${state.locale === 'cn' ? '\u6b3e\u4ea7\u54c1' : 'Products'}</span></div>
+                <span>${state.locale === 'cn' ? '\u652f\u6301 OEM / ODM \u5b9a\u5236\u4e0e\u6279\u91cf\u91c7\u8d2d' : 'OEM / ODM customization and bulk sourcing supported'}</span>
+              </div>
               <div class="catalog-grid">
                 ${visibleProducts
                   .map(
-                    (product) => `
+                    (product, index) => {
+                      const previewPoints = [...(product.specifications || []), ...(product.sellingPoints || [])].slice(0, 2)
+                      return `
                       <article class="catalog-card" data-product-card-id="${escapeHtml(product.id)}">
                         <div class="catalog-card__image">
                           <img src="${product.image}" alt="${escapeHtml(textOf(product.name))}" />
+                          <span class="catalog-card__number">${String(index + 1).padStart(2, '0')}</span>
                         </div>
                         <div class="catalog-card__body">
-                          <span class="card-tag">${escapeHtml(productCategory(product))}</span>
+                          <div class="catalog-card__meta"><span class="card-tag">${escapeHtml(productCategory(product))}</span><span class="catalog-card__status">OEM</span></div>
                           <h3>${escapeHtml(textOf(product.name))}</h3>
                           <p>${escapeHtml(textOf(product.summary))}</p>
+                          <div class="catalog-card__facts">
+                            ${previewPoints.length
+                              ? previewPoints.map((point) => `<span><small>${escapeHtml(textOf(point.label))}</small><strong>${escapeHtml(textOf(point.value))}</strong></span>`).join('')
+                              : `<span><small>${state.locale === 'cn' ? '\u9879\u76ee\u652f\u6301' : 'Program'}</small><strong>${state.locale === 'cn' ? '\u54c1\u724c\u5b9a\u5236' : 'Private Label'}</strong></span><span><small>${state.locale === 'cn' ? '\u4ea4\u4ed8' : 'Delivery'}</small><strong>${state.locale === 'cn' ? '\u6279\u91cf\u751f\u4ea7' : 'Mass Production'}</strong></span>`}
+                          </div>
                           <div class="pill-row">
-                            ${(product.tags || []).slice(0, 2).map((tag) => `<span class="pill">${escapeHtml(tag)}</span>`).join('')}
+                            ${(product.tags || []).slice(0, 3).map((tag) => `<span class="pill">${escapeHtml(tag)}</span>`).join('')}
                           </div>
                           <div class="catalog-card__actions">
                             <button class="button button--outline" type="button" data-product-id="${escapeHtml(product.id)}">${t().details}</button>
@@ -1021,6 +1033,7 @@ function renderProductCenter() {
                         </div>
                       </article>
                     `
+                    }
                   )
                   .join('')}
               </div>
